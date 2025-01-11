@@ -1,4 +1,3 @@
-import React from "react";
 import myImage from "../img/pp2kARE.jpg";
 import "../css/hero.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,18 +34,31 @@ export default function Hero() {
       <div className="hero-right">
         <section className="hero-right-section">
           <div className="iconTab">
-            <FontAwesomeIcon icon={faLinkedin} size="6x" name="Linkedin" />
+            <FontAwesomeIcon
+              icon={faLinkedin}
+              size="5x"
+              className="linkedin-logo"
+            />
             Linkedin
           </div>
           <div className="iconTab">
-            <FontAwesomeIcon icon={faGithub} size="6x" />
+            <FontAwesomeIcon
+              icon={faGithub}
+              size="5x"
+              className="github-logo"
+            />
             Github
           </div>
           <div className="iconTab">
-            <FontAwesomeIcon icon={faMedium} size="6x" /> Medium
+            <FontAwesomeIcon
+              icon={faMedium}
+              size="5x"
+              className="medium-logo"
+            />{" "}
+            Medium
           </div>
           <div className="iconTab">
-            <FontAwesomeIcon icon={faFile} size="6x" />
+            <FontAwesomeIcon icon={faFile} size="5x" className="file-logo" />
             CV
           </div>
         </section>

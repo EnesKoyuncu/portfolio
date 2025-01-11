@@ -3,10 +3,12 @@
   height: calc(100vh - 120px);
   display: flex;
   background-color: #f2f2f2;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero-left {
-  width: 30%;
+  width: 26%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -77,7 +79,7 @@
 }
 
 .hero-right {
-  width: 75%;
+  width: 60%;
   height: 90%;
   display: flex;
   flex-direction: column;
@@ -163,19 +165,28 @@
   justify-content: space-evenly;
 }
 /* Hakkımda yazısı (speech) */
-.speech {
+/* .speech {
   font-size: 1.1rem;
   color: #333;
   line-height: 1.6;
   text-align: justify;
   letter-spacing: 0.1px;
   padding: 10px 20px;
+} */
+
+.speech {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.8;
+  text-align: justify;
+  padding-left: 20px;
+  border-left: 4px solid #5e17eb;
 }
 
 /* Projelerim butonu */
 .buttons-others {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding-left: 20px;
   margin-top: 20px;
 }
@@ -211,36 +222,34 @@
 
 .hero-right-section svg {
   color: #333;
-  font-size: 6rem;
+  /* font-size: 6rem; */
   transition: all 0.3s ease-in-out;
 }
 
 /* Hover efekti - LinkedIn */
-.hero-right-section svg:hover:nth-of-type(1) {
+.linkedin-logo:hover {
   color: #0077b5;
   transform: scale(1.1);
+  cursor: pointer;
 }
 
 /* Hover efekti - GitHub */
-.hero-right-section svg:hover:nth-of-type(2) {
+.github-logo:hover {
   color: #6e5494; /* GitHub Mor (marka rengi) */
   transform: scale(1.1);
+  cursor: pointer;
 }
 
 /* Hover efekti - Medium */
-.hero-right-section svg:hover:nth-of-type(3) {
+.medium-logo:hover {
   color: #00ab6c; /* Medium Yeşil */
   transform: scale(1.1);
-}
-
-.hero-right-section svg {
-  color: #333;
-  font-size: 6rem;
-  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 /* Hover efekti - Dosya ikonu */
-.hero-right-section svg:hover:nth-of-type(4) {
+.file-logo:hover {
   color: #3498db;
   transform: scale(1.1);
+  cursor: pointer;
 }
