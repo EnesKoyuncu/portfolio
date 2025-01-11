@@ -11,11 +11,9 @@
   flex-direction: row;
   align-items: center;
   max-width: 100vw;
-  /* background: #ae39c6db; */
-  /* background: linear-gradient(to right, #8e44ad, #3498db); */
-  /* background-color: #6c5ce7; */
-  /* background: linear-gradient(to right, #5b5eff, #a29bfe); */
-  background-color: #4b0082;
+  background-color: #5b3c9f;
+  color: white;
+  font-size: 1.15rem;
 }
 
 /*! 3 ANA KISIM SOL ORTA SAĞ */
@@ -33,6 +31,7 @@
   flex: 0 0 20%;
   text-align: center;
 }
+
 /* Resim boyutu */
 .header-mid img {
   width: 50%;
@@ -80,7 +79,7 @@
   align-items: center;
   width: 80%;
   padding: 8px;
-  border-top: 1px solid rgba(0, 0, 0, 0.66);
+  border-top: 1px solid rgba(187, 182, 182, 0.66);
 }
 
 /*! SAĞ PARÇA İÇİ */
@@ -112,5 +111,5 @@
   align-items: center;
   width: 80%;
   padding: 8px;
-  border-top: 1px solid rgba(0, 0, 0, 0.66);
+  border-top: 1px solid rgba(187, 182, 182, 0.66);
 }

@@ -20,10 +20,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   padding: 10px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 32px;
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .hero-left-card-top {
@@ -35,19 +37,34 @@
 }
 
 .hero-left-card-bottom {
+  margin-top: 6px;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 6px;
-  row-gap: 6px;
+  align-items: flex-start;
+  padding: 10px 20px;
+  row-gap: 8px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
+
 .hero-left-card-bottom p {
-  margin-left: 10px;
-  margin-top: 10px;
-  background-color: red;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+.hero-left-card-bottom p::before {
+  content: attr(data-icon);
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+  width: 24px;
+  text-align: center;
 }
 
 .hero-left-card img {
@@ -55,8 +72,8 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  max-width: 280px;
-  max-height: 280px;
+  max-width: 160px;
+  max-height: 160px;
 }
 
 .hero-right {
@@ -66,15 +83,12 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  /* background-color: red; */
 }
 
 .hero-right-section {
   width: 90%;
   height: 45%;
-  /* background-color: blue; */
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   justify-content: space-evenly;
   padding: 12px;
@@ -86,19 +100,29 @@
   height: 45%;
 }
 
+.iconTab {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
 /* ! DENEME */
 
-/* İkonların varsayılan boyutu ve animasyon ayarları */
 .hero-right-section svg {
-  color: #333; /* Varsayılan renk */
-  font-size: 6rem; /* Büyük ikon boyutu */
+  color: #333;
+  font-size: 6rem;
   transition: all 0.3s ease-in-out;
 }
 
 /* Hover efekti - LinkedIn */
 .hero-right-section svg:hover:nth-of-type(1) {
-  color: #0077b5; /* LinkedIn Mavi */
-  transform: scale(1.1); /* Hafif büyüme efekti */
+  color: #0077b5;
+  transform: scale(1.1);
 }
 
 /* Hover efekti - GitHub */
@@ -114,13 +138,13 @@
 }
 
 .hero-right-section svg {
-  color: #333; /* Varsayılan renk */
-  font-size: 6rem; /* Büyük ikon boyutu */
+  color: #333;
+  font-size: 6rem;
   transition: all 0.3s ease-in-out;
 }
 
 /* Hover efekti - Dosya ikonu */
 .hero-right-section svg:hover:nth-of-type(4) {
-  color: #3498db; /* Dosya ikonu için mavi renk */
+  color: #3498db;
   transform: scale(1.1);
 }

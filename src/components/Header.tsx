@@ -7,14 +7,14 @@ export default function Header() {
     <div className="header-main">
       <div className="header-left">
         <div className="header-left-top">
-          <div className="header-left-top-left">asd</div>
-          <div className="header-left-top-mid">asd</div>
-          <div className="header-left-top-right">asd</div>
+          <div className="header-left-top-left">Anasayfa</div>
+          <div className="header-left-top-mid"></div>
+          <div className="header-left-top-right">Projeler</div>
         </div>
         <div className="header-left-bottom">
-          <div className="header-left-bottom-left">asd</div>
-          <div className="header-left-bottom-mid">asd</div>
-          <div className="header-left-bottom-right">asd</div>
+          <div className="header-left-bottom-left"></div>
+          <div className="header-left-bottom-mid">CV</div>
+          <div className="header-left-bottom-right"></div>
         </div>
       </div>
       <div className="header-mid">
@@ -23,14 +23,14 @@ export default function Header() {
 
       <div className="header-right">
         <div className="header-right-top">
-          <div className="header-right-top-left">asd</div>
-          <div className="header-right-top-mid">asd</div>
-          <div className="header-right-top-right">asd</div>
+          <div className="header-right-top-left"></div>
+          <div className="header-right-top-mid">Blog</div>
+          <div className="header-right-top-right"></div>
         </div>
         <div className="header-right-bottom">
-          <div className="header-right-bottom-left">asd</div>
-          <div className="header-right-bottom-mid">asd</div>
-          <div className="header-right-bottom-right">asd</div>
+          <div className="header-right-bottom-left">Hakkımda</div>
+          <div className="header-right-bottom-mid"></div>
+          <div className="header-right-bottom-right">İletişim</div>
         </div>
       </div>
     </div>
