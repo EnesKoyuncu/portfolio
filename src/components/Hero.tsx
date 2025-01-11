@@ -50,7 +50,40 @@ export default function Hero() {
             CV
           </div>
         </section>
-        <div className="hero-right-section-empty">şimdilik boş</div>
+        {/* <div className="hero-right-section-about">
+          <div className="about-tab1">
+            <div>
+              <h1>Merhaba!</h1>
+            </div>
+          </div>
+          <div className="about-tab2">
+            <div className="speech">
+              Ben Enes Ertuğrul Koyuncu. Yazılım Mühendisiyim. Birçok sektörde
+              kendi çapımda projeler geliştiriyorum. Web geliştirme, mobil
+              uygulama geliştirme, yapay zeka ve veri bilimi alanlarında
+              çalışmalarım var. Kendimi sürekli geliştirmeye ve yeni şeyler
+              öğrenmeye açığım.
+            </div>
+            <div className="buttons-others"> Projelerim</div>
+          </div>
+        </div> */}
+        <div className="hero-right-section-about">
+          <div className="about-tab1">
+            <h1>Merhaba!</h1>
+          </div>
+          <div className="about-tab2">
+            <div className="speech">
+              Ben <strong>Enes Ertuğrul Koyuncu</strong>. Yazılım Mühendisiyim.
+              Birçok sektörde kendi çapımda projeler geliştiriyorum. Web
+              geliştirme, mobil uygulama geliştirme, yapay zeka ve veri bilimi
+              alanlarında çalışmalarım var. Kendimi sürekli geliştirmeye ve yeni
+              şeyler öğrenmeye açığım.
+            </div>
+            <div className="buttons-others">
+              <a href="#projects">Projelerim</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

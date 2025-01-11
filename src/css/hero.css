@@ -78,27 +78,123 @@
 
 .hero-right {
   width: 75%;
-  height: 100%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  margin-top: 2.5rem;
 }
 
 .hero-right-section {
-  width: 90%;
-  height: 45%;
+  width: 100%;
+  height: 25%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   padding: 12px;
 }
 
-.hero-right-section-empty {
+/* .hero-right-section-about {
   background-color: green;
   width: 90%;
   height: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+} */
+
+/* Merhaba yazısı */
+/* .about-tab1 {
+  display: flex;
+  width: 100%;
+  background-color: red;
+} */
+
+/* Hakkımda ve buton */
+/* .about-tab2 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: yellow;
+  justify-content: space-evenly;
+} */
+
+/* .speech {
+  padding: 10px;
+  padding-left: 10px;
+  font-size: 1rem;
+} */
+
+/* .buttons-others {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding-right: 16px;
+} */
+
+/* ? BAŞLANGIC */
+
+/* Hakkımda yazısı için genel stil */
+.hero-right-section-about {
+  /* background-color: #ffffff; */
+  width: 90%;
+  height: 50%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
+
+/* Merhaba başlığı */
+.about-tab1 h1 {
+  font-size: 2rem;
+  color: #5e17eb;
+  margin: 0;
+}
+.about-tab2 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  /* background-color: yellow; */
+  justify-content: space-evenly;
+}
+/* Hakkımda yazısı (speech) */
+.speech {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+  text-align: justify;
+  letter-spacing: 0.1px;
+  padding: 10px 20px;
+}
+
+/* Projelerim butonu */
+.buttons-others {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 20px;
+  margin-top: 20px;
+}
+
+.buttons-others a {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #5e17eb;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.buttons-others a:hover {
+  background-color: #431a9e;
+}
+
+/* ? BİTİŞ  */
 
 .iconTab {
   display: flex;
