@@ -6,20 +6,22 @@
 
 .header-main {
   height: 120px;
-  background-color: white;
   width: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 3px solid black;
   max-width: 100vw;
+  /* background: #ae39c6db; */
+  /* background: linear-gradient(to right, #8e44ad, #3498db); */
+  /* background-color: #6c5ce7; */
+  /* background: linear-gradient(to right, #5b5eff, #a29bfe); */
+  background-color: #4b0082;
 }
 
 /*! 3 ANA KISIM SOL ORTA SAĞ */
 
 .header-left {
   flex: 0 0 40%;
-  border: 3px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,7 +31,6 @@
 
 .header-mid {
   flex: 0 0 20%;
-  border: 3px solid blue;
   text-align: center;
 }
 /* Resim boyutu */
@@ -43,13 +44,11 @@
 
 .header-right {
   flex: 0 0 40%;
-  /* border: 3px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
-  border: 3px solid green;
 }
 
 /*! SOL PARÇA İÇİ  */
@@ -61,7 +60,7 @@
   align-items: center;
   width: 80%;
   padding: 8px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.66);
 }
 
 .header-left-top-left {
@@ -81,7 +80,7 @@
   align-items: center;
   width: 80%;
   padding: 8px;
-  border-top: 2px solid black;
+  border-top: 1px solid rgba(0, 0, 0, 0.66);
 }
 
 /*! SAĞ PARÇA İÇİ */
@@ -93,7 +92,7 @@
   align-items: center;
   width: 80%;
   padding: 8px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.66);
 }
 
 .header-right-top-left {
@@ -113,111 +112,5 @@
   align-items: center;
   width: 80%;
   padding: 8px;
-  border-top: 2px solid black;
+  border-top: 1px solid rgba(0, 0, 0, 0.66);
 }
-
-/* Örnek olarak bazı grid hücrelerini hedefleme */
-/* .grid-item-1-3,
-.grid-item-1-4,
-.grid-item-1-5 {
-  border-bottom: 4px solid black;
-}
-
-.grid-item-3-1,
-.grid-item-3-2,
-.grid-item-3-3 {
-  border-bottom: 4px solid black;
-} */
-
-/* Harita örneği için */
-/* .grid-item-1-6,
-.grid-item-1-7 {
-  position: relative;
-  background-color: #87ceeb;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6::before {
-  content: "Düzenlenebilir harita";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-100%, -50%);
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  width: 200%;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background-color: #87ceeb;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6:hover,
-.grid-item-1-7:hover {
-  background-color: #4682b4;
-  transform: scale(1.05);
-}
-
-.grid-item-1-6:hover::before {
-  background-color: #4682b4;
-  transform: translate(-100%, -50%) scale(1.05);
-} */
-
-/* Örnek olarak bazı grid hücrelerini hedefleme */
-/* .grid-item-1-3,
-.grid-item-1-4,
-.grid-item-1-5 {
-  border-bottom: 4px solid black;
-}
-
-.grid-item-3-1,
-.grid-item-3-2,
-.grid-item-3-3 {
-  border-bottom: 4px solid black;
-} */
-
-/* Harita örneği için */
-/* .grid-item-1-6,
-.grid-item-1-7 {
-  position: relative;
-  background-color: #87ceeb;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6::before {
-  content: "Düzenlenebilir harita";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-100%, -50%);
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  width: 200%;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background-color: #87ceeb;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6:hover,
-.grid-item-1-7:hover {
-  background-color: #4682b4;
-  transform: scale(1.05);
-}
-
-.grid-item-1-6:hover::before {
-  background-color: #4682b4;
-  transform: translate(-100%, -50%) scale(1.05);
-} */

@@ -1,35 +1,41 @@
 import React from "react";
 import myImage from "../img/pp2kARE.jpg";
 import "../css/hero.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLinkedin,
+  faGithub,
+  faMedium,
+} from "@fortawesome/free-brands-svg-icons";
+
+import { faFile } from "@fortawesome/free-regular-svg-icons";
 
 export default function Hero() {
-  // 10x10'luk grid için koordinatları oluştur
-  const createGridItems = () => {
-    const items = [];
-    for (let row = 0; row < 10; row++) {
-      for (let col = 0; col < 10; col++) {
-        items.push(
-          <div
-            className={`hero-right-container-item grid-item-${row}-${col}`}
-            key={`${row}-${col}`}
-            data-row={row}
-            data-col={col}
-          />
-        );
-      }
-    }
-    return items;
-  };
-
   return (
     <div className="hero-main">
       <div className="hero-left">
         <div className="hero-left-card">
-          <img src={myImage} alt="my-image" />
+          <div className="hero-left-card-top">
+            <img src={myImage} alt="my-image" />
+          </div>
+          <div className="hero-left-card-bottom">
+            <h2>Enes Ertuğrul Koyuncu</h2>
+            <h3>Software Engineer</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+              quos.
+            </p>
+          </div>
         </div>
       </div>
       <div className="hero-right">
-        <div className="hero-right-container">{createGridItems()}</div>
+        <section className="hero-right-section">
+          <FontAwesomeIcon icon={faLinkedin} size="6x" />
+          <FontAwesomeIcon icon={faGithub} size="6x" />
+          <FontAwesomeIcon icon={faMedium} size="6x" />
+          <FontAwesomeIcon icon={faFile} size="6x" />
+        </section>
+        <div className="hero-right-section-empty">şimdilik boş</div>
       </div>
     </div>
   );

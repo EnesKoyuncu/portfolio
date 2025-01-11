@@ -1,28 +1,53 @@
 .hero-main {
   width: 100%;
   height: calc(100vh - 120px);
-  background-color: red;
   display: flex;
+  background-color: #f2f2f2;
 }
 
 .hero-left {
-  width: 25%;
+  width: 30%;
   height: 100%;
-  background-color: blue;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .hero-left-card {
-  width: 80%;
-  height: 80%;
-  background-color: green;
+  width: 90%;
+  height: 90%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
+  justify-content: center;
+
   padding: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.hero-left-card-top {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-left-card-bottom {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  row-gap: 6px;
+}
+.hero-left-card-bottom p {
+  margin-left: 10px;
+  margin-top: 10px;
+  background-color: red;
 }
 
 .hero-left-card img {
@@ -37,298 +62,65 @@
 .hero-right {
   width: 75%;
   height: 100%;
-  background-color: yellow;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
+  /* background-color: red; */
 }
 
-.hero-right-container {
+.hero-right-section {
   width: 90%;
-  height: 90%;
+  height: 45%;
+  /* background-color: blue; */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 12px;
+}
+
+.hero-right-section-empty {
   background-color: green;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  width: 90%;
+  height: 45%;
 }
 
-.grid-item-3-0,
-.grid-item-3-1,
-.grid-item-3-2 {
-  border-bottom: 3px solid black;
+/* ! DENEME */
+
+/* İkonların varsayılan boyutu ve animasyon ayarları */
+.hero-right-section svg {
+  color: #333; /* Varsayılan renk */
+  font-size: 6rem; /* Büyük ikon boyutu */
+  transition: all 0.3s ease-in-out;
 }
 
-.grid-item-3-3,
-.grid-item-2-3 {
-  border-left: 3px solid black;
+/* Hover efekti - LinkedIn */
+.hero-right-section svg:hover:nth-of-type(1) {
+  color: #0077b5; /* LinkedIn Mavi */
+  transform: scale(1.1); /* Hafif büyüme efekti */
 }
 
-.grid-item-2-3,
-.grid-item-2-4 {
-  border-top: 3px solid black;
+/* Hover efekti - GitHub */
+.hero-right-section svg:hover:nth-of-type(2) {
+  color: #6e5494; /* GitHub Mor (marka rengi) */
+  transform: scale(1.1);
 }
 
-/* Örnek olarak bazı grid hücrelerini hedefleme */
-/* .grid-item-1-3,
-.grid-item-1-4,
-.grid-item-1-5 {
-  border-bottom: 4px solid black;
+/* Hover efekti - Medium */
+.hero-right-section svg:hover:nth-of-type(3) {
+  color: #00ab6c; /* Medium Yeşil */
+  transform: scale(1.1);
 }
 
-.grid-item-3-1,
-.grid-item-3-2,
-.grid-item-3-3 {
-  border-bottom: 4px solid black;
-} */
-
-/* Harita örneği için */
-/* .grid-item-1-6,
-.grid-item-1-7 {
-  position: relative;
-  background-color: #87ceeb;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.hero-right-section svg {
+  color: #333; /* Varsayılan renk */
+  font-size: 6rem; /* Büyük ikon boyutu */
+  transition: all 0.3s ease-in-out;
 }
 
-.grid-item-1-6::before {
-  content: "Düzenlenebilir harita";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-100%, -50%);
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  width: 200%;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background-color: #87ceeb;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+/* Hover efekti - Dosya ikonu */
+.hero-right-section svg:hover:nth-of-type(4) {
+  color: #3498db; /* Dosya ikonu için mavi renk */
+  transform: scale(1.1);
 }
-
-.grid-item-1-6:hover,
-.grid-item-1-7:hover {
-  background-color: #4682b4;
-  transform: scale(1.05);
-}
-
-.grid-item-1-6:hover::before {
-  background-color: #4682b4;
-  transform: translate(-100%, -50%) scale(1.05);
-} */
-
-/* Örnek olarak bazı grid hücrelerini hedefleme */
-/* .grid-item-1-3,
-.grid-item-1-4,
-.grid-item-1-5 {
-  border-bottom: 4px solid black;
-}
-
-.grid-item-3-1,
-.grid-item-3-2,
-.grid-item-3-3 {
-  border-bottom: 4px solid black;
-} */
-
-/* Harita örneği için */
-/* .grid-item-1-6,
-.grid-item-1-7 {
-  position: relative;
-  background-color: #87ceeb;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6::before {
-  content: "Düzenlenebilir harita";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-100%, -50%);
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  width: 200%;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background-color: #87ceeb;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6:hover,
-.grid-item-1-7:hover {
-  background-color: #4682b4;
-  transform: scale(1.05);
-}
-
-.grid-item-1-6:hover::before {
-  background-color: #4682b4;
-  transform: translate(-100%, -50%) scale(1.05);
-} */
-
-/* Örnek olarak bazı grid hücrelerini hedefleme */
-/* .grid-item-1-3,
-.grid-item-1-4,
-.grid-item-1-5 {
-  border-bottom: 4px solid black;
-}
-
-.grid-item-3-1,
-.grid-item-3-2,
-.grid-item-3-3 {
-  border-bottom: 4px solid black;
-} */
-
-/* Harita örneği için */
-/* .grid-item-1-6,
-.grid-item-1-7 {
-  position: relative;
-  background-color: #87ceeb;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6::before {
-  content: "Düzenlenebilir harita";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-100%, -50%);
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  width: 200%;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background-color: #87ceeb;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6:hover,
-.grid-item-1-7:hover {
-  background-color: #4682b4;
-  transform: scale(1.05);
-}
-
-.grid-item-1-6:hover::before {
-  background-color: #4682b4;
-  transform: translate(-100%, -50%) scale(1.05);
-} */
-
-/* Örnek olarak bazı grid hücrelerini hedefleme */
-/* .grid-item-1-3,
-.grid-item-1-4,
-.grid-item-1-5 {
-  border-bottom: 4px solid black;
-}
-
-.grid-item-3-1,
-.grid-item-3-2,
-.grid-item-3-3 {
-  border-bottom: 4px solid black;
-} */
-
-/* Harita örneği için */
-/* .grid-item-1-6,
-.grid-item-1-7 {
-  position: relative;
-  background-color: #87ceeb;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6::before {
-  content: "Düzenlenebilir harita";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-100%, -50%);
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  width: 200%;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background-color: #87ceeb;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6:hover,
-.grid-item-1-7:hover {
-  background-color: #4682b4;
-  transform: scale(1.05);
-}
-
-.grid-item-1-6:hover::before {
-  background-color: #4682b4;
-  transform: translate(-100%, -50%) scale(1.05);
-} */
-
-/* Örnek olarak bazı grid hücrelerini hedefleme */
-/* .grid-item-1-3,
-.grid-item-1-4,
-.grid-item-1-5 {
-  border-bottom: 4px solid black;
-}
-
-.grid-item-3-1,
-.grid-item-3-2,
-.grid-item-3-3 {
-  border-bottom: 4px solid black;
-} */
-
-/* Harita örneği için */
-/* .grid-item-1-6,
-.grid-item-1-7 {
-  position: relative;
-  background-color: #87ceeb;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6::before {
-  content: "Düzenlenebilir harita";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-100%, -50%);
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-  white-space: nowrap;
-  width: 200%;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background-color: #87ceeb;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.grid-item-1-6:hover,
-.grid-item-1-7:hover {
-  background-color: #4682b4;
-  transform: scale(1.05);
-}
-
-.grid-item-1-6:hover::before {
-  background-color: #4682b4;
-  transform: translate(-100%, -50%) scale(1.05);
-} */
