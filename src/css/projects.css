@@ -1,3 +1,5 @@
+/* projects.css */
+
 /* Ana container stil */
 .project-main {
   min-height: 100vh;
@@ -41,22 +43,16 @@
   height: 300px;
 }
 
-.project-slider img {
-  width: 100%;
-  height: auto;
+/* Slider içindeki resimler */
+.slider-images {
+  display: flex;
+  transition: transform 0.8s ease-in-out;
+}
+
+.slider-images img {
+  min-width: 100%;
   max-height: 300px;
   object-fit: cover;
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
-}
-
-.project-slider img:nth-child(1) {
-  opacity: 1;
-}
-
-.project-slider img.active {
-  opacity: 1;
 }
 
 /* Slider butonları */

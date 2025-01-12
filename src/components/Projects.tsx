@@ -1,119 +1,94 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import "../css/projects.css";
 
-import p1_1 from "../img/projects/project1/p1-1.jpg";
-import p1_2 from "../img/projects/project1/p1-2.jpg";
-import p1_3 from "../img/projects/project1/p1-3.jpg";
-import p2_1 from "../img/projects/project2/p2-1.jpg";
-import p2_2 from "../img/projects/project2/p2-2.jpg";
-import p2_3 from "../img/projects/project2/p2-3.jpg";
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  images: string[];
+  link: string;
+}
 
-const Projects = () => {
-  // Proje 1 için slider durumu
-  const [currentSlide1, setCurrentSlide1] = useState(0);
-  const project1Images = [p1_1, p1_2, p1_3];
+export default function Projects() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number[]>([]);
 
-  // Proje 2 için slider durumu
-  const [currentSlide2, setCurrentSlide2] = useState(0);
-  const project2Images = [p2_1, p2_2, p2_3];
+  useEffect(() => {
+    fetch("/json/projects.json")
+      .then((response) => response.json())
+      .then((data: Project[]) => {
+        setProjects(data);
+        setCurrentImageIndex(new Array(data.length).fill(0));
+      })
+      .catch((error) => console.error("Error fetching projects:", error));
+  }, []);
 
-  // Slider kontrol fonksiyonları
-  const nextSlide = (currentSlide, setCurrentSlide, images) => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+  const nextImage = (projectIndex: number) => {
+    setCurrentImageIndex((prevIndexes) =>
+      prevIndexes.map((index, i) =>
+        i === projectIndex
+          ? (index + 1) % projects[projectIndex].images.length
+          : index
+      )
+    );
   };
 
-  const prevSlide = (currentSlide, setCurrentSlide, images) => {
-    setCurrentSlide((prevSlide) =>
-      prevSlide === 0 ? images.length - 1 : prevSlide - 1
+  const prevImage = (projectIndex: number) => {
+    setCurrentImageIndex((prevIndexes) =>
+      prevIndexes.map((index, i) =>
+        i === projectIndex
+          ? (index - 1 + projects[projectIndex].images.length) %
+            projects[projectIndex].images.length
+          : index
+      )
     );
   };
 
   return (
     <div className="project-main">
       <h1>Projelerim</h1>
-
-      {/* İlk proje kartı */}
-      <div className="project-card">
-        <div className="project-slider">
-          {project1Images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Project Image ${index + 1}`}
-              className={index === currentSlide1 ? "active" : ""}
-            />
-          ))}
-          <button
-            className="slider-btn left"
-            onClick={() =>
-              prevSlide(currentSlide1, setCurrentSlide1, project1Images)
-            }
-          >
-            ‹
-          </button>
-          <button
-            className="slider-btn right"
-            onClick={() =>
-              nextSlide(currentSlide1, setCurrentSlide1, project1Images)
-            }
-          >
-            ›
-          </button>
+      {projects.map((project, projectIndex) => (
+        <div className="project-card" key={project.id}>
+          <div className="project-slider">
+            <div
+              className="slider-images"
+              style={{
+                transform: `translateX(-${
+                  currentImageIndex[projectIndex] * 100
+                }%)`,
+              }}
+            >
+              {project.images.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Project ${project.title}`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              ))}
+            </div>
+            <button
+              className="slider-btn left"
+              onClick={() => prevImage(projectIndex)}
+            >
+              &#8249;
+            </button>
+            <button
+              className="slider-btn right"
+              onClick={() => nextImage(projectIndex)}
+            >
+              &#8250;
+            </button>
+          </div>
+          <div className="project-info">
+            <h2>{project.title}</h2>
+            <p>{project.description}</p>
+            <a href={project.link} target="_blank" rel="noopener noreferrer">
+              View Project
+            </a>
+          </div>
         </div>
-        <div className="project-info">
-          <h2>Web Project</h2>
-          <p>
-            This is a description of the project. You can explain what
-            technologies were used, the purpose of the project, and any other
-            details you'd like to include.
-          </p>
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            View Project
-          </a>
-        </div>
-      </div>
-
-      {/* İkinci proje kartı */}
-      <div className="project-card">
-        <div className="project-slider">
-          {project2Images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Project Image ${index + 1}`}
-              className={index === currentSlide2 ? "active" : ""}
-            />
-          ))}
-          <button
-            className="slider-btn left"
-            onClick={() =>
-              prevSlide(currentSlide2, setCurrentSlide2, project2Images)
-            }
-          >
-            ‹
-          </button>
-          <button
-            className="slider-btn right"
-            onClick={() =>
-              nextSlide(currentSlide2, setCurrentSlide2, project2Images)
-            }
-          >
-            ›
-          </button>
-        </div>
-        <div className="project-info">
-          <h2>Python Project</h2>
-          <p>
-            This is another project description. Highlight any unique features
-            or challenges you faced while working on this project.
-          </p>
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            View Project
-          </a>
-        </div>
-      </div>
+      ))}
     </div>
   );
-};
-
-export default Projects;
+}

@@ -1,0 +1,110 @@
+/* === About Section CSS === */
+.about-main {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 40px 0;
+  background: #f7f7f7;
+}
+
+/* Sol taraf kart tasarımı */
+.about-left {
+  width: 35%;
+  display: flex;
+  justify-content: center;
+}
+
+.about-card {
+  width: 90%;
+  background: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.about-card-top img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.about-card-bottom {
+  padding: 20px;
+  text-align: center;
+}
+
+.about-card-bottom h2 {
+  font-size: 1.8rem;
+  color: #5e17eb;
+  margin-bottom: 10px;
+}
+
+.about-card-bottom h3 {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.about-card-bottom p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* Sağ taraf timeline tasarımı */
+.about-right {
+  width: 60%;
+}
+
+/* === Vertical Timeline Colors === */
+.vertical-timeline-element--education .vertical-timeline-element-content {
+  background: #5e17eb;
+  color: white;
+  border: none;
+}
+
+.vertical-timeline-element--work .vertical-timeline-element-content {
+  background: #ff9800;
+  color: white;
+  border: none;
+}
+
+.vertical-timeline-element-content h3,
+.vertical-timeline-element-content h4 {
+  margin-bottom: 10px;
+}
+
+.vertical-timeline-element-content p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.vertical-timeline-element-date {
+  font-size: 0.85rem;
+  color: #333;
+}
+
+/* === Teknolojiler kısmı === */
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tech-stack span {
+  background: #5e17eb;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.tech-stack span:hover {
+  background-color: #431a9e;
+}
