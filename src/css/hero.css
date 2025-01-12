@@ -113,8 +113,8 @@
 /* Merhaba başlığı */
 .about-tab1 h1 {
   font-size: 2rem;
-  /* color: #5e17eb; */
-  color: White;
+  color: #5e17eb;
+  /* color: White; */
   margin: 0;
 }
 .about-tab2 {
@@ -129,13 +129,13 @@
 
 .speech {
   font-size: 1.05rem;
-  /* color: #333; */
-  color: white;
+  color: #333;
+  /* color: white; */
   line-height: 1.8;
   text-align: justify;
   padding-left: 20px;
-  /* border-left: 4px solid #5e17eb; */
-  border-left: 4px solid #ffffff;
+  border-left: 4px solid #5e17eb;
+  /* border-left: 4px solid #ffffff; */
 }
 
 /* Projelerim butonu */
@@ -176,7 +176,7 @@
 /* ! DENEME */
 
 .hero-right-section svg {
-  color: #ffffff;
+  color: #333;
   /* font-size: 6rem; */
   transition: all 0.3s ease-in-out;
 }
