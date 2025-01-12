@@ -1,10 +1,10 @@
 .hero-main {
   width: 100%;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 100px);
   display: flex;
-  background-color: #f2f2f2;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  margin-top: 100px;
 }
 
 .hero-left {
@@ -97,46 +97,6 @@
   padding: 12px;
 }
 
-/* .hero-right-section-about {
-  background-color: green;
-  width: 90%;
-  height: 45%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-} */
-
-/* Merhaba yazısı */
-/* .about-tab1 {
-  display: flex;
-  width: 100%;
-  background-color: red;
-} */
-
-/* Hakkımda ve buton */
-/* .about-tab2 {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background-color: yellow;
-  justify-content: space-evenly;
-} */
-
-/* .speech {
-  padding: 10px;
-  padding-left: 10px;
-  font-size: 1rem;
-} */
-
-/* .buttons-others {
-  display: flex;
-  justify-content: end;
-  width: 100%;
-  padding-right: 16px;
-} */
-
 /* ? BAŞLANGIC */
 
 /* Hakkımda yazısı için genel stil */
@@ -153,7 +113,8 @@
 /* Merhaba başlığı */
 .about-tab1 h1 {
   font-size: 2rem;
-  color: #5e17eb;
+  /* color: #5e17eb; */
+  color: White;
   margin: 0;
 }
 .about-tab2 {
@@ -165,28 +126,22 @@
   justify-content: space-evenly;
 }
 /* Hakkımda yazısı (speech) */
-/* .speech {
-  font-size: 1.1rem;
-  color: #333;
-  line-height: 1.6;
-  text-align: justify;
-  letter-spacing: 0.1px;
-  padding: 10px 20px;
-} */
 
 .speech {
-  font-size: 1.1rem;
-  color: #333;
+  font-size: 1.05rem;
+  /* color: #333; */
+  color: white;
   line-height: 1.8;
   text-align: justify;
   padding-left: 20px;
-  border-left: 4px solid #5e17eb;
+  /* border-left: 4px solid #5e17eb; */
+  border-left: 4px solid #ffffff;
 }
 
 /* Projelerim butonu */
 .buttons-others {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   padding-left: 20px;
   margin-top: 20px;
 }
@@ -221,7 +176,7 @@
 /* ! DENEME */
 
 .hero-right-section svg {
-  color: #333;
+  color: #ffffff;
   /* font-size: 6rem; */
   transition: all 0.3s ease-in-out;
 }
