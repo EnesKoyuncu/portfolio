@@ -1,14 +1,14 @@
 /* === Header Düzeni === */
 .header-main {
-  position: fixed;
-  top: 0;
   width: 100%;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 70px;
-  /* background: rgba(255, 255, 255, 0.2); */
+  z-index: 999;
+
+  /* renk cart curt */
   background: radial-gradient(
     at left top,
     rgb(146, 43, 225) 0px,
@@ -18,7 +18,6 @@
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  z-index: 999;
 }
 
 /* === Logo === */
@@ -33,6 +32,35 @@
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+@keyframes growAndRotate {
+  0% {
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 0 0 white;
+  }
+  50% {
+    transform: scale(1.1) rotate(0deg);
+    box-shadow: 0 0 10px white;
+  }
+  60% {
+    transform: scale(1.1) rotate(-15deg);
+  }
+  80% {
+    transform: scale(1.1) rotate(15deg);
+  }
+  100% {
+    transform: scale(1.1) rotate(0deg);
+    box-shadow: 0 0 10px white;
+  }
+}
+
+.header-logo img:hover {
+  cursor: pointer;
+  animation: growAndRotate 1s ease-in-out 1; /* Animasyon 1 kez çalışacak */
+  transform: scale(1.1); /* Büyüme efekti */
+  box-shadow: 0 0 10px white; /* Box-shadow efekti */
 }
 
 /* === Link Grupları === */
@@ -49,14 +77,15 @@
   justify-content: flex-end;
 }
 
-/* === Link Stili === */
+/* === Linkler === */
 .header-main a {
   text-decoration: none;
   color: white;
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
+  font-size: 1.15rem;
+  transition: all 0.3s ease-in-out;
+  padding: 6px;
 }
 
 .header-main a:hover {
-  color: #ffdd57;
+  text-decoration: underline;
 }

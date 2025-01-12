@@ -1,0 +1,93 @@
+/* .cv-container {
+  display: flex;
+  height: calc(100vh - 120px);
+  width: 90%;
+  box-sizing: border-box;
+  display: flex;
+  width: 90%;
+}
+
+.cv-pdf {
+  flex: 2;
+  border-right: 1px solid #ccc;
+  height: 100%;
+  width: 45%;
+}
+
+.cv-notes {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+  width: 45%;
+} */
+
+.cv-container {
+  display: flex;
+  height: calc(100vh - 120px);
+  width: 90%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.cv-pdf {
+  flex: 2;
+  border-right: 1px solid #ccc;
+  height: 100%;
+}
+
+.cv-notes {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Başlık stilini güncelle */
+.cv-notes h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #5e17eb;
+  border-bottom: 2px solid #5e17eb;
+  padding-bottom: 10px;
+}
+
+/* Paragraflar için stil */
+.cv-notes p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+/* Bağlantılar için özel stil */
+.cv-notes a {
+  color: #5e17eb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cv-notes a:hover {
+  text-decoration: underline;
+}
+
+/* Mobil uyumluluk */
+@media (max-width: 768px) {
+  .cv-container {
+    flex-direction: column;
+  }
+
+  .cv-pdf,
+  .cv-notes {
+    width: 100%;
+    height: auto;
+  }
+
+  .cv-notes {
+    margin-top: 20px;
+  }
+}

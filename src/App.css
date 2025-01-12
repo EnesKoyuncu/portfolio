@@ -2,15 +2,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  /* background: radial-gradient(
-    at left top,
-    rgb(146, 43, 225) 0px,
-    rgb(43, 9, 107) 100%
-  ); */
   background: #f2f2f2;
   font-family: "Arial", sans-serif;
 }

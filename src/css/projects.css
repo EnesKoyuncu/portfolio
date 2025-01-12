@@ -1,0 +1,122 @@
+/* Ana container stil */
+.project-main {
+  min-height: 100vh;
+  background: radial-gradient(
+    at left top,
+    rgb(146, 43, 225) 0px,
+    rgb(43, 9, 107) 100%
+  );
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Proje kartı stil */
+.project-card {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+  background-color: #f0f0f5;
+}
+
+/* Slider alanı */
+.project-slider {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 300px;
+}
+
+.project-slider img {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.project-slider img:nth-child(1) {
+  opacity: 1;
+}
+
+.project-slider img.active {
+  opacity: 1;
+}
+
+/* Slider butonları */
+.slider-btn {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color 0.3s ease;
+}
+
+.slider-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slider-btn.left {
+  left: 10px;
+}
+
+.slider-btn.right {
+  right: 10px;
+}
+
+/* Proje açıklama alanı */
+.project-info {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-info h2 {
+  font-size: 1.8rem;
+  color: #5e17eb;
+}
+
+.project-info p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.project-info a {
+  align-self: flex-start;
+  text-decoration: none;
+  color: #fff;
+  background-color: #5e17eb;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.project-info a:hover {
+  background-color: #431a9e;
+}
