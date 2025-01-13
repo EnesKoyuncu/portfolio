@@ -6,6 +6,8 @@ import Projects from "./components/Projects";
 import CvView from "./components/CvView";
 import Layout from "./components/layout";
 import About from "./components/About";
+import Blog from "./components/Blog";
+import Contact from "./components/Contact";
 function App() {
   return (
     <Router>
@@ -16,7 +18,8 @@ function App() {
           <Route path="/cv" element={<CvView />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/about" element={<About />} />
-          {/* <Route path="/contact" element={<Contact />} /> */}
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </Layout>
     </Router>

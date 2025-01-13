@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "React ile Harika Animasyonlar",
+    "date": "2025-01-10",
+    "summary": "React.js ile animasyon yapmanın en etkili yollarını öğrenin. CSS ve JavaScript animasyonlarını nasıl entegre edebilirsiniz?",
+    "keywords": ["React", "Animasyon", "JavaScript", "CSS"],
+    "image": "https://i.pinimg.com/736x/9b/4e/e0/9b4ee057076232fb57c48cf80947f8a7.jpg",
+    "content": "Bu makalede, React ile animasyon yapmanın yollarını öğreniyoruz. React Spring, Framer Motion gibi kütüphaneleri inceliyoruz."
+  },
+  {
+    "id": 2,
+    "title": "Next.js SEO İpuçları",
+    "date": "2025-01-09",
+    "summary": "Next.js ile SEO dostu web siteleri oluşturmak için en iyi uygulamalar. Dinamik ve statik içerikleri optimize etmenin yolları.",
+    "keywords": ["Next.js", "SEO", "Web Geliştirme"],
+    "image": "https://i.pinimg.com/736x/0a/46/ae/0a46aea7a459b11f4ecc205c8c7e95d3.jpg",
+    "content": "Next.js, SEO için birçok avantaj sağlar. Bu yazıda, meta tag'lerden ve site haritası oluşturmaktan bahsediyoruz."
+  },
+  {
+    "id": 3,
+    "title": "TypeScript ile Backend Entegrasyonu",
+    "date": "2025-01-08",
+    "summary": "TypeScript kullanarak backend ve frontend entegrasyonu. Daha güçlü ve güvenli kod yazmanın yollarını keşfedin.",
+    "keywords": ["TypeScript", "Backend", "Entegrasyon", "API"],
+    "image": "https://i.pinimg.com/736x/d3/21/59/d32159cb0c8022f2dbaf7b84502eb781.jpg",
+    "content": "TypeScript, backend ve frontend entegrasyonunda güçlü bir araçtır. Bu makalede, REST API ve GraphQL ile entegrasyonu öğreniyoruz."
+  },
+  {
+    "id": 4,
+    "title": "JavaScript Performans Optimizasyonu",
+    "date": "2025-01-07",
+    "summary": "JavaScript projelerinizde performans optimizasyonu nasıl yapılır? Tarayıcı yanıt süresini artırmanın yolları.",
+    "keywords": ["JavaScript", "Performans", "Optimizasyon"],
+    "image": "https://i.pinimg.com/736x/3f/f3/38/3ff338fded7cab6c231606b35ebe18ab.jpg",
+    "content": "JavaScript projelerinde performans optimizasyonu önemlidir. Bu makalede, kod parçalamadan ve lazy loading'den bahsediyoruz."
+  },
+  {
+    "id": 5,
+    "title": "CSS ile Modern Tasarım Teknikleri",
+    "date": "2025-01-06",
+    "summary": "CSS Grid, Flexbox ve daha fazlasıyla modern web tasarımını öğrenin. Responsive ve şık tasarımlar oluşturun.",
+    "keywords": ["CSS", "Grid", "Flexbox", "Tasarım"],
+    "image": "https://i.pinimg.com/736x/e8/7e/26/e87e26c1f79051d2a615218fbeaec6a2.jpg",
+    "content": "Modern web tasarımında CSS Grid ve Flexbox önemli bir rol oynar. Bu yazıda, bu teknikleri kullanarak responsive tasarımlar yapıyoruz."
+  }
+]
