@@ -109,10 +109,12 @@ export default function About() {
         <div className="current-interests">
           <h2>Şu Anda Nelerle İlgileniyorum?</h2>
           <ul>
-            <li>Next.js ve React animasyonları üzerine çalışıyorum.</li>
-            <li>TypeScript ve backend entegrasyonları öğreniyorum.</li>
-            <li>Kişisel projelerime daha fazla zaman ayırıyorum.</li>
-            <li>Yeni teknolojiler ve frameworkler araştırıyorum.</li>
+            <li>Next ve Node js üzerinde çalışıyorum</li>
+            <li>Öğrendiklerimi Medium üzerinden yayınlamayı planlıyorum.</li>
+            <li>
+              Hobi olarak mühendis arkadaşlarımla beraber oyun geliştiriyorum.
+            </li>
+            <li>LLM projelere göz atıyorum.</li>
           </ul>
         </div>
       </div>

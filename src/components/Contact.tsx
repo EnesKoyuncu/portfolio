@@ -4,7 +4,7 @@ import {
   faGithub,
   faLinkedin,
   faDiscord,
-  faTwitter,
+  faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -37,7 +37,7 @@ export default function Contact() {
         <ul>
           <li>
             <a
-              href="https://github.com/"
+              href="https://github.com/EnesKoyuncu"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -46,7 +46,7 @@ export default function Contact() {
           </li>
           <li>
             <a
-              href="https://linkedin.com/"
+              href="https://www.linkedin.com/in/eneskoyuncu5/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -59,16 +59,16 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon icon={faDiscord} /> Discord
+              <FontAwesomeIcon icon={faDiscord} /> nsk
             </a>
           </li>
           <li>
             <a
-              href="https://twitter.com/"
+              href="https://x.com/Enes_Koyuncu5"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon icon={faTwitter} /> Twitter
+              <FontAwesomeIcon icon={faXTwitter} /> Enes_Koyuncu5
             </a>
           </li>
         </ul>

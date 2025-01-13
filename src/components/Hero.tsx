@@ -22,11 +22,11 @@ export default function Hero() {
             <h3>Software Engineer</h3>
             <p data-icon="📍">İzmir, Türkiye</p>
             <p data-icon="🎓">
-              Celal Bayar Üniversitesi - Yazılım Mühendisliği
+              Mezun - Celal Bayar Üniversitesi - Yazılım Mühendisliği
             </p>
-            <p data-icon="💻">Frontend & Backend Developer</p>
+            <p data-icon="💻">Fullstack Developer</p>
             <p data-icon="🎯">
-              Global projelerde yer almak ve kendimi geliştirmek istiyorum.
+              Güncel olarak NextJS - NodeJS ve MongoDB ile ilgileniyorum.
             </p>
           </div>
         </div>
@@ -34,32 +34,52 @@ export default function Hero() {
       <div className="hero-right">
         <section className="hero-right-section">
           <div className="iconTab">
-            <FontAwesomeIcon
-              icon={faLinkedin}
-              size="5x"
-              className="linkedin-logo"
-            />
-            Linkedin
+            <a
+              href="https://www.linkedin.com/in/eneskoyuncu5/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <FontAwesomeIcon
+                icon={faLinkedin}
+                size="5x"
+                className="linkedin-logo"
+              />
+              Linkedin
+            </a>
           </div>
           <div className="iconTab">
-            <FontAwesomeIcon
-              icon={faGithub}
-              size="5x"
-              className="github-logo"
-            />
-            Github
+            <a
+              href="https://github.com/EnesKoyuncu"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <FontAwesomeIcon
+                icon={faGithub}
+                size="5x"
+                className="github-logo"
+              />
+              Github
+            </a>
           </div>
           <div className="iconTab">
-            <FontAwesomeIcon
-              icon={faMedium}
-              size="5x"
-              className="medium-logo"
-            />{" "}
-            Medium
+            <a
+              href="https://medium.com/@enes.koyuncu5507"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <FontAwesomeIcon
+                icon={faMedium}
+                size="5x"
+                className="medium-logo"
+              />
+              Medium
+            </a>
           </div>
           <div className="iconTab">
-            <FontAwesomeIcon icon={faFile} size="5x" className="file-logo" />
-            CV
+            <a href="/cv" target="_self" rel="noreferrer noopener">
+              <FontAwesomeIcon icon={faFile} size="5x" className="file-logo" />
+              CV
+            </a>
           </div>
         </section>
 
@@ -70,10 +90,13 @@ export default function Hero() {
           <div className="about-tab2">
             <div className="speech">
               Ben <strong>Enes Ertuğrul Koyuncu</strong>. Yazılım Mühendisiyim.
-              Birçok sektörde kendi çapımda projeler geliştiriyorum. Web
-              geliştirme, mobil uygulama geliştirme, yapay zeka ve veri bilimi
-              alanlarında çalışmalarım var. Kendimi sürekli geliştirmeye ve yeni
-              şeyler öğrenmeye açığım.
+              Web sektörü başta olmak üzere birçok sektörde kendi çapımda
+              projeler geliştirmeye çalışıyorum. Web projeleriyle beraber python
+              ile makine öğrenmesi, doğal dil işleme ve veri analizi gibi
+              alanlarda da çalışmalarım var. Kendimi sürekli geliştirmeye ve
+              yeni şeyler öğrenmeye çalışıyorum. Yaptığım projelerle ilgili daha
+              detaylı bilgi alabilmek için aşağıdaki projeler butonu ile
+              yaptığım çalışmalara göz atabilirsin.
             </div>
             <div className="buttons-others">
               <a href="#projects">Projelerim</a>
