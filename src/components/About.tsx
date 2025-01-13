@@ -1,5 +1,5 @@
 import "../css/about.css";
-import profilePic from "/img/pp2kARE.jpg";
+import Tilt from "react-parallax-tilt";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -12,33 +12,53 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function About() {
+  const technologies = [
+    { name: "React.js", image: "/img/technologies/DALLE-React-bg.jpg" },
+    { name: "Next.js", image: "/img/technologies/DALLE-Next-bg.jpg" },
+    { name: "Node.js", image: "/img/technologies/DALLE-Node-bg1.jpg" },
+    { name: "Python", image: "/img/technologies/DALLE-Python-bg1.jpg" },
+    { name: "Tailwind CSS", image: "/img/technologies/DALLE-Tailwind-bg.jpg" },
+    { name: "Git & GitHub", image: "/img/technologies/DALLE-Github-bg.jpg" },
+    { name: "Docker", image: "/img/technologies/DALLE-Docker-bg.jpg" },
+    { name: "MongoDB", image: "/img/technologies/DALLE-Mongo-bg.jpg" },
+    { name: "GraphQL", image: "/img/technologies/DALLE-Graphql-bg.jpg" },
+    { name: "Firebase", image: "/img/technologies/DALLE-Firebase-bg.jpg" },
+  ];
+
   return (
     <div className="about-main">
-      {/* Sol taraf: Profil ve kısa tanıtım */}
+      {/* Sol taraf: Kullandığım Teknolojiler */}
       <div className="about-left">
-        <div className="about-card">
-          <div className="about-card-top">
-            <img src={profilePic} alt="Profile" />
-          </div>
-          <div className="about-card-bottom">
-            <h2>Enes Ertuğrul Koyuncu</h2>
-            <h3>Software Engineer</h3>
-            <p data-icon="📍">İzmir, Türkiye</p>
-            <p data-icon="🎓">
-              Celal Bayar Üniversitesi - Yazılım Mühendisliği
-            </p>
-            <p data-icon="💻">Frontend & Backend Developer</p>
-            <p data-icon="🎯">
-              Global projelerde yer almak ve kendimi geliştirmek istiyorum.
-            </p>
-          </div>
+        <h2>Kullandığım Teknolojiler</h2>
+        <div className="tech-stack-grid">
+          {technologies.map((tech, index) => (
+            <Tilt
+              key={index}
+              tiltMaxAngleX={15}
+              tiltMaxAngleY={15}
+              scale={1.05}
+              transitionSpeed={250}
+            >
+              <div
+                className="tech-card"
+                style={{
+                  backgroundImage: `url(${tech.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <span>{tech.name}</span>
+              </div>
+            </Tilt>
+          ))}
         </div>
       </div>
 
-      {/* Sağ taraf: Zaman Çizelgesi ve Teknolojiler */}
+      {/* Sağ taraf: Zaman Çizelgesi */}
       <div className="about-right">
         <h2>Zaman Çizelgesi</h2>
         <VerticalTimeline>
+          {/* Mezuniyet */}
           <VerticalTimelineElement
             className="vertical-timeline-element--education"
             date="2019 - 2024"
@@ -51,6 +71,8 @@ export default function About() {
               Celal Bayar Üniversitesi
             </h4>
           </VerticalTimelineElement>
+
+          {/* Intern */}
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             date="2022 - 2023"
@@ -65,6 +87,8 @@ export default function About() {
               kullandım.
             </p>
           </VerticalTimelineElement>
+
+          {/* Frontend Developer */}
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             date="2024"
@@ -81,18 +105,15 @@ export default function About() {
           </VerticalTimelineElement>
         </VerticalTimeline>
 
-        <h2>Kullandığım Teknolojiler</h2>
-        <div className="tech-stack">
-          <span>React.js</span>
-          <span>Next.js</span>
-          <span>Node.js</span>
-          <span>Python</span>
-          <span>Tailwind CSS</span>
-          <span>Git & GitHub</span>
-          <span>Docker</span>
-          <span>MongoDB</span>
-          <span>GraphQL</span>
-          <span>Firebase</span>
+        {/* Sağ Alt Kısım: Güncel İlgi Alanları */}
+        <div className="current-interests">
+          <h2>Şu Anda Nelerle İlgileniyorum?</h2>
+          <ul>
+            <li>Next.js ve React animasyonları üzerine çalışıyorum.</li>
+            <li>TypeScript ve backend entegrasyonları öğreniyorum.</li>
+            <li>Kişisel projelerime daha fazla zaman ayırıyorum.</li>
+            <li>Yeni teknolojiler ve frameworkler araştırıyorum.</li>
+          </ul>
         </div>
       </div>
     </div>
