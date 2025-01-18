@@ -8,8 +8,52 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import { faFile } from "@fortawesome/free-regular-svg-icons";
+import { useState, useEffect } from "react";
+import { useLanguage } from "../context/LanguageContext"; // Dil context'i
+
+interface Texts {
+  cardLocation: string;
+  cardGraduate: string;
+  cardJob: string;
+  cardFocus: string;
+  welcomeTitle: string;
+  welcomeSubtitle: string;
+  projectsButton: string;
+}
 
 export default function Hero() {
+  const [texts, setTexts] = useState<Texts>({
+    cardLocation: "",
+    cardGraduate: "",
+    cardJob: "",
+    cardFocus: "",
+    welcomeTitle: "",
+    welcomeSubtitle: "",
+    projectsButton: "",
+  });
+
+  const { currentLanguage } = useLanguage(); // Şu anki dil değerini al
+
+  const fetchTexts = async (language: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/texts/hero/${language}`
+      );
+      const data = await response.json();
+      if (data.success) {
+        setTexts(data.translations); // Gelen verileri state'e ata
+      } else {
+        console.error("Veri bulunamadı:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching texts:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTexts(currentLanguage); // Dil değişimini dinle ve metinleri güncelle
+  }, [currentLanguage]);
+
   return (
     <div className="hero-main">
       <div className="hero-left">
@@ -20,14 +64,10 @@ export default function Hero() {
           <div className="hero-left-card-bottom">
             <h2>Enes Ertuğrul Koyuncu</h2>
             <h3>Software Engineer</h3>
-            <p data-icon="📍">İzmir, Türkiye</p>
-            <p data-icon="🎓">
-              Mezun - Celal Bayar Üniversitesi - Yazılım Mühendisliği
-            </p>
-            <p data-icon="💻">Fullstack Developer</p>
-            <p data-icon="🎯">
-              Güncel olarak NextJS - NodeJS ve MongoDB ile ilgileniyorum.
-            </p>
+            <p data-icon="📍">{texts.cardLocation || "Location"}</p>
+            <p data-icon="🎓">{texts.cardGraduate || "Graduate Info"}</p>
+            <p data-icon="💻">{texts.cardJob || "Job Title"}</p>
+            <p data-icon="🎯">{texts.cardFocus || "Focus Area"}</p>
           </div>
         </div>
       </div>
@@ -85,21 +125,14 @@ export default function Hero() {
 
         <div className="hero-right-section-about">
           <div className="about-tab1">
-            <h1>Merhaba!</h1>
+            <h1>{texts.welcomeTitle || "Hello!"}</h1>
           </div>
           <div className="about-tab2">
             <div className="speech">
-              Ben <strong>Enes Ertuğrul Koyuncu</strong>. Yazılım Mühendisiyim.
-              Web sektörü başta olmak üzere birçok sektörde kendi çapımda
-              projeler geliştirmeye çalışıyorum. Web projeleriyle beraber python
-              ile makine öğrenmesi, doğal dil işleme ve veri analizi gibi
-              alanlarda da çalışmalarım var. Kendimi sürekli geliştirmeye ve
-              yeni şeyler öğrenmeye çalışıyorum. Yaptığım projelerle ilgili daha
-              detaylı bilgi alabilmek için aşağıdaki projeler butonu ile
-              yaptığım çalışmalara göz atabilirsin.
+              {texts.welcomeSubtitle || "About Me Text"}
             </div>
             <div className="buttons-others">
-              <a href="#projects">Projelerim</a>
+              <a href="/projects">{texts.projectsButton || "Projects"}</a>
             </div>
           </div>
         </div>

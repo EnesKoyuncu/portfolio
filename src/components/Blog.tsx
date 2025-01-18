@@ -1,55 +1,33 @@
-import { useState, useEffect } from "react";
-import "../css/blog.css";
+import { useEffect, useState } from "react";
 
 interface BlogPost {
   id: number;
   title: string;
   summary: string;
-  date: string;
-  tags: string[];
-  image: string;
   content: string;
 }
 
 export default function Blog() {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
 
+  // 🌐 Blog yazılarını backend’den çek
   useEffect(() => {
-    fetch("/json/blogs.json")
+    fetch("http://localhost:5000/blogs")
       .then((response) => response.json())
-      .then((data: BlogPost[]) => {
-        console.log("Fetched Data:", data); // Konsola yazdır
-        setBlogPosts(data);
-      })
+      .then((data) => setBlogPosts(data))
       .catch((error) => console.error("Error fetching blog posts:", error));
   }, []);
 
-  const togglePost = (id: number) => {
-    setExpandedPostId((prevId) => (prevId === id ? null : id));
-  };
-
   return (
     <div className="blog-main">
-      <h1>Blog Yazıları</h1>
-      {/* Blog Kartları Render Kontrolü */}
-      {blogPosts.length > 0 ? (
-        <div className="blog-posts">
-          {blogPosts.map((post) => (
-            <div key={post.id} className="blog-card">
-              <img src={post.image} alt={post.title} />
-              <h2>{post.title}</h2>
-              <p>{post.summary}</p>
-              <button onClick={() => togglePost(post.id)}>Devamını Oku</button>
-              {expandedPostId === post.id && (
-                <div className="blog-content">{post.content}</div>
-              )}
-            </div>
-          ))}
+      <h1>{texts.heading}</h1>
+      {blogPosts.map((post) => (
+        <div key={post.id} className="blog-card">
+          <h2>{post.title}</h2>
+          <p>{post.summary}</p>
+          <div>{post.content}</div>
         </div>
-      ) : (
-        <p>Yükleniyor...</p>
-      )}
+      ))}
     </div>
   );
 }

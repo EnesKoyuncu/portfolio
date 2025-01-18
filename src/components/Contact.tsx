@@ -22,11 +22,26 @@ export default function Contact() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // ✅ Form verilerini backend'e POST metodu ile gönder
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Mesajınız başarıyla gönderildi!");
-    setFormData({ name: "", email: "", message: "" });
+    try {
+      const response = await fetch("http://localhost:5000/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert(data.message);
+        setFormData({ name: "", email: "", message: "" });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Mesajınız gönderilemedi. Lütfen tekrar deneyin.");
+    }
   };
 
   return (

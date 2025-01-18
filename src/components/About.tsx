@@ -10,8 +10,89 @@ import {
   faGraduationCap,
   faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
+
+interface TimelineEntry {
+  date: string;
+  icon: string;
+  title: string;
+  subtitle: string;
+  description?: string;
+}
 
 export default function About() {
+  const [timelineData, setTimelineData] = useState<TimelineEntry[]>([]);
+  const [currentInterests, setCurrentInterests] = useState<string[]>([]);
+  const { currentLanguage } = useLanguage();
+  const [labels, setLabels] = useState({
+    technologiesLabel: "",
+    currentInterestsLabel: "",
+    timelineLabel: "",
+  });
+
+  // Fetch timeline data
+  const fetchTimelineData = async (language: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/about/timeline/about/${language}`
+      );
+      const dataTimeline = await response.json();
+      if (dataTimeline.success) {
+        setTimelineData(dataTimeline.data);
+      } else {
+        console.error("Failed to fetch timeline:", dataTimeline.message);
+      }
+    } catch (error) {
+      console.error("Error fetching timeline data:", error);
+    }
+  };
+
+  // Fetch current interests
+  const fetchCurrentInterests = async (language: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/about/interests/about/${language}`
+      );
+      const data = await response.json();
+      if (data.success) {
+        setCurrentInterests(data.data.interests);
+      } else {
+        console.error("Failed to fetch interests:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching interests:", error);
+    }
+  };
+
+  const fetchLabels = async (language: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/about/labels/${language}`
+      );
+      const data = await response.json();
+      console.log("Labels data:", data);
+      if (data.success) {
+        setLabels(data.labels); // Gelen başlıkları state'e kaydediyoruz
+        console.log("Labels anlık:", labels);
+      } else {
+        console.error("Failed to fetch labels:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching labels:", error);
+    }
+  };
+
+  // Dil değiştiğinde veri çek
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchTimelineData(currentLanguage); // Timeline verisini al
+      await fetchCurrentInterests(currentLanguage); // İlgi alanlarını al
+      await fetchLabels(currentLanguage); // Başlıkları al
+    };
+    fetchData();
+  }, [currentLanguage]); //
+
   const technologies = [
     { name: "React.js", image: "/img/technologies/DALLE-React-bg.jpg" },
     { name: "Next.js", image: "/img/technologies/DALLE-Next-bg.jpg" },
@@ -29,7 +110,7 @@ export default function About() {
     <div className="about-main">
       {/* Sol taraf: Kullandığım Teknolojiler */}
       <div className="about-left">
-        <h2>Kullandığım Teknolojiler</h2>
+        <h2>{labels.technologiesLabel}</h2>
         <div className="tech-stack-grid">
           {technologies.map((tech, index) => (
             <Tilt
@@ -56,65 +137,37 @@ export default function About() {
 
       {/* Sağ taraf: Zaman Çizelgesi */}
       <div className="about-right">
-        <h2>Zaman Çizelgesi</h2>
+        <h2>{labels.timelineLabel}</h2>
         <VerticalTimeline>
-          {/* Mezuniyet */}
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date="2019 - 2024"
-            icon={<FontAwesomeIcon icon={faGraduationCap} />}
-          >
-            <h3 className="vertical-timeline-element-title">
-              Yazılım Mühendisliği Mezuniyeti
-            </h3>
-            <h4 className="vertical-timeline-element-subtitle">
-              Celal Bayar Üniversitesi
-            </h4>
-          </VerticalTimelineElement>
-
-          {/* Intern */}
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2022 - 2023"
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">
-              Software Engineer Intern
-            </h3>
-            <h4 className="vertical-timeline-element-subtitle">Codezy Inc.</h4>
-            <p>
-              Frontend projelerde çalıştım, React, Next.js ve TailwindCSS
-              kullandım.
-            </p>
-          </VerticalTimelineElement>
-
-          {/* Frontend Developer */}
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2024"
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">
-              Frontend Developer
-            </h3>
-            <h4 className="vertical-timeline-element-subtitle">Codezy Inc.</h4>
-            <p>
-              Editable Map System projesini liderlik ettim, React ve LeafletJS
-              kullandım.
-            </p>
-          </VerticalTimelineElement>
+          {timelineData.map((entry, index) => (
+            <VerticalTimelineElement
+              key={index}
+              className="vertical-timeline-element--work"
+              date={entry.date}
+              icon={
+                entry.icon === "graduationCap" ? (
+                  <FontAwesomeIcon icon={faGraduationCap} />
+                ) : (
+                  <FontAwesomeIcon icon={faBriefcase} />
+                )
+              }
+            >
+              <h3 className="vertical-timeline-element-title">{entry.title}</h3>
+              <h4 className="vertical-timeline-element-subtitle">
+                {entry.subtitle}
+              </h4>
+              {entry.description && <p>{entry.description}</p>}
+            </VerticalTimelineElement>
+          ))}
         </VerticalTimeline>
 
         {/* Sağ Alt Kısım: Güncel İlgi Alanları */}
         <div className="current-interests">
-          <h2>Şu Anda Nelerle İlgileniyorum?</h2>
+          <h2>{labels.currentInterestsLabel}</h2>
           <ul>
-            <li>Next ve Node js üzerinde çalışıyorum</li>
-            <li>Öğrendiklerimi Medium üzerinden yayınlamayı planlıyorum.</li>
-            <li>
-              Hobi olarak mühendis arkadaşlarımla beraber oyun geliştiriyorum.
-            </li>
-            <li>LLM projelere göz atıyorum.</li>
+            {currentInterests.map((interest, index) => (
+              <li key={index}>{interest}</li>
+            ))}
           </ul>
         </div>
       </div>

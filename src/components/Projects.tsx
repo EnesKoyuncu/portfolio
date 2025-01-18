@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import "../css/projects.css";
+import { useEffect, useState } from "react";
 
 interface Project {
   id: number;
@@ -11,74 +10,24 @@ interface Project {
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState<number[]>([]);
 
+  // 🌐 Proje verilerini backend’den çek
   useEffect(() => {
-    fetch("/json/projects.json")
+    fetch("http://localhost:5000/projects")
       .then((response) => response.json())
-      .then((data: Project[]) => {
-        setProjects(data);
-        setCurrentImageIndex(new Array(data.length).fill(0));
-      })
+      .then((data) => setProjects(data))
       .catch((error) => console.error("Error fetching projects:", error));
   }, []);
 
-  const nextImage = (projectIndex: number) => {
-    setCurrentImageIndex((prevIndexes) =>
-      prevIndexes.map((index, i) =>
-        i === projectIndex
-          ? (index + 1) % projects[projectIndex].images.length
-          : index
-      )
-    );
-  };
-
-  const prevImage = (projectIndex: number) => {
-    setCurrentImageIndex((prevIndexes) =>
-      prevIndexes.map((index, i) =>
-        i === projectIndex
-          ? (index - 1 + projects[projectIndex].images.length) %
-            projects[projectIndex].images.length
-          : index
-      )
-    );
-  };
-
   return (
     <div className="project-main">
-      <h1>Projelerim</h1>
-      {projects.map((project, projectIndex) => (
+      <h1>{texts.heading}</h1>
+      {projects.map((project) => (
         <div className="project-card" key={project.id}>
           <div className="project-slider">
-            <div
-              className="slider-images"
-              style={{
-                transform: `translateX(-${
-                  currentImageIndex[projectIndex] * 100
-                }%)`,
-              }}
-            >
-              {project.images.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`Project ${project.title}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              ))}
-            </div>
-            <button
-              className="slider-btn left"
-              onClick={() => prevImage(projectIndex)}
-            >
-              &#8249;
-            </button>
-            <button
-              className="slider-btn right"
-              onClick={() => nextImage(projectIndex)}
-            >
-              &#8250;
-            </button>
+            {project.images.map((image, index) => (
+              <img key={index} src={image} alt={project.title} />
+            ))}
           </div>
           <div className="project-info">
             <h2>{project.title}</h2>

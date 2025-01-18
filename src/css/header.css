@@ -6,12 +6,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 70px;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
   z-index: 999;
 
-  /* renk cart curt */
+  /* Renk ve arka plan */
   background: radial-gradient(
-    at left top,
-    rgb(146, 43, 225) 0px,
+    at top left,
+    rgb(146, 43, 225) 0%,
     rgb(43, 9, 107) 100%
   );
   border-radius: 0 0 30px 30px;
@@ -32,41 +35,19 @@
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  transition: all 0.3s ease-in-out;
-}
-
-@keyframes growAndRotate {
-  0% {
-    transform: scale(1) rotate(0deg);
-    box-shadow: 0 0 0 white;
-  }
-  50% {
-    transform: scale(1.1) rotate(0deg);
-    box-shadow: 0 0 10px white;
-  }
-  60% {
-    transform: scale(1.1) rotate(-15deg);
-  }
-  80% {
-    transform: scale(1.1) rotate(15deg);
-  }
-  100% {
-    transform: scale(1.1) rotate(0deg);
-    box-shadow: 0 0 10px white;
-  }
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header-logo img:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  animation: growAndRotate 1s ease-in-out 1; /* Animasyon 1 kez çalışacak */
-  transform: scale(1.1); /* Büyüme efekti */
-  box-shadow: 0 0 10px white; /* Box-shadow efekti */
 }
 
 /* === Link Grupları === */
 .header-links {
   display: flex;
-  gap: 60px;
+  gap: 50px;
 }
 
 .header-left {
@@ -82,10 +63,44 @@
   text-decoration: none;
   color: white;
   font-size: 1.15rem;
-  transition: all 0.3s ease-in-out;
-  padding: 6px;
+  font-weight: bold;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .header-main a:hover {
   text-decoration: underline;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* === Dil Seçimi === */
+.language-switcher {
+  position: absolute;
+  bottom: -40px; /* Header'ın hemen altında görünür */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  background-color: #dfddddcc;
+  border-radius: 14px;
+}
+
+.language-switcher button {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.language-switcher button:hover {
+  background: white;
+  color: rgb(146, 43, 225);
+}
+
+.language-switcher button.active {
+  background: white;
+  color: rgb(43, 9, 107);
 }
