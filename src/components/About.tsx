@@ -142,7 +142,11 @@ export default function About() {
           {timelineData.map((entry, index) => (
             <VerticalTimelineElement
               key={index}
-              className="vertical-timeline-element--work"
+              className={
+                entry.icon === "graduationCap"
+                  ? "vertical-timeline-element--education"
+                  : "vertical-timeline-element--work"
+              }
               date={entry.date}
               icon={
                 entry.icon === "graduationCap" ? (

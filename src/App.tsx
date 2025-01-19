@@ -4,7 +4,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Layout from "./components/layout";
 import Hero from "./components/Hero";
-// import Projects from "./components/Projects";
+import Projects from "./components/Projects";
 import CvView from "./components/CvView";
 import About from "./components/About";
 // import Blog from "./components/Blog";
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Hero />} />
             <Route path="/cv" element={<CvView />} />
-            {/* <Route path="/projects" element={<Projects />} /> */}
+            <Route path="/projects" element={<Projects />} />
             <Route path="/about" element={<About />} />
             {/* <Route path="/blog" element={<Blog />} /> */}
             {/* <Route path="/contact" element={<Contact />} /> */}
