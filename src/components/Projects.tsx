@@ -1,107 +1,109 @@
 import { useEffect, useState } from "react";
 import "../css/projects.css";
 import { useLanguage } from "../context/LanguageContext";
+import { Card, Modal, Carousel, Button } from "antd";
+import { ExpandAltOutlined } from "@ant-design/icons";
 
 interface Project {
-  _id: string; // Proje kimliği
-  title: { [key: string]: string }; // Çok dilli başlık
-  description: { [key: string]: string }; // Çok dilli açıklama
-  images: string[]; // Proje görselleri
-  link: string; // Proje bağlantısı
+  id: string;
+  title: string;
+  description: string;
+  images: string[];
+  link: string;
 }
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
-  const { currentLanguage } = useLanguage(); // Şu anki dil değerini al
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { currentLanguage } = useLanguage();
 
   const fetchProjects = async () => {
-    console.log("Fetching projects...");
     try {
       const response = await fetch(
         `http://localhost:5000/api/projects?language=${currentLanguage}`
       );
-      console.log("Fetch response:", response);
-
       const data = await response.json();
-      console.log("Fetched data:", data);
-
       if (data.success) {
-        setProjects(data.data); // Gelen projeleri state'e aktar
-        console.log("Projects fetched successfully:", data.data);
+        setProjects(data.data);
       } else {
-        console.error("Failed to fetch projects:", data.message);
-        setProjects([]); // Eğer hata varsa boş bir array ata
+        setProjects([]);
       }
     } catch (error) {
       console.error("Error fetching projects:", error);
-      setProjects([]); // Eğer hata varsa boş bir array ata
-    } finally {
-      console.log("Finished fetching projects.");
+      setProjects([]);
     }
-  };
-
-  const handleProjectClick = (index: number) => {
-    setSelectedProject(index === selectedProject ? null : index);
   };
 
   useEffect(() => {
     fetchProjects();
-    console.log("Current language:", currentLanguage); // Şu anki dil değeri
   }, [currentLanguage]);
+
+  const carouselSettings = {
+    autoplay: true,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    draggable: true,
+    swipe: true,
+    swipeToSlide: true,
+    touchThreshold: 10,
+  };
 
   return (
     <div className="project-main">
-      {projects.map((project, index) => (
-        <div
-          key={project._id} // Backend'deki `_id` yerine kullan
-          className={`project-card ${
-            selectedProject === index
-              ? "project-card--expanded"
-              : "project-card--collapsed"
-          }`}
-          onClick={() => handleProjectClick(index)}
+      {projects.map((project) => (
+        <Card
+          key={project.id}
+          hoverable
+          cover={<img alt={project.title} src={project.images[0]} />}
+          actions={[
+            <Button
+              type="link"
+              icon={<ExpandAltOutlined />}
+              onClick={() => setSelectedProject(project)}
+            >
+              View Details
+            </Button>,
+          ]}
         >
-          {/* Küçük kart görünümü */}
-          {selectedProject !== index && (
-            <div className="project-summary">
-              <img
-                src={project.images[0]}
-                alt={project.title[currentLanguage]}
-              />
-              <h2>{project.title[currentLanguage]}</h2>
-            </div>
-          )}
-
-          {/* Detaylı görünüm */}
-          {selectedProject === index && (
-            <div className="project-details">
-              <div className="project-slider">
-                <div className="slider-images">
-                  {project.images.map((image, imgIndex) => (
-                    <img
-                      key={imgIndex}
-                      src={image}
-                      alt={project.title[currentLanguage]}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="project-info">
-                <h2>{project.title[currentLanguage]}</h2>
-                <p>{project.description[currentLanguage]}</p>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View Project
-                </a>
-              </div>
-            </div>
-          )}
-        </div>
+          <Card.Meta
+            title={project.title}
+            description={project.description.substring(0, 100) + "..."}
+          />
+        </Card>
       ))}
+
+      <Modal
+        title={selectedProject?.title}
+        open={!!selectedProject}
+        onCancel={() => setSelectedProject(null)}
+        footer={[
+          <Button
+            key="link"
+            type="primary"
+            href={selectedProject?.link}
+            target="_blank"
+          >
+            View Project
+          </Button>,
+        ]}
+        width={1000}
+      >
+        <Carousel {...carouselSettings}>
+          {selectedProject?.images.map((image, index) => (
+            <div key={index} className="carousel-slide">
+              <img
+                src={image}
+                alt={`${selectedProject.title} - ${index + 1}`}
+                style={{ width: "100%", height: "400px", objectFit: "cover" }}
+              />
+            </div>
+          ))}
+        </Carousel>
+        <p style={{ marginTop: "20px" }}>{selectedProject?.description}</p>
+      </Modal>
     </div>
   );
 }
