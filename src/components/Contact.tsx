@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/contact.css";
 import {
   faGithub,
@@ -7,6 +7,16 @@ import {
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLanguage } from "../context/LanguageContext"; // Dil Context'i
+
+interface Texts {
+  titleLinks: string;
+  titleForm: string;
+  namePlaceholder: string;
+  emailPlaceholder: string;
+  messagePlaceholder: string;
+  submitButton: string;
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,6 +24,36 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [texts, setTexts] = useState<Texts>({
+    titleLinks: "",
+    titleForm: "",
+    namePlaceholder: "",
+    emailPlaceholder: "",
+    messagePlaceholder: "",
+    submitButton: "",
+  });
+
+  const { currentLanguage } = useLanguage(); // Dil bilgisini al
+
+  const fetchTexts = async (language: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/texts/contact/${language}`
+      );
+      const data = await response.json();
+      if (data.success) {
+        setTexts(data.translations); // Çevirileri state'e ata
+      } else {
+        console.error("Çeviriler bulunamadı:", data.message);
+      }
+    } catch (error) {
+      console.error("Çevirileri çekerken hata oluştu:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTexts(currentLanguage); // Dil değişiminde çevirileri güncelle
+  }, [currentLanguage]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -22,7 +62,6 @@ export default function Contact() {
     setFormData({ ...formData, [name]: value });
   };
 
-  // ✅ Form verilerini backend'e POST metodu ile gönder
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -39,7 +78,7 @@ export default function Contact() {
         setFormData({ name: "", email: "", message: "" });
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Mesaj gönderme hatası:", error);
       alert("Mesajınız gönderilemedi. Lütfen tekrar deneyin.");
     }
   };
@@ -48,7 +87,7 @@ export default function Contact() {
     <div className="contact-container">
       {/* Sol taraf: Linkler */}
       <div className="contact-links">
-        <h2>Bağlantılarım</h2>
+        <h2>{texts.titleLinks || "Bağlantılarım"}</h2>
         <ul>
           <li>
             <a
@@ -91,12 +130,12 @@ export default function Contact() {
 
       {/* Sağ taraf: İletişim Formu */}
       <div className="contact-form">
-        <h2>İletişim Formu</h2>
+        <h2>{texts.titleForm || "İletişim Formu"}</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="name"
-            placeholder="Adınız"
+            placeholder={texts.namePlaceholder || "Adınız"}
             value={formData.name}
             onChange={handleInputChange}
             required
@@ -104,19 +143,19 @@ export default function Contact() {
           <input
             type="email"
             name="email"
-            placeholder="E-posta Adresiniz"
+            placeholder={texts.emailPlaceholder || "E-posta Adresiniz"}
             value={formData.email}
             onChange={handleInputChange}
             required
           />
           <textarea
             name="message"
-            placeholder="Mesajınız"
+            placeholder={texts.messagePlaceholder || "Mesajınız"}
             value={formData.message}
             onChange={handleInputChange}
             required
           ></textarea>
-          <button type="submit">Gönder</button>
+          <button type="submit">{texts.submitButton || "Gönder"}</button>
         </form>
       </div>
     </div>
