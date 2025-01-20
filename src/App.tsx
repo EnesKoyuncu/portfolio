@@ -7,7 +7,7 @@ import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import CvView from "./components/CvView";
 import About from "./components/About";
-// import Blog from "./components/Blog";
+import Blog from "./components/Blog";
 // import Contact from "./components/Contact";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
             <Route path="/cv" element={<CvView />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/about" element={<About />} />
-            {/* <Route path="/blog" element={<Blog />} /> */}
+            <Route path="/blog" element={<Blog />} />
             {/* <Route path="/contact" element={<Contact />} /> */}
           </Routes>
         </Layout>

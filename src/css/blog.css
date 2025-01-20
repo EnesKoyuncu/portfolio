@@ -135,3 +135,150 @@
     margin-top: 20px;
   }
 }
+
+.blog-container {
+  padding: 40px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: calc(100vh - 140px);
+}
+
+.blog-title {
+  text-align: center;
+  color: #5e17eb !important;
+  margin-bottom: 40px !important;
+}
+
+.blog-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Blog Card Styles */
+.blog-card {
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(94, 23, 235, 0.15);
+}
+
+.blog-card-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-card-image img {
+  transform: scale(1.05);
+}
+
+.blog-card-meta {
+  margin-bottom: 12px;
+  color: #666;
+}
+
+.blog-card-title {
+  margin: 8px 0 !important;
+  color: #333 !important;
+  font-size: 1.3rem !important;
+}
+
+.blog-card-summary {
+  color: #666;
+  margin-bottom: 16px !important;
+}
+
+.blog-card-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.blog-card-tags .anticon {
+  color: #666;
+}
+
+/* Modal Styles */
+.blog-modal .ant-modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.blog-post-detail {
+  padding: 0;
+}
+
+.blog-post-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.blog-post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.blog-post-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.blog-post-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .blog-container {
+    padding: 20px;
+  }
+
+  .blog-card-image {
+    height: 180px;
+  }
+
+  .blog-post-image {
+    height: 200px;
+  }
+
+  .blog-post-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* Ant Design Tag Override */
+.ant-tag {
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+/* Ant Design Modal Override */
+.ant-modal-close {
+  color: #fff;
+}
+
+.ant-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
