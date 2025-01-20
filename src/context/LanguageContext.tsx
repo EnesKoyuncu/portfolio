@@ -1,21 +1,33 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-// Dil context tipi
 interface LanguageContextType {
   currentLanguage: string;
-  setCurrentLanguage: (lang: string) => void;
+  setCurrentLanguage: (language: string) => void;
 }
 
-// Varsayılan değer
-const LanguageContext = createContext<LanguageContextType | undefined>(
-  undefined
-);
+const LanguageContext = createContext<LanguageContextType>({
+  currentLanguage: "en",
+  setCurrentLanguage: () => {},
+});
 
-// Context sağlayıcı (Provider)
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [currentLanguage, setCurrentLanguage] = useState<string>("en");
+  const [currentLanguage, setLanguage] = useState<string>(
+    localStorage.getItem("currentLanguage") || "en"
+  );
+
+  const setCurrentLanguage = (language: string) => {
+    setLanguage(language);
+    localStorage.setItem("currentLanguage", language); // LocalStorage güncelleniyor
+  };
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("currentLanguage");
+    if (storedLanguage) {
+      setLanguage(storedLanguage);
+    }
+  }, []);
 
   return (
     <LanguageContext.Provider value={{ currentLanguage, setCurrentLanguage }}>
@@ -24,11 +36,4 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-// Context'i kullanmak için bir hook
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error("useLanguage must be used within a LanguageProvider");
-  }
-  return context;
-};
+export const useLanguage = () => useContext(LanguageContext);
