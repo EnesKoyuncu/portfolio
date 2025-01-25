@@ -53,7 +53,7 @@ export default function Blog() {
   return (
     <div className="blog-container">
       <Title level={1} className="blog-title">
-        Blog
+        Blog - Work In Progress
       </Title>
       <Row gutter={[24, 24]} className="blog-grid">
         {blogPosts.map((post) => (

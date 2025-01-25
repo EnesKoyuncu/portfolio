@@ -1,30 +1,6 @@
-/* .cv-container {
-  display: flex;
-  height: calc(100vh - 120px);
-  width: 90%;
-  box-sizing: border-box;
-  display: flex;
-  width: 90%;
-}
-
-.cv-pdf {
-  flex: 2;
-  border-right: 1px solid #ccc;
-  height: 100%;
-  width: 45%;
-}
-
-.cv-notes {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  height: 100%;
-  width: 45%;
-} */
-
 .cv-container {
   display: flex;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 134px);
   width: 90%;
   margin: 0 auto;
   box-sizing: border-box;
