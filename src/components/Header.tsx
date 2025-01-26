@@ -12,33 +12,28 @@ interface Texts {
 }
 
 export default function Header() {
-  const [texts, setTexts] = useState<Texts | null>(null); // Başlangıçta null olarak ayarlandı
-  const [loading, setLoading] = useState<boolean>(true); // Yüklenme durumu
+  const [texts, setTexts] = useState<Texts | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const { currentLanguage, setCurrentLanguage } = useLanguage();
 
   const fetchTexts = async (language: string) => {
-    // console.log(`Fetching texts for language: ${language}`); // Hangi dil için veri çekiliyor?
     setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:5000/api/texts/header/${language}`
       );
-      // console.log("Fetch response:", response); // Fetch yanıtını kontrol edin
       const data = await response.json();
-      // console.log("Fetched data:", data); // Çekilen veriyi kontrol edin
       if (data.success) {
         setTexts(data.translations);
-        // console.log("State updated with translations:", data.translations); // State'e atanan veriler
       } else {
         console.error("Veri bulunamadı:", data.message);
         setTexts(null);
       }
     } catch (error) {
-      console.error("Error fetching texts:", error); // Hata varsa yazdır
+      console.error("Error fetching texts:", error);
       setTexts(null);
     } finally {
       setLoading(false);
-      // console.log("Loading state set to false"); // Yüklenme durumunun bittiği an
     }
   };
 
@@ -47,7 +42,7 @@ export default function Header() {
   }, [currentLanguage]);
 
   if (loading) {
-    return <div>Loading...</div>; // Yükleniyor mesajı göster
+    return <div>Loading...</div>;
   }
 
   return (

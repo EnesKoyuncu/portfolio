@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { LanguageProvider } from "./context/LanguageContext"; // Context sağlayıcıyı ekledik
+
 import "./App.css";
+
+// components
 import Header from "./components/Header";
 import Layout from "./components/layout";
 import Hero from "./components/Hero";
@@ -9,6 +12,8 @@ import CvView from "./components/CvView";
 import About from "./components/About";
 import Blog from "./components/Blog";
 import Contact from "./components/Contact";
+
+// import { AnimatePresence } from "framer-motion";
 
 function App() {
   return (

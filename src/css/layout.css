@@ -1,9 +1,29 @@
+@font-face {
+  font-family: "CormorantGaramond";
+  src: url("./fonts/CormorantGaramond/CormorantGaramond-Medium.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("./fonts/Merriweather/Merriweather-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .layout-main {
-  /* max-height: 100vh; */
-  /* overflow: hidden; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   row-gap: 20px;
   align-items: center;
+  background-image: url("./img/bgLight.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  font-family: "Merriweather", sans-serif;
+  /* min-height: 100vh; */
 }

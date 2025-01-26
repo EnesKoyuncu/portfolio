@@ -62,8 +62,10 @@ export default function Hero() {
             <img src={myImage} alt="my-image" />
           </div>
           <div className="hero-left-card-bottom">
-            <h2>Enes Ertuğrul Koyuncu</h2>
-            <h3>Software Engineer</h3>
+            <div className="hero-left-card-bottom-name">
+              <span>Enes Ertuğrul Koyuncu</span>
+              <span>Software Engineer</span>
+            </div>
             <p data-icon="📍">{texts.cardLocation || "Location"}</p>
             <p data-icon="🎓">{texts.cardGraduate || "Graduate Info"}</p>
             <p data-icon="💻">{texts.cardJob || "Job Title"}</p>

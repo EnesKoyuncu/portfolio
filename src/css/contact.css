@@ -1,14 +1,15 @@
 /* === Ana Container === */
 .contact-container {
+  width: 85%;
+  min-height: calc(100vh - 128px - 1.5rem);
+  margin-bottom: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 40px;
-  background: #f7f7f7;
+  background: rgba(249, 249, 249, 0.25);
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 85%;
-  margin: 0 auto;
 }
 
 /* === Sol Taraf: Linkler === */
@@ -22,13 +23,20 @@
 
 .contact-links h2 {
   font-size: 2rem;
-  color: #5e17eb;
+  /* color: #5e17eb; */
+  color: #4480b8;
   margin-bottom: 20px;
+  border-bottom: 1px solid #4480b8;
+  padding-bottom: 1rem;
 }
 
 .contact-links ul {
   list-style: none;
   padding: 0;
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
 }
 
 .contact-links li {
@@ -64,7 +72,8 @@
 
 .contact-form h2 {
   font-size: 2rem;
-  color: #5e17eb;
+  /* color: #5e17eb; */
+  color: #4480b8;
   margin-bottom: 20px;
 }
 
@@ -86,7 +95,8 @@
   padding: 12px 25px;
   font-size: 1.2rem;
   color: white;
-  background-color: #5e17eb;
+  /* background-color: #5e17eb; */
+  background-color: #4480b8;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -94,7 +104,8 @@
 }
 
 .contact-form button:hover {
-  background-color: #431a9e;
+  /* background-color: #431a9e; */
+  background-color: #0d508f;
 }
 
 /* === Responsive Tasarım === */

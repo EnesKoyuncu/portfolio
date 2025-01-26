@@ -3,7 +3,8 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
   padding: 30px;
-  background: radial-gradient(at left top, #922be1, #2b096b);
+  /* background: radial-gradient(at left top, #922be1, #2b096b); */
+  background-color: rgba(249, 249, 249, 0.15);
   width: 90%;
   min-height: calc(100vh - 140px);
   height: auto;

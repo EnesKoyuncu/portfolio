@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: start;
-  padding: 40px 0;
-  background: #f7f7f7;
+  padding: 2.5rem;
+  background: rgba(249, 249, 249, 0.15);
   width: 90%;
   flex-wrap: wrap;
 }
@@ -19,11 +19,14 @@
 
 .about-left h2 {
   font-size: 2rem;
-  color: #5e17eb;
+  /* color: #5e17eb; */
+  color: #4480b8;
   text-align: left;
   font-weight: bold;
   margin-bottom: 20px;
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #4480b8;
+  padding: 0.5rem;
 }
 
 .tech-stack-grid {
@@ -102,7 +105,8 @@
 
 .vertical-timeline-element-date {
   font-size: 0.85rem;
-  color: #333;
+  /* color: #333; */
+  color: white;
 }
 
 /* === Sağ Alt Kısım: Güncel İlgi Alanları === */
@@ -116,7 +120,10 @@
 
 .current-interests h2 {
   font-size: 1.8rem;
-  color: #5e17eb;
+  /* color: #5e17eb; */
+  color: #4480b8;
+  border-bottom: 1px solid #4480b8;
+  padding: 0.5rem 0;
   margin-bottom: 15px;
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }

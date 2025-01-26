@@ -1,28 +1,27 @@
 /* === Header Düzeni === */
+@font-face {
+  font-family: "RobotoMedium";
+  src: url("./fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 .header-main {
   width: 100%;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 70px;
-  /* position: fixed; */
-  top: 0;
-  left: 0;
-  z-index: 999;
+  padding: 0 70px; /*! Burası değiştirilcek*/
 
   /* Renk ve arka plan */
-  background: radial-gradient(
-    at top left,
-    rgb(146, 43, 225) 0%,
-    rgb(43, 9, 107) 100%
-  );
   border-radius: 0 0 30px 30px;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-
+  background: rgba(255, 255, 255, 0.1);
   margin-bottom: 28px;
+  font-family: "RobotoMedium", sans-serif;
 }
 
 /* === Logo === */
@@ -64,8 +63,9 @@
 .header-main a {
   text-decoration: none;
   color: white;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  letter-spacing: 1px;
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
