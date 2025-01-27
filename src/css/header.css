@@ -60,7 +60,8 @@
 }
 
 /* === Linkler === */
-.header-main a {
+.header-main a,
+.header-main Link {
   text-decoration: none;
   color: white;
   font-size: 1.3rem;

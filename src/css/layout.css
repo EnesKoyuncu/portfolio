@@ -13,17 +13,23 @@
   font-style: normal;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-image: url("./img/bgLight.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .layout-main {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   row-gap: 20px;
   align-items: center;
-  background-image: url("./img/bgLight.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
   font-family: "Merriweather", sans-serif;
-  /* min-height: 100vh; */
+  min-height: 100vh;
 }
