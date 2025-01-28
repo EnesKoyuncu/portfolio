@@ -1,0 +1,241 @@
+// === Header Düzeni ===
+@font-face {
+  font-family: "RobotoMedium";
+  src: url("./fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+.header-main-light {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 70px;
+  border-radius: 0 0 30px 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 28px;
+  font-family: "RobotoMedium", sans-serif;
+
+  .header-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .header-links {
+    display: flex;
+    gap: 50px;
+
+    &.header-left {
+      justify-content: flex-start;
+    }
+
+    &.header-right {
+      justify-content: flex-end;
+    }
+  }
+
+  a,
+  Link {
+    text-decoration: none;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+
+    &:hover {
+      text-decoration: underline;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  .language-switcher {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-32%);
+    display: flex;
+    gap: 20px;
+    background-color: #dfddddcc;
+    border-radius: 14px;
+
+    button {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: white;
+        color: rgb(146, 43, 225);
+      }
+
+      &.active {
+        background: white;
+        color: rgb(43, 9, 107);
+      }
+    }
+  }
+
+  .theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    svg {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.header-main-dark {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 70px;
+  border-radius: 0 0 30px 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.027);
+  margin-bottom: 28px;
+  font-family: "RobotoMedium", sans-serif;
+
+  .header-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .header-links {
+    display: flex;
+    gap: 50px;
+
+    &.header-left {
+      justify-content: flex-start;
+    }
+
+    &.header-right {
+      justify-content: flex-end;
+    }
+  }
+
+  a,
+  Link {
+    text-decoration: none;
+    color: rgb(255, 255, 255, 0.7);
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: text-decoration 0.3s ease;
+
+    &:hover {
+      text-decoration: underline;
+      color: rgba(255, 255, 255);
+    }
+  }
+
+  .language-switcher {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-32%);
+    display: flex;
+    gap: 20px;
+    background-color: #dfdddd6b;
+    border-radius: 14px;
+
+    button {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.603);
+      color: rgba(255, 255, 255, 0.445);
+      padding: 5px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: white;
+        color: rgb(146, 43, 225);
+      }
+
+      &.active {
+        background: rgba(255, 255, 255, 0.788);
+        color: rgb(43, 9, 107);
+      }
+    }
+  }
+
+  .theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    svg {
+      font-size: 1.2rem;
+    }
+  }
+}

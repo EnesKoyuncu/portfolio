@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../css/contact.css";
+import "../css/contact.scss";
 import {
   faGithub,
   faLinkedin,
@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLanguage } from "../context/LanguageContext"; // Dil Context'i
+import { useTheme } from "../context/ThemeContext";
 
 interface Texts {
   titleLinks: string;
@@ -34,7 +35,7 @@ export default function Contact() {
   });
 
   const { currentLanguage } = useLanguage(); // Dil bilgisini al
-
+  const { theme } = useTheme();
   const fetchTexts = async (language: string) => {
     try {
       const response = await fetch(
@@ -84,7 +85,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="contact-container">
+    <div className={`contact-container-${theme}`}>
       {/* Sol taraf: Linkler */}
       <div className="contact-links">
         <h2>{texts.titleLinks || "Bağlantılarım"}</h2>

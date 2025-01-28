@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
-import "../css/header.css";
+import "../css/header.scss";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+import { useTheme } from "../context/ThemeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 interface Texts {
   home: string;
   cv: string;
@@ -27,6 +30,7 @@ export default function Header() {
   const [texts, setTexts] = useState<Texts | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const { currentLanguage, setCurrentLanguage } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   const fetchTexts = async (language: string) => {
     setLoading(true);
@@ -58,7 +62,7 @@ export default function Header() {
   }
 
   return (
-    <div className="header-main">
+    <div className={`header-main-${theme}`}>
       <motion.div
         className="header-links header-left"
         variants={leftButtonVariants}
@@ -90,6 +94,17 @@ export default function Header() {
         <Link to="/about">{texts?.about || "About"}</Link>
         <Link to="/blog">{texts?.blog || "Blog"}</Link>
         <Link to="/contact">{texts?.contact || "Contact"}</Link>
+
+        <button
+          onClick={toggleTheme}
+          className="theme-toggle"
+          aria-label="Toggle theme"
+        >
+          <FontAwesomeIcon
+            icon={theme === "light" ? faMoon : faSun}
+            style={theme === "dark" ? { color: "white" } : undefined}
+          />
+        </button>
       </motion.div>
 
       <div className="language-switcher">

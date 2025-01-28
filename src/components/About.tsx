@@ -1,4 +1,4 @@
-import "../css/about.css";
+import "../css/about.scss";
 import Tilt from "react-parallax-tilt";
 import {
   VerticalTimeline,
@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import { useTheme } from "../context/ThemeContext";
 
 interface TimelineEntry {
   date: string;
@@ -30,6 +31,8 @@ export default function About() {
     currentInterestsLabel: "",
     timelineLabel: "",
   });
+
+  const { theme } = useTheme();
 
   // Fetch timeline data
   const fetchTimelineData = async (language: string) => {
@@ -107,7 +110,7 @@ export default function About() {
   ];
 
   return (
-    <div className="about-main">
+    <div className={`about-main-${theme}`}>
       {/* Sol taraf: Kullandığım Teknolojiler */}
       <div className="about-left">
         <h2>{labels.technologiesLabel}</h2>

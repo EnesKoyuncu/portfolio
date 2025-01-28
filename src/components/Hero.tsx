@@ -1,5 +1,5 @@
 import myImage from "../img/pp2kARE.jpg";
-import "../css/hero.css";
+import "../css/hero.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
@@ -10,6 +10,7 @@ import {
 import { faFile } from "@fortawesome/free-regular-svg-icons";
 import { useState, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext"; // Dil context'i
+import { useTheme } from "../context/ThemeContext";
 
 interface Texts {
   cardLocation: string;
@@ -54,8 +55,9 @@ export default function Hero() {
     fetchTexts(currentLanguage); // Dil değişimini dinle ve metinleri güncelle
   }, [currentLanguage]);
 
+  const { theme } = useTheme();
   return (
-    <div className="hero-main">
+    <div className={`hero-main-${theme}`}>
       <div className="hero-left">
         <div className="hero-left-card">
           <div className="hero-left-card-top">

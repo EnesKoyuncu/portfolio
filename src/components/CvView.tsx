@@ -1,6 +1,7 @@
-import "../css/CvView.css";
+import "../css/cvview.scss";
 import { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import { useTheme } from "../context/ThemeContext";
 
 interface CvTexts {
   title: string;
@@ -11,7 +12,7 @@ export default function CvView() {
   const [cvData, setCvData] = useState<CvTexts | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const { currentLanguage } = useLanguage();
-
+  const { theme } = useTheme();
   const fetchCvTexts = async () => {
     try {
       setLoading(true);
@@ -47,7 +48,7 @@ export default function CvView() {
   }
 
   return (
-    <div className="cv-container">
+    <div className={`cv-container-${theme}`}>
       <div className="cv-pdf">
         <iframe
           src="/pdf/EnesErtugrulKoyuncu-CV-ENG-V2.pdf"
