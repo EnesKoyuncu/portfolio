@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
-import { Typography, Tag, Modal, ConfigProvider, theme } from "antd";
+import { Typography, Tag, Modal, ConfigProvider, theme, Spin } from "antd";
 import { CalendarOutlined, TagOutlined } from "@ant-design/icons";
 import "../css/blog.scss";
 import { useTheme } from "../context/ThemeContext";
@@ -23,20 +23,24 @@ export default function Blog() {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const { currentLanguage } = useLanguage();
   const { theme: currentTheme } = useTheme();
+  const [loading, setLoading] = useState(false);
 
   const fetchBlogs = async (language: string) => {
+    setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/blogs?language=${language}`
+        `${import.meta.env.VITE_API_URL}/api/blogs?language=${language}`
       );
       const data = await response.json();
       if (data.success) {
         setBlogPosts(data.data);
       } else {
-        console.error("Veri bulunamadı:", data.message);
+        console.error("Failed to fetch blogs:", data.message);
       }
     } catch (error) {
-      console.error("Error fetching blog posts:", error);
+      console.error("Error fetching blogs:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,6 +69,22 @@ export default function Blog() {
       colorBorder: currentTheme === "dark" ? "#303030" : "#d9d9d9",
     },
   };
+
+  if (loading) {
+    return (
+      <div
+        className={`blog-container-${currentTheme}`}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <ConfigProvider theme={themeConfig}>

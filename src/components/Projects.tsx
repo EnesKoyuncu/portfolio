@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../css/projects.scss";
 import { useLanguage } from "../context/LanguageContext";
-import { Card, Modal, Carousel, Button, ConfigProvider } from "antd";
+import { Card, Modal, Carousel, Button, ConfigProvider, Spin } from "antd";
 import { ExpandAltOutlined } from "@ant-design/icons";
 import { useTheme } from "../context/ThemeContext";
 
@@ -18,26 +18,29 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { currentLanguage } = useLanguage();
   const { theme } = useTheme();
+  const [loading, setLoading] = useState(false);
 
-  const fetchProjects = async () => {
+  const fetchProjects = async (language: string) => {
+    setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/projects?language=${currentLanguage}`
+        `${import.meta.env.VITE_API_URL}/api/projects?language=${language}`
       );
       const data = await response.json();
       if (data.success) {
-        setProjects(data.data);
+        setProjects(data.projects);
       } else {
-        setProjects([]);
+        console.error("Failed to fetch projects:", data.message);
       }
     } catch (error) {
       console.error("Error fetching projects:", error);
-      setProjects([]);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProjects();
+    fetchProjects(currentLanguage);
   }, [currentLanguage]);
 
   const carouselSettings = {
@@ -52,6 +55,22 @@ export default function Projects() {
     swipeToSlide: true,
     touchThreshold: 10,
   };
+
+  if (loading) {
+    return (
+      <div
+        className={`project-main-${theme}`}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <ConfigProvider

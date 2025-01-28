@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { useTheme } from "../context/ThemeContext";
+import { Spin } from "antd";
 
 interface TimelineEntry {
   date: string;
@@ -26,6 +27,7 @@ export default function About() {
   const [timelineData, setTimelineData] = useState<TimelineEntry[]>([]);
   const [currentInterests, setCurrentInterests] = useState<string[]>([]);
   const { currentLanguage } = useLanguage();
+  const [loading, setLoading] = useState(false);
   const [labels, setLabels] = useState({
     technologiesLabel: "",
     currentInterestsLabel: "",
@@ -36,15 +38,14 @@ export default function About() {
 
   // Fetch timeline data
   const fetchTimelineData = async (language: string) => {
+    setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/about/timeline/about/${language}`
+        `${import.meta.env.VITE_API_URL}/api/about/timeline/about/${language}`
       );
-      const dataTimeline = await response.json();
-      if (dataTimeline.success) {
-        setTimelineData(dataTimeline.data);
-      } else {
-        console.error("Failed to fetch timeline:", dataTimeline.message);
+      const data = await response.json();
+      if (data.success) {
+        setTimelineData(data.timeline);
       }
     } catch (error) {
       console.error("Error fetching timeline data:", error);
@@ -55,7 +56,7 @@ export default function About() {
   const fetchCurrentInterests = async (language: string) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/about/interests/about/${language}`
+        `${import.meta.env.VITE_API_URL}/api/about/interests/about/${language}`
       );
       const data = await response.json();
       if (data.success) {
@@ -71,7 +72,7 @@ export default function About() {
   const fetchLabels = async (language: string) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/about/labels/${language}`
+        `${import.meta.env.VITE_API_URL}/api/about/labels/${language}`
       );
       const data = await response.json();
       console.log("Labels data:", data);
@@ -108,6 +109,22 @@ export default function About() {
     { name: "GraphQL", image: "/img/technologies/DALLE-Graphql-bg.jpg" },
     { name: "Firebase", image: "/img/technologies/DALLE-Firebase-bg.jpg" },
   ];
+
+  if (loading) {
+    return (
+      <div
+        className={`about-main-${theme}`}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className={`about-main-${theme}`}>

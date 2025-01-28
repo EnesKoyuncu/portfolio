@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLanguage } from "../context/LanguageContext"; // Dil Context'i
 import { useTheme } from "../context/ThemeContext";
+import { Spin, message } from "antd";
 
 interface Texts {
   titleLinks: string;
@@ -18,6 +19,8 @@ interface Texts {
   messagePlaceholder: string;
   submitButton: string;
 }
+
+type SubmitStatus = "success" | "error" | "idle";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -33,27 +36,33 @@ export default function Contact() {
     messagePlaceholder: "",
     submitButton: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
 
   const { currentLanguage } = useLanguage(); // Dil bilgisini al
   const { theme } = useTheme();
   const fetchTexts = async (language: string) => {
+    setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/texts/contact/${language}`
+        `${import.meta.env.VITE_API_URL}/api/texts/contact/${language}`
       );
       const data = await response.json();
       if (data.success) {
-        setTexts(data.translations); // Çevirileri state'e ata
+        setTexts(data.translations);
       } else {
-        console.error("Çeviriler bulunamadı:", data.message);
+        console.error("Failed to fetch texts:", data.message);
       }
     } catch (error) {
-      console.error("Çevirileri çekerken hata oluştu:", error);
+      console.error("Error fetching texts:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchTexts(currentLanguage); // Dil değişiminde çevirileri güncelle
+    fetchTexts(currentLanguage);
   }, [currentLanguage]);
 
   const handleInputChange = (
@@ -63,26 +72,63 @@ export default function Contact() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitting(true);
+
     try {
-      const response = await fetch("http://localhost:5000/contact", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
+
       const data = await response.json();
+
       if (data.success) {
-        alert(data.message);
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+        setSubmitStatus("success");
+      } else {
+        setSubmitStatus("error");
       }
     } catch (error) {
-      console.error("Mesaj gönderme hatası:", error);
-      alert("Mesajınız gönderilemedi. Lütfen tekrar deneyin.");
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
+    } finally {
+      setSubmitting(false);
     }
   };
+
+  // Show message based on submit status
+  useEffect(() => {
+    if (submitStatus === "success") {
+      message.success("Message sent successfully!");
+    } else if (submitStatus === "error") {
+      message.error("Failed to send message. Please try again.");
+    }
+  }, [submitStatus]);
+
+  if (loading) {
+    return (
+      <div
+        className={`contact-container-${theme}`}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className={`contact-container-${theme}`}>
@@ -140,6 +186,7 @@ export default function Contact() {
             value={formData.name}
             onChange={handleInputChange}
             required
+            disabled={submitting}
           />
           <input
             type="email"
@@ -148,6 +195,7 @@ export default function Contact() {
             value={formData.email}
             onChange={handleInputChange}
             required
+            disabled={submitting}
           />
           <textarea
             name="message"
@@ -155,8 +203,14 @@ export default function Contact() {
             value={formData.message}
             onChange={handleInputChange}
             required
+            disabled={submitting}
           ></textarea>
-          <button type="submit">{texts.submitButton || "Gönder"}</button>
+          <button type="submit" disabled={submitting}>
+            {submitting ? (
+              <Spin size="small" style={{ marginRight: "8px" }} />
+            ) : null}
+            {texts.submitButton || "Gönder"}
+          </button>
         </form>
       </div>
     </div>
