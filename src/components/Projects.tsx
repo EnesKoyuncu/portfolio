@@ -11,6 +11,8 @@ interface Project {
   description: string;
   images: string[];
   link: string;
+  technologies?: string[];
+  category?: string;
 }
 
 export default function Projects() {
@@ -18,21 +20,29 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { currentLanguage } = useLanguage();
   const { theme } = useTheme();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchProjects = async (language: string) => {
     setLoading(true);
+    setError(null);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/projects?language=${language}`
       );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
+      console.log("Projects response:", data); // Debug log
       if (data.success) {
-        setProjects(data.projects);
+        setProjects(data.data || []);
       } else {
+        setError(data.message || "Failed to fetch projects");
         console.error("Failed to fetch projects:", data.message);
       }
     } catch (error) {
+      setError("Error connecting to server");
       console.error("Error fetching projects:", error);
     } finally {
       setLoading(false);
@@ -68,6 +78,41 @@ export default function Projects() {
         }}
       >
         <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div
+        className={`project-main-${theme}`}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          gap: "1rem",
+        }}
+      >
+        <p>{error}</p>
+        <Button onClick={() => fetchProjects(currentLanguage)}>Retry</Button>
+      </div>
+    );
+  }
+
+  if (!projects || projects.length === 0) {
+    return (
+      <div
+        className={`project-main-${theme}`}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <p>No projects found</p>
       </div>
     );
   }

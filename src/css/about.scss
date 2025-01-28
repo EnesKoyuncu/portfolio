@@ -77,6 +77,10 @@
     justify-content: center;
     row-gap: 30px;
 
+    h2 {
+      color: #fff;
+    }
+
     .vertical-timeline-element--education {
       .vertical-timeline-element-content {
         background: #5e17eb;
@@ -232,6 +236,10 @@
     align-items: center;
     justify-content: center;
     row-gap: 30px;
+
+    h2 {
+      color: rgba(255, 255, 255, 0.85);
+    }
 
     .vertical-timeline-element--education {
       .vertical-timeline-element-content {

@@ -1,4 +1,3 @@
-import myImage from "../img/pp2kARE.jpg";
 import "../css/hero.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -83,7 +82,7 @@ export default function Hero() {
       <div className="hero-left">
         <div className="hero-left-card">
           <div className="hero-left-card-top">
-            <img src={myImage} alt="my-image" />
+            <img src="/img/pp2kARE.jpg" alt="my-image" />
           </div>
           <div className="hero-left-card-bottom">
             <div className="hero-left-card-bottom-name">

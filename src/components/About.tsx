@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { useTheme } from "../context/ThemeContext";
-import { Spin } from "antd";
+import { Spin, Button } from "antd";
 
 interface TimelineEntry {
   date: string;
@@ -27,7 +27,8 @@ export default function About() {
   const [timelineData, setTimelineData] = useState<TimelineEntry[]>([]);
   const [currentInterests, setCurrentInterests] = useState<string[]>([]);
   const { currentLanguage } = useLanguage();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [labels, setLabels] = useState({
     technologiesLabel: "",
     currentInterestsLabel: "",
@@ -38,64 +39,132 @@ export default function About() {
 
   // Fetch timeline data
   const fetchTimelineData = async (language: string) => {
-    setLoading(true);
     try {
-      const response = await fetch(
+      console.log(
+        "Fetching timeline data from:",
         `${import.meta.env.VITE_API_URL}/api/about/timeline/about/${language}`
       );
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/about/timeline/about/${language}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
+      console.log("Timeline response:", data);
       if (data.success) {
-        setTimelineData(data.timeline);
+        setTimelineData(data.data || []);
+      } else {
+        throw new Error(data.message || "Failed to fetch timeline data");
       }
     } catch (error) {
       console.error("Error fetching timeline data:", error);
+      setError(
+        error instanceof Error ? error.message : "Error fetching timeline data"
+      );
     }
   };
 
   // Fetch current interests
   const fetchCurrentInterests = async (language: string) => {
     try {
-      const response = await fetch(
+      console.log(
+        "Fetching interests from:",
         `${import.meta.env.VITE_API_URL}/api/about/interests/about/${language}`
       );
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/about/interests/about/${language}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
-      if (data.success) {
+      console.log("Interests response:", data);
+      if (data.success && data.data && Array.isArray(data.data.interests)) {
         setCurrentInterests(data.data.interests);
       } else {
-        console.error("Failed to fetch interests:", data.message);
+        console.error("Invalid interests data structure:", data);
+        setCurrentInterests([]);
       }
     } catch (error) {
       console.error("Error fetching interests:", error);
+      setError(
+        error instanceof Error ? error.message : "Error fetching interests"
+      );
+      setCurrentInterests([]);
     }
   };
 
   const fetchLabels = async (language: string) => {
     try {
-      const response = await fetch(
+      console.log(
+        "Fetching labels from:",
         `${import.meta.env.VITE_API_URL}/api/about/labels/${language}`
       );
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/about/labels/${language}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
-      console.log("Labels data:", data);
+      console.log("Labels response:", data);
       if (data.success) {
-        setLabels(data.labels); // Gelen başlıkları state'e kaydediyoruz
-        console.log("Labels anlık:", labels);
+        setLabels(
+          data.labels || {
+            technologiesLabel: "Technologies",
+            currentInterestsLabel: "What I'm Currently Interested In",
+            timelineLabel: "Timeline",
+          }
+        );
       } else {
-        console.error("Failed to fetch labels:", data.message);
+        throw new Error(data.message || "Failed to fetch labels");
       }
     } catch (error) {
       console.error("Error fetching labels:", error);
+      setError(
+        error instanceof Error ? error.message : "Error fetching labels"
+      );
     }
   };
 
   // Dil değiştiğinde veri çek
   useEffect(() => {
     const fetchData = async () => {
-      await fetchTimelineData(currentLanguage); // Timeline verisini al
-      await fetchCurrentInterests(currentLanguage); // İlgi alanlarını al
-      await fetchLabels(currentLanguage); // Başlıkları al
+      setLoading(true);
+      setError(null);
+      try {
+        await Promise.all([
+          fetchTimelineData(currentLanguage),
+          fetchCurrentInterests(currentLanguage),
+          fetchLabels(currentLanguage),
+        ]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
-  }, [currentLanguage]); //
+  }, [currentLanguage]);
 
   const technologies = [
     { name: "React.js", image: "/img/technologies/DALLE-React-bg.jpg" },
@@ -126,13 +195,44 @@ export default function About() {
     );
   }
 
+  if (error) {
+    return (
+      <div
+        className={`about-main-${theme}`}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          gap: "1rem",
+        }}
+      >
+        <p>{error}</p>
+        <Button
+          onClick={() => {
+            setLoading(true);
+            setError(null);
+            Promise.all([
+              fetchTimelineData(currentLanguage),
+              fetchCurrentInterests(currentLanguage),
+              fetchLabels(currentLanguage),
+            ]).finally(() => setLoading(false));
+          }}
+        >
+          Retry
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className={`about-main-${theme}`}>
       {/* Sol taraf: Kullandığım Teknolojiler */}
       <div className="about-left">
         <h2>{labels.technologiesLabel}</h2>
         <div className="tech-stack-grid">
-          {technologies.map((tech, index) => (
+          {technologies?.map((tech, index) => (
             <Tilt
               key={index}
               tiltMaxAngleX={15}
@@ -159,7 +259,7 @@ export default function About() {
       <div className="about-right">
         <h2>{labels.timelineLabel}</h2>
         <VerticalTimeline>
-          {timelineData.map((entry, index) => (
+          {timelineData?.map((entry, index) => (
             <VerticalTimelineElement
               key={index}
               className={
@@ -189,7 +289,7 @@ export default function About() {
         <div className="current-interests">
           <h2>{labels.currentInterestsLabel}</h2>
           <ul>
-            {currentInterests.map((interest, index) => (
+            {currentInterests?.map((interest, index) => (
               <li key={index}>{interest}</li>
             ))}
           </ul>

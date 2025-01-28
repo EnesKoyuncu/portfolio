@@ -1,6 +1,7 @@
 @font-face {
   font-family: "Merriweather";
-  src: url("./fonts/Merriweather/Merriweather-Regular.ttf") format("truetype");
+  src: url("/fonts/MerriweatherSans/MerriweatherSans-Regular.ttf")
+    format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -18,7 +19,7 @@
 
 .light {
   background: {
-    image: url("./img/bgLight.jpg");
+    image: url("/img/bgLight.jpg");
     size: cover;
     position: center;
     repeat: no-repeat;
@@ -28,7 +29,7 @@
 
 .dark {
   background: {
-    image: url("./img/bgDark2.jpg");
+    image: url("/img/bgDark2.jpg");
     size: cover;
     position: center;
     repeat: no-repeat;
