@@ -42,7 +42,7 @@ export default function Header() {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/texts/header/${language}`
+        `${import.meta.env.VITE_API_URL}/api/texts/header/${language}`
       );
       const data = await response.json();
       if (data.success) {
