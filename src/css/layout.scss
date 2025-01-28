@@ -17,17 +17,21 @@
 }
 
 .light {
-  background-image: url("./img/bgLight.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: {
+    image: url("./img/bgLight.jpg");
+    size: cover;
+    position: center;
+    repeat: no-repeat;
+    attachment: fixed;
+  }
 }
 
 .dark {
-  background-image: url("./img/bgDark2.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: {
+    image: url("./img/bgDark2.jpg");
+    size: cover;
+    position: center;
+    repeat: no-repeat;
+    attachment: fixed;
+  }
 }

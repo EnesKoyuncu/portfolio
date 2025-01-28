@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../css/layout.css";
+import "../css/layout.scss";
 import { useTheme } from "../context/ThemeContext";
 
 // Props tipini tanımlıyoruz

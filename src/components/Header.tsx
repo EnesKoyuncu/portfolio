@@ -144,8 +144,8 @@ export default function Header() {
           <div className="mobile-theme-toggle">
             <button
               className="theme-toggle"
-              onClick={() => {
-                toggleTheme();
+              onClick={(e) => {
+                toggleTheme(e);
                 toggleMenu();
               }}
               aria-label="Toggle theme"
