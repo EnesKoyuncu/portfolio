@@ -1,80 +1,111 @@
 .project-main-light {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
-  padding: 30px;
+  padding: 20px;
   background-color: rgba(249, 249, 249, 0.15);
-  width: 90%;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   min-height: calc(100vh - 140px);
   height: auto;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 15px;
+    width: 100%;
+  }
 
   /* Ant Design override styles */
   .ant-card {
-    height: 320px !important;
     background: rgba(255, 255, 255, 0.95);
-    display: flex;
-    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
 
     .ant-card-cover {
-      height: 160px !important;
-      overflow: hidden;
-
       img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover img {
+        transform: scale(1.05);
       }
     }
 
     .ant-card-body {
-      height: 120px !important;
       padding: 16px;
-      display: flex;
-      flex-direction: column;
     }
 
-    .ant-card-meta {
-      height: 100%;
-      display: flex !important;
-      flex-direction: column;
+    .ant-card-meta-title {
+      font-size: 1.1rem;
+      margin-bottom: 8px !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: rgba(0, 0, 0, 0.85);
+    }
 
-      .ant-card-meta-title {
-        font-size: 1.1rem;
-        margin-bottom: 8px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .ant-card-meta-description {
-        font-size: 0.9rem;
-        line-height: 1.4;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
+    .ant-card-meta-description {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      color: rgba(0, 0, 0, 0.45);
     }
 
     .ant-card-actions {
-      height: 40px !important;
       border-top: none;
       background: transparent;
       margin: 0 !important;
-      padding: 0 16px;
-
-      > li {
-        margin: 0 !important;
-      }
+      padding: 0 16px 16px;
 
       button {
-        padding: 4px 0;
+        color: #1890ff;
+        &:hover {
+          color: #40a9ff;
+        }
       }
     }
   }
 
-  .ant-modal-content {
-    background: rgba(255, 255, 255, 0.98);
+  /* Modal styles */
+  .ant-modal {
+    .ant-modal-content {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+
+      @media (max-width: 768px) {
+        border-radius: 8px;
+      }
+    }
+
+    .ant-modal-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #f0f0f0;
+      background: #ffffff;
+    }
+
+    .ant-modal-body {
+      padding: 20px;
+      background: #ffffff;
+      color: rgba(0, 0, 0, 0.85);
+
+      @media (max-width: 768px) {
+        padding: 16px;
+      }
+    }
+
+    .ant-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #f0f0f0;
+      background: #ffffff;
+    }
   }
 
   .project-card {
@@ -213,6 +244,7 @@
     img {
       user-select: none;
       -webkit-user-drag: none;
+      border-radius: 8px;
     }
   }
 
@@ -220,23 +252,18 @@
     pointer-events: auto !important; /* Sürükleme için gerekli */
   }
 
-  /* Responsive düzenlemeler */
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-
   /* Slider kontrolleri */
   .slick-dots {
-    bottom: 10px;
+    bottom: -25px;
 
-    li button:before {
-      color: #fff;
-      opacity: 0.7;
-    }
+    li {
+      button {
+        background: #1890ff;
+      }
 
-    li.slick-active button:before {
-      color: #5e17eb;
-      opacity: 1;
+      &.slick-active button {
+        background: #096dd9;
+      }
     }
   }
 
@@ -265,85 +292,112 @@
 
 .project-main-dark {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
-  padding: 30px;
+  padding: 20px;
   background-color: rgba(20, 20, 20, 0.95); /* Daha koyu bir arka plan */
-  width: 90%;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   min-height: calc(100vh - 140px);
   height: auto;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 15px;
+    width: 100%;
+  }
 
   /* Ant Design override styles */
   .ant-card {
-    height: 320px !important;
-    background: #1f1f1f !important; /* Karanlık tema kart arka planı */
-    color: #f5f5f5 !important; /* Yazı rengi */
-    display: flex;
-    flex-direction: column;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
 
     .ant-card-cover {
-      height: 160px !important;
-      overflow: hidden;
-
       img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover img {
+        transform: scale(1.05);
       }
     }
 
     .ant-card-body {
-      height: 120px !important;
       padding: 16px;
-      display: flex;
-      flex-direction: column;
     }
 
-    .ant-card-meta {
-      height: 100%;
-      display: flex !important;
-      flex-direction: column;
+    .ant-card-meta-title {
+      font-size: 1.1rem;
+      margin-bottom: 8px !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: rgba(255, 255, 255, 0.85);
+    }
 
-      .ant-card-meta-title {
-        font-size: 1.1rem;
-        margin-bottom: 8px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: #e8e8e8 !important; /* Başlık rengi */
-      }
-
-      .ant-card-meta-description {
-        font-size: 0.9rem;
-        line-height: 1.4;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        color: #bfbfbf !important; /* Açıklama rengi */
-      }
+    .ant-card-meta-description {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      color: rgba(255, 255, 255, 0.45);
     }
 
     .ant-card-actions {
-      height: 40px !important;
       border-top: none;
       background: transparent;
       margin: 0 !important;
-      padding: 0 16px;
-
-      > li {
-        margin: 0 !important;
-      }
+      padding: 0 16px 16px;
 
       button {
-        padding: 4px 0;
+        color: #177ddc;
+        &:hover {
+          color: #1890ff;
+        }
       }
     }
   }
 
-  .ant-modal-content {
-    background: #1f1f1f !important; /* Modal arka planı */
-    color: #f5f5f5 !important; /* Modal içeriği yazı rengi */
+  /* Modal styles */
+  .ant-modal {
+    .ant-modal-content {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #141414;
+
+      @media (max-width: 768px) {
+        border-radius: 8px;
+      }
+    }
+
+    .ant-modal-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #303030;
+      background: #141414;
+    }
+
+    .ant-modal-body {
+      padding: 20px;
+      background: #141414;
+      color: rgba(255, 255, 255, 0.85);
+
+      @media (max-width: 768px) {
+        padding: 16px;
+      }
+    }
+
+    .ant-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #303030;
+      background: #141414;
+    }
   }
 
   .ant-btn-primary {
@@ -396,17 +450,24 @@
     img {
       user-select: none;
       -webkit-user-drag: none;
+      border-radius: 8px;
     }
   }
 
-  .ant-carousel .slick-dots li button:before {
-    color: #ffffff !important; /* Carousel noktaları rengi */
-    opacity: 0.7 !important;
-  }
+  .ant-carousel {
+    .slick-dots {
+      bottom: -25px;
 
-  .ant-carousel .slick-dots li.slick-active button:before {
-    color: #1890ff !important; /* Aktif nokta rengi */
-    opacity: 1 !important;
+      li {
+        button {
+          background: #177ddc;
+        }
+
+        &.slick-active button {
+          background: #1890ff;
+        }
+      }
+    }
   }
 
   .slick-prev,

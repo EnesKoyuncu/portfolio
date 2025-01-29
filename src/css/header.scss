@@ -164,8 +164,8 @@
       display: block;
       padding: 15px;
       font-size: 1.2rem;
-      color: #333;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       text-align: center;
 
       &:hover {
@@ -183,8 +183,8 @@
 
       button {
         background: transparent;
-        border: 2px solid #333;
-        color: #333;
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        color: rgba(255, 255, 255, 0.9);
         padding: 8px 15px;
         border-radius: 20px;
         cursor: pointer;
@@ -211,7 +211,7 @@
       gap: 1.5rem;
       margin-top: 2rem;
       padding: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
 
       .mobile-theme-toggle {
         display: flex;
@@ -222,8 +222,8 @@
           align-items: center;
           gap: 1rem;
           background: transparent;
-          border: 2px solid rgba(255, 255, 255, 0.603);
-          color: rgba(255, 255, 255, 0.7);
+          border: 2px solid rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.9);
           padding: 10px 20px;
           border-radius: 20px;
           cursor: pointer;
@@ -241,7 +241,8 @@
 
           &:hover {
             background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 1);
+            color: white;
+            border-color: white;
           }
         }
       }
@@ -254,8 +255,8 @@
 
         button {
           background: transparent;
-          border: 2px solid #333;
-          color: #333;
+          border: 2px solid rgba(255, 255, 255, 0.9);
+          color: rgba(255, 255, 255, 0.9);
           padding: 8px 15px;
           border-radius: 20px;
           cursor: pointer;

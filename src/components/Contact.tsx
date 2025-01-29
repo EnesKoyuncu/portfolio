@@ -142,7 +142,7 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon icon={faGithub} /> GitHub
+              <FontAwesomeIcon icon={faGithub} /> EnesKoyuncu
             </a>
           </li>
           <li>
@@ -151,7 +151,7 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon icon={faLinkedin} /> LinkedIn
+              <FontAwesomeIcon icon={faLinkedin} /> eneskoyuncu5
             </a>
           </li>
           <li>

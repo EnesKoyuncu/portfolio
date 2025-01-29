@@ -10,12 +10,23 @@
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
+  @media (max-width: 768px) {
+    width: 95%;
+    padding: 20px;
+    flex-direction: column;
+  }
+
   .contact-links {
     width: 35%;
-    background: #ffffff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
     h2 {
       font-size: 2rem;
@@ -23,6 +34,14 @@
       margin-bottom: 20px;
       border-bottom: 1px solid #4480b8;
       padding-bottom: 1rem;
+      word-wrap: break-word;
+      hyphens: auto;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        padding-bottom: 0.5rem;
+        margin-bottom: 15px;
+      }
     }
 
     ul {
@@ -33,25 +52,40 @@
       flex-direction: column;
       row-gap: 15px;
 
+      @media (max-width: 768px) {
+        margin-top: 20px;
+        row-gap: 10px;
+      }
+
       li {
         margin-bottom: 20px;
+
+        @media (max-width: 768px) {
+          margin-bottom: 10px;
+        }
       }
 
       a {
         text-decoration: none;
-        color: #333;
         font-size: 1.4rem;
         display: flex;
         align-items: center;
         transition: color 0.3s ease-in-out;
+        word-break: break-all;
 
-        &:hover {
-          color: #5e17eb;
+        @media (max-width: 768px) {
+          font-size: 1.1rem;
         }
 
         svg {
           margin-right: 12px;
           font-size: 1.5rem;
+          flex-shrink: 0;
+
+          @media (max-width: 768px) {
+            font-size: 1.2rem;
+            margin-right: 8px;
+          }
         }
       }
     }
@@ -59,15 +93,29 @@
 
   .contact-form {
     width: 60%;
-    background: #ffffff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 20px;
+    }
 
     h2 {
       font-size: 2rem;
       color: #4480b8;
       margin-bottom: 20px;
+      border-bottom: 1px solid #4480b8;
+      padding-bottom: 1rem;
+      word-wrap: break-word;
+      hyphens: auto;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        padding-bottom: 0.5rem;
+        margin-bottom: 15px;
+      }
     }
 
     form {
@@ -81,6 +129,12 @@
         font-size: 1.2rem;
         border: 1px solid #ccc;
         border-radius: 8px;
+
+        @media (max-width: 768px) {
+          font-size: 1rem;
+          padding: 10px;
+          margin-bottom: 15px;
+        }
       }
 
       button {
@@ -93,20 +147,15 @@
         cursor: pointer;
         transition: background-color 0.3s ease-in-out;
 
+        @media (max-width: 768px) {
+          font-size: 1rem;
+          padding: 10px 20px;
+        }
+
         &:hover {
           background-color: #0d508f;
         }
       }
-    }
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-
-    .contact-links,
-    .contact-form {
-      width: 100%;
-      margin-bottom: 20px;
     }
   }
 }
@@ -123,12 +172,23 @@
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
+  @media (max-width: 768px) {
+    width: 95%;
+    padding: 20px;
+    flex-direction: column;
+  }
+
   .contact-links {
     width: 35%;
-    background: rgba(249, 249, 249, 0.1);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
     h2 {
       font-size: 2rem;
@@ -136,6 +196,14 @@
       margin-bottom: 20px;
       border-bottom: 1px solid #4480b8;
       padding-bottom: 1rem;
+      word-wrap: break-word;
+      hyphens: auto;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        padding-bottom: 0.5rem;
+        margin-bottom: 15px;
+      }
     }
 
     ul {
@@ -146,25 +214,40 @@
       flex-direction: column;
       row-gap: 15px;
 
+      @media (max-width: 768px) {
+        margin-top: 20px;
+        row-gap: 10px;
+      }
+
       li {
         margin-bottom: 20px;
+
+        @media (max-width: 768px) {
+          margin-bottom: 10px;
+        }
       }
 
       a {
         text-decoration: none;
-        color: rgba(255, 255, 255, 0.85);
         font-size: 1.4rem;
         display: flex;
         align-items: center;
         transition: color 0.3s ease-in-out;
+        word-break: break-all;
 
-        &:hover {
-          color: #5e17eb;
+        @media (max-width: 768px) {
+          font-size: 1.1rem;
         }
 
         svg {
           margin-right: 12px;
           font-size: 1.5rem;
+          flex-shrink: 0;
+
+          @media (max-width: 768px) {
+            font-size: 1.2rem;
+            margin-right: 8px;
+          }
         }
       }
     }
@@ -172,10 +255,14 @@
 
   .contact-form {
     width: 60%;
-    background: rgba(249, 249, 249, 0.1);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 20px;
+    }
 
     h2 {
       font-size: 2rem;
@@ -183,6 +270,14 @@
       margin-bottom: 20px;
       border-bottom: 1px solid #4480b8;
       padding-bottom: 1rem;
+      word-wrap: break-word;
+      hyphens: auto;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        padding-bottom: 0.5rem;
+        margin-bottom: 15px;
+      }
     }
 
     form {
@@ -196,6 +291,12 @@
         font-size: 1.2rem;
         border: 1px solid #ccc;
         border-radius: 8px;
+
+        @media (max-width: 768px) {
+          font-size: 1rem;
+          padding: 10px;
+          margin-bottom: 15px;
+        }
       }
 
       button {
@@ -208,20 +309,47 @@
         cursor: pointer;
         transition: background-color 0.3s ease-in-out;
 
+        @media (max-width: 768px) {
+          font-size: 1rem;
+          padding: 10px 20px;
+        }
+
         &:hover {
           background-color: #0d508f;
         }
       }
     }
   }
+}
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+.contact-container-light {
+  background: rgba(249, 249, 249, 0.25);
 
-    .contact-links,
-    .contact-form {
-      width: 100%;
-      margin-bottom: 20px;
+  .contact-links {
+    background: #ffffff;
+
+    a {
+      color: #333;
     }
+  }
+
+  .contact-form {
+    background: #ffffff;
+  }
+}
+
+.contact-container-dark {
+  background: transparent;
+
+  .contact-links {
+    background: rgba(249, 249, 249, 0.1);
+
+    a {
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  .contact-form {
+    background: rgba(249, 249, 249, 0.1);
   }
 }

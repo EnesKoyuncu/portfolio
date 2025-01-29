@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
 import "../css/projects.scss";
 import { useLanguage } from "../context/LanguageContext";
-import { Card, Modal, Carousel, Button, ConfigProvider, Spin } from "antd";
+import {
+  Card,
+  Modal,
+  Carousel,
+  Button,
+  ConfigProvider,
+  Spin,
+  Row,
+  Col,
+} from "antd";
 import { ExpandAltOutlined } from "@ant-design/icons";
 import { useTheme } from "../context/ThemeContext";
 
@@ -121,34 +130,54 @@ export default function Projects() {
     <ConfigProvider
       theme={{
         token: {
-          colorBgBase: theme === "dark" ? "#141414" : "#ffffff", // Karanlık ve açık mod arka planı
-          colorTextBase: theme === "dark" ? "#f5f5f5" : "#000000", // Yazı rengi
-          colorBorder: theme === "dark" ? "#303030" : "#d9d9d9", // Çerçeve rengi
+          colorBgBase: theme === "dark" ? "#141414" : "#ffffff",
+          colorTextBase: theme === "dark" ? "#f5f5f5" : "#000000",
+          colorBorder: theme === "dark" ? "#303030" : "#d9d9d9",
         },
       }}
     >
       <div className={`project-main-${theme}`}>
-        {projects.map((project) => (
-          <Card
-            key={project.id}
-            hoverable
-            cover={<img alt={project.title} src={project.images[0]} />}
-            actions={[
-              <Button
-                type="link"
-                icon={<ExpandAltOutlined />}
-                onClick={() => setSelectedProject(project)}
+        <Row gutter={[16, 16]} style={{ margin: 0, width: "100%" }}>
+          {projects.map((project) => (
+            <Col xs={24} sm={24} md={12} lg={8} xl={8} key={project.id}>
+              <Card
+                hoverable
+                cover={
+                  <div style={{ height: "200px", overflow: "hidden" }}>
+                    <img
+                      alt={project.title}
+                      src={project.images[0]}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                }
+                actions={[
+                  <Button
+                    type="link"
+                    icon={<ExpandAltOutlined />}
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    View Details
+                  </Button>,
+                ]}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  margin: "0 auto",
+                }}
               >
-                View Details
-              </Button>,
-            ]}
-          >
-            <Card.Meta
-              title={project.title}
-              description={project.description.substring(0, 100) + "..."}
-            />
-          </Card>
-        ))}
+                <Card.Meta
+                  title={project.title}
+                  description={project.description.substring(0, 100) + "..."}
+                />
+              </Card>
+            </Col>
+          ))}
+        </Row>
 
         <Modal
           title={selectedProject?.title}
@@ -164,20 +193,40 @@ export default function Projects() {
               View Project
             </Button>,
           ]}
-          width={1000}
+          width="95%"
+          style={{
+            maxWidth: "1000px",
+            margin: "0 auto",
+            padding: "10px",
+          }}
         >
-          <Carousel {...carouselSettings}>
-            {selectedProject?.images.map((image, index) => (
-              <div key={index} className="carousel-slide">
-                <img
-                  src={image}
-                  alt={`${selectedProject.title} - ${index + 1}`}
-                  style={{ width: "100%", height: "400px", objectFit: "cover" }}
-                />
-              </div>
-            ))}
-          </Carousel>
-          <p style={{ marginTop: "20px" }}>{selectedProject?.description}</p>
+          <div style={{ width: "100%", margin: "0 auto" }}>
+            <Carousel {...carouselSettings}>
+              {selectedProject?.images.map((image, index) => (
+                <div key={index} className="carousel-slide">
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "300px",
+                      overflow: "hidden",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt={`${selectedProject.title} - ${index + 1}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </Carousel>
+            <p style={{ marginTop: "20px" }}>{selectedProject?.description}</p>
+          </div>
         </Modal>
       </div>
     </ConfigProvider>

@@ -24,6 +24,13 @@
       text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
       border-bottom: 1px solid #4480b8;
       padding: 0.5rem;
+      word-wrap: break-word;
+      hyphens: auto;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        padding: 0.3rem;
+      }
     }
   }
 
@@ -112,6 +119,8 @@
     .vertical-timeline-element-date {
       font-size: 0.85rem;
       color: white;
+      padding: 8px;
+      margin: 2px;
     }
 
     .current-interests {
@@ -147,14 +156,25 @@
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    padding: 1rem;
 
     .about-left,
     .about-right {
-      width: 90%;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .about-left {
+      padding: 20px;
     }
 
     .current-interests {
-      width: 90%;
+      width: 100%;
+    }
+
+    .tech-stack-grid {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
     }
   }
 }
@@ -184,6 +204,13 @@
       text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
       border-bottom: 1px solid #4480b8;
       padding: 0.5rem;
+      word-wrap: break-word;
+      hyphens: auto;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        padding: 0.3rem;
+      }
     }
   }
 
@@ -272,6 +299,8 @@
     .vertical-timeline-element-date {
       font-size: 0.85rem;
       color: white;
+      padding: 8px;
+      margin: 2px;
     }
 
     .current-interests {
@@ -307,14 +336,25 @@
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    padding: 1rem;
 
     .about-left,
     .about-right {
-      width: 90%;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .about-left {
+      padding: 20px;
     }
 
     .current-interests {
-      width: 90%;
+      width: 100%;
+    }
+
+    .tech-stack-grid {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
     }
   }
 }
