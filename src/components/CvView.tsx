@@ -51,7 +51,7 @@ export default function CvView() {
     <div className={`cv-container-${theme}`}>
       <div className="cv-pdf">
         <iframe
-          src="/pdf/EnesErtugrulKoyuncu-CV-ENG-V2.pdf"
+          src="/pdf/EnesErtugrulKoyuncu-CV-ENG-V3.pdf"
           width="100%"
           height="100%"
           title="CV"
