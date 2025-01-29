@@ -2,13 +2,13 @@
 
 This is a modern, responsive portfolio website built with React and TypeScript. The website features a dark/light theme toggle, multi-language support, and various sections to showcase projects, skills, and contact information.
 
-![Portfolio Preview](public/img/portfolio-preview.png)
+[Portfolio Preview](https://eneskoyuncu.com)
 
 ## 🌟 Features
 
 - **Responsive Design**: Fully responsive layout that works on all devices
 - **Dark/Light Theme**: Toggle between dark and light modes
-- **Multi-language Support**: Currently supports Turkish and English
+- **Multi-language Support**: Currently supports Turkish, English and German
 - **Dynamic Content**: Content is fetched from an API for easy updates
 - **Modern UI**: Built with modern design principles and animations
 - **Project Showcase**: Dynamic project cards with detailed information
@@ -26,6 +26,8 @@ This is a modern, responsive portfolio website built with React and TypeScript. 
   - SCSS
   - Ant Design
   - FontAwesome Icons
+  - React-Tilt
+  - Framer Motion
 
 - **State Management**:
 
@@ -123,6 +125,7 @@ Currently supports:
 
 - Turkish (tr)
 - English (en)
+- German (de)
 
 Language preferences are stored in local storage.
 
