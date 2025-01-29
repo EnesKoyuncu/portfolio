@@ -6,6 +6,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .layout-main {
   display: flex;
   flex-direction: column;
@@ -14,7 +21,7 @@
   min-height: 100vh;
   row-gap: 20px;
   width: 100%;
-  font-family: "Merriweather", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .light {
