@@ -1,4 +1,8 @@
 import "../css/about.scss";
+import { useEffect, useState } from "react";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTheme } from "../hooks/useTheme";
+
 import Tilt from "react-parallax-tilt";
 import {
   VerticalTimeline,
@@ -10,9 +14,6 @@ import {
   faGraduationCap,
   faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
-import { useTheme } from "../context/ThemeContext";
 import { Spin, Button } from "antd";
 
 interface TimelineEntry {
@@ -167,16 +168,16 @@ export default function About() {
   }, [currentLanguage]);
 
   const technologies = [
-    { name: "React.js", image: "/img/technologies/DALLE-React-bg.jpg" },
-    { name: "Next.js", image: "/img/technologies/DALLE-Next-bg.jpg" },
-    { name: "Node.js", image: "/img/technologies/DALLE-Node-bg1.jpg" },
-    { name: "Python", image: "/img/technologies/DALLE-Python-bg1.jpg" },
-    { name: "Tailwind CSS", image: "/img/technologies/DALLE-Tailwind-bg.jpg" },
-    { name: "Git & GitHub", image: "/img/technologies/DALLE-Github-bg.jpg" },
-    { name: "Docker", image: "/img/technologies/DALLE-Docker-bg.jpg" },
-    { name: "MongoDB", image: "/img/technologies/DALLE-Mongo-bg.jpg" },
-    { name: "GraphQL", image: "/img/technologies/DALLE-Graphql-bg.jpg" },
-    { name: "Firebase", image: "/img/technologies/DALLE-Firebase-bg.jpg" },
+    { name: "React.js", image: "/img/technologies/DALLE-React-bg.webp" },
+    { name: "Next.js", image: "/img/technologies/DALLE-Next-bg.webp" },
+    { name: "Node.js", image: "/img/technologies/DALLE-Node-bg1.webp" },
+    { name: "Python", image: "/img/technologies/DALLE-Python-bg1.webp" },
+    { name: "Tailwind CSS", image: "/img/technologies/DALLE-Tailwind-bg.webp" },
+    { name: "Git & GitHub", image: "/img/technologies/DALLE-Github-bg.webp" },
+    { name: "Docker", image: "/img/technologies/DALLE-Docker-bg.webp" },
+    { name: "MongoDB", image: "/img/technologies/DALLE-Mongo-bg.webp" },
+    { name: "GraphQL", image: "/img/technologies/DALLE-Graphql-bg.webp" },
+    { name: "Firebase", image: "/img/technologies/DALLE-Firebase-bg.webp" },
   ];
 
   if (loading) {

@@ -3,13 +3,14 @@ import "../css/contact.scss";
 import {
   faGithub,
   faLinkedin,
-  faDiscord,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLanguage } from "../context/LanguageContext"; // Dil Context'i
-import { useTheme } from "../context/ThemeContext";
+
+import { useLanguage } from "../hooks/useLanguage"; // Dil Context'i
+import { useTheme } from "../hooks/useTheme"; // Tema Context'i
 import { Spin, message } from "antd";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 interface Texts {
   titleLinks: string;
@@ -42,6 +43,7 @@ export default function Contact() {
 
   const { currentLanguage } = useLanguage(); // Dil bilgisini al
   const { theme } = useTheme();
+
   const fetchTexts = async (language: string) => {
     setLoading(true);
     try {
@@ -156,11 +158,11 @@ export default function Contact() {
           </li>
           <li>
             <a
-              href="https://discord.com/"
+              href="mailto:enes.koyuncu5507@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon icon={faDiscord} /> nsk
+              <FontAwesomeIcon icon={faEnvelope} /> enes.koyuncu5507@gmail.com
             </a>
           </li>
           <li>

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
+import { useLanguage } from "../hooks/useLanguage";
 import "../css/header.scss";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import { useTheme } from "../context/ThemeContext";
+import NSKLogo from "../assets/img/file.webp";
+import { useTheme } from "../hooks/useTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSun,
@@ -91,7 +92,7 @@ export default function Header() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <img src="/img/file.jpeg" alt="nsk logo" />
+        <img src={NSKLogo} alt="nsk logo" />
       </motion.div>
 
       <motion.div

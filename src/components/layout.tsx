@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/layout.scss";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../hooks/useTheme";
 
 // Props tipini tanımlıyoruz
 interface LayoutProps {

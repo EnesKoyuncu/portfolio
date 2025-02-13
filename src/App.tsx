@@ -4,8 +4,9 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import { LanguageProvider } from "./context/LanguageContext"; // Context sağlayıcıyı ekledik
-import { ThemeProvider } from "./context/ThemeContext";
+
+import { LanguageProvider } from "./context/LanguageProvider";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 import "./App.css";
 
@@ -19,7 +20,7 @@ import About from "./components/About";
 import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 import { AnimatePresence, motion } from "framer-motion";
-
+import { HelmetProvider } from "react-helmet-async";
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -134,16 +135,18 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <LanguageProvider>
-      <ThemeProvider>
-        <Router>
-          <Layout>
-            <Header />
-            <AnimatedRoutes />
-          </Layout>
-        </Router>
-      </ThemeProvider>
-    </LanguageProvider>
+    <HelmetProvider>
+      <LanguageProvider>
+        <ThemeProvider>
+          <Router>
+            <Layout>
+              <Header />
+              <AnimatedRoutes />
+            </Layout>
+          </Router>
+        </ThemeProvider>
+      </LanguageProvider>
+    </HelmetProvider>
   );
 }
 

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
-import { Typography, Tag, Modal, ConfigProvider, theme, Spin } from "antd";
-import { CalendarOutlined, TagOutlined } from "@ant-design/icons";
+
 import "../css/blog.scss";
-import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTheme } from "../hooks/useTheme";
+
+import { CalendarOutlined, TagOutlined } from "@ant-design/icons";
+import { Typography, Tag, Modal, ConfigProvider, theme, Spin } from "antd";
 
 const { Title, Paragraph, Text } = Typography;
 const { darkAlgorithm, defaultAlgorithm } = theme;

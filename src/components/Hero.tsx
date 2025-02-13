@@ -6,10 +6,12 @@ import {
   faMedium,
 } from "@fortawesome/free-brands-svg-icons";
 
+import MyProfilePhoto from "../assets/img/pp2kARE.webp";
+
 import { faFile } from "@fortawesome/free-regular-svg-icons";
 import { useState, useEffect } from "react";
-import { useLanguage } from "../context/LanguageContext"; // Dil context'i
-import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../hooks/useLanguage"; // Dil context'i
+import { useTheme } from "../hooks/useTheme";
 import { Spin } from "antd";
 
 interface Texts {
@@ -82,7 +84,7 @@ export default function Hero() {
       <div className="hero-left">
         <div className="hero-left-card">
           <div className="hero-left-card-top">
-            <img src="/img/pp2kARE.jpg" alt="my-image" />
+            <img src={MyProfilePhoto} alt="my-image" />
           </div>
           <div className="hero-left-card-bottom">
             <div className="hero-left-card-bottom-name">

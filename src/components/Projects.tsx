@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+
 import "../css/projects.scss";
-import { useLanguage } from "../context/LanguageContext";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTheme } from "../hooks/useTheme";
+
 import {
   Card,
   Modal,
@@ -12,7 +15,6 @@ import {
   Col,
 } from "antd";
 import { ExpandAltOutlined } from "@ant-design/icons";
-import { useTheme } from "../context/ThemeContext";
 
 interface Project {
   id: string;

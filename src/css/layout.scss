@@ -26,7 +26,7 @@
 
 .light {
   background: {
-    image: url("/img/bgLight.jpg");
+    image: url("../assets/img/bgLight.webp");
     size: cover;
     position: center;
     repeat: no-repeat;
@@ -36,7 +36,7 @@
 
 .dark {
   background: {
-    image: url("/img/bgDark2.jpg");
+    image: url("../assets/img/bgDark2.webp");
     size: cover;
     position: center;
     repeat: no-repeat;
