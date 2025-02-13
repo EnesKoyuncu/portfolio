@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "../css/projects.scss";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTheme } from "../hooks/useTheme";
+import SEO from "./SEO";
 
 import {
   Card,
@@ -139,6 +140,12 @@ export default function Projects() {
       }}
     >
       <div className={`project-main-${theme}`}>
+        <SEO
+          title="Projects - Enes Ertuğru Koyuncu"
+          description="Projects I have worked on"
+          url="https://eneskoyuncu.com/projects"
+          image="/img/pp2kARE.webp"
+        />
         <Row gutter={[16, 16]} style={{ margin: 0, width: "100%" }}>
           {projects.map((project) => (
             <Col xs={24} sm={24} md={12} lg={8} xl={8} key={project.id}>

@@ -2,6 +2,7 @@ import "../css/about.scss";
 import { useEffect, useState } from "react";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTheme } from "../hooks/useTheme";
+import SEO from "./SEO";
 
 import Tilt from "react-parallax-tilt";
 import {
@@ -229,6 +230,12 @@ export default function About() {
 
   return (
     <div className={`about-main-${theme}`}>
+      <SEO
+        title="About - Enes Ertuğrul Koyuncu"
+        description="About Enes Ertuğrul Koyuncu"
+        url="https://enesertugrulkoyuncu.com/about"
+        image="/img/pp2kARE.webp"
+      />
       {/* Sol taraf: Kullandığım Teknolojiler */}
       <div className="about-left">
         <h2>{labels.technologiesLabel}</h2>

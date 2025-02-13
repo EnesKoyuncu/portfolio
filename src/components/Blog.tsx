@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "../css/blog.scss";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTheme } from "../hooks/useTheme";
+import SEO from "./SEO";
 
 import { CalendarOutlined, TagOutlined } from "@ant-design/icons";
 import { Typography, Tag, Modal, ConfigProvider, theme, Spin } from "antd";
@@ -90,6 +91,12 @@ export default function Blog() {
 
   return (
     <ConfigProvider theme={themeConfig}>
+      <SEO
+        title="Blog - Enes Ertuğrul Koyuncu"
+        description="Enes Ertuğrul Koyuncu's blog"
+        url="https://enesertugrulkoyuncu.com/blog"
+        image="/img/pp2kARE.webp"
+      />
       <div className={`blog-container-${currentTheme}`}>
         <div className="blog-header">
           <Title level={1}>Blog - Work In Progress</Title>

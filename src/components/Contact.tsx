@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../css/contact.scss";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTheme } from "../hooks/useTheme";
+import SEO from "./SEO";
+
 import {
   faGithub,
   faLinkedin,
@@ -7,8 +11,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { useLanguage } from "../hooks/useLanguage"; // Dil Context'i
-import { useTheme } from "../hooks/useTheme"; // Tema Context'i
 import { Spin, message } from "antd";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
@@ -134,6 +136,12 @@ export default function Contact() {
 
   return (
     <div className={`contact-container-${theme}`}>
+      <SEO
+        title="Contact - Enes Ertuğrul Koyuncu"
+        description="Contact Enes Ertuğrul Koyuncu for any questions or collaboration opportunities."
+        url="https://enesertugrulkoyuncu.com/contact"
+        image="/img/pp2kARE.webp"
+      />
       {/* Sol taraf: Linkler */}
       <div className="contact-links">
         <h2>{texts.titleLinks || "Bağlantılarım"}</h2>

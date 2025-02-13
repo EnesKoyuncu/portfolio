@@ -2,7 +2,7 @@ import "../css/cvview.scss";
 import { useEffect, useState, useCallback } from "react";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTheme } from "../hooks/useTheme";
-
+import SEO from "./SEO";
 interface CvTexts {
   title: string;
   content: string;
@@ -64,6 +64,12 @@ export default function CvView() {
 
   return (
     <div className={`cv-container-${theme}`}>
+      <SEO
+        title="CV - Enes Ertuğrul Koyuncu"
+        description="Enes Ertuğrul Koyuncu's CV"
+        url="https://enesertugrulkoyuncu.com/cv"
+        image="/img/pp2kARE.webp"
+      />
       {isMobile ? (
         <div className="cv-mobile">
           <a

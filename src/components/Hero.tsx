@@ -7,6 +7,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import MyProfilePhoto from "../assets/img/pp2kARE.webp";
+import SEO from "./SEO";
+
+// TODO: SİLİNEBİLİR  import { Helmet } from "react-helmet-async";
 
 import { faFile } from "@fortawesome/free-regular-svg-icons";
 import { useState, useEffect } from "react";
@@ -81,6 +84,12 @@ export default function Hero() {
 
   return (
     <div className={`hero-main-${theme}`}>
+      <SEO
+        description="Enes Ertuğrul Koyuncu's personal website"
+        title="Enes Ertuğrul Koyuncu"
+        url="https://eneskoyuncu.com/"
+        image="/img/pp2kARE.webp"
+      />
       <div className="hero-left">
         <div className="hero-left-card">
           <div className="hero-left-card-top">
