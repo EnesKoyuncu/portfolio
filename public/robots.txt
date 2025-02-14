@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://eneskoyuncu.com/sitemap.xml
