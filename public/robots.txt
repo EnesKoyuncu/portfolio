@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://eneskoyuncu.com/sitemap.xml
+
+# Çok dilli yapı kullanıldığını belirtiyoruz
+Host: https://eneskoyuncu.com

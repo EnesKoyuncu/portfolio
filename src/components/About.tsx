@@ -333,11 +333,9 @@ export default function About() {
           metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
             .description
         }
-        url="https://enesertugrulkoyuncu.com/about"
         image="/img/file.webp"
         author="Enes Ertuğrul Koyuncu"
         publisher="Enes Ertuğrul Koyuncu"
-        lang={currentLanguage}
         keywords={
           metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
         }

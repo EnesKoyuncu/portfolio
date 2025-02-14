@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "../hooks/useLanguage";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../css/header.scss";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 
 import NSKLogo from "../assets/img/file.webp";
 import { useTheme } from "../hooks/useTheme";
@@ -14,6 +14,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { Spin } from "antd";
+
 interface Texts {
   home: string;
   cv: string;
@@ -33,54 +34,14 @@ const rightButtonVariants = {
   visible: { opacity: 1, x: 0 },
 };
 
-interface ILinkNames {
-  home: string;
-  cv: string;
-  projects: string;
-  about: string;
-  blog: string;
-  contact: string;
-}
-
-interface ILinksTitleForLanguageChange {
-  tr: ILinkNames;
-  en: ILinkNames;
-  de: ILinkNames;
-}
-
-const LinksTitleForLanguageChange: ILinksTitleForLanguageChange = {
-  tr: {
-    home: "Anasayfa Sayfam",
-    cv: "CV Sayfam",
-    projects: "Projeler Sayfam",
-    about: "Hakkımda Sayfam",
-    blog: "Blog Sayfam",
-    contact: "İletişim Sayfam",
-  },
-  en: {
-    home: "Home Page",
-    cv: "CV Page",
-    projects: "Projects Page",
-    about: "About Page",
-    blog: "Blog Page",
-    contact: "Contact Page",
-  },
-  de: {
-    home: "Startseite Seite",
-    cv: "Lebenslauf Seite",
-    projects: "Projekte Seite",
-    about: "Über mich Seite",
-    blog: "Blog Seite",
-    contact: "Kontakt Seite",
-  },
-};
-
 export default function Header() {
   const [texts, setTexts] = useState<Texts | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const { currentLanguage, setCurrentLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const fetchTexts = async (language: string) => {
     setLoading(true);
@@ -111,6 +72,16 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Dil değiştirirken mevcut sayfa korunacak
+  const changeLanguage = (newLang: string) => {
+    if (currentLanguage === newLang) return; // Zaten aynı dildeyse yönlendirme yapma.
+
+    const currentPath = location.pathname;
+    const newPath = currentPath.replace(`/${currentLanguage}`, `/${newLang}`);
+    navigate(newPath, { replace: true });
+    setCurrentLanguage(newLang);
+  };
+
   if (loading) {
     return (
       <div
@@ -135,33 +106,15 @@ export default function Header() {
         animate="visible"
         transition={{ duration: 0.5 }}
       >
-        <Link
-          to="/"
-          title={
-            LinksTitleForLanguageChange[
-              currentLanguage as keyof ILinksTitleForLanguageChange
-            ].home
-          }
-        >
+        <Link to={`/${currentLanguage}/`} title={texts?.home || "Home"}>
           {texts?.home || "Home"}
         </Link>
-        <Link
-          to="/cv"
-          title={
-            LinksTitleForLanguageChange[
-              currentLanguage as keyof ILinksTitleForLanguageChange
-            ].cv
-          }
-        >
+        <Link to={`/${currentLanguage}/cv`} title={texts?.cv || "CV"}>
           {texts?.cv || "CV"}
         </Link>
         <Link
-          to="/projects"
-          title={
-            LinksTitleForLanguageChange[
-              currentLanguage as keyof ILinksTitleForLanguageChange
-            ].projects
-          }
+          to={`/${currentLanguage}/projects`}
+          title={texts?.projects || "Projects"}
         >
           {texts?.projects || "Projects"}
         </Link>
@@ -187,33 +140,15 @@ export default function Header() {
         animate="visible"
         transition={{ duration: 0.5 }}
       >
-        <Link
-          to="/about"
-          title={
-            LinksTitleForLanguageChange[
-              currentLanguage as keyof ILinksTitleForLanguageChange
-            ].about
-          }
-        >
+        <Link to={`/${currentLanguage}/about`} title={texts?.about || "About"}>
           {texts?.about || "About"}
         </Link>
-        <Link
-          to="/blog"
-          title={
-            LinksTitleForLanguageChange[
-              currentLanguage as keyof ILinksTitleForLanguageChange
-            ].blog
-          }
-        >
+        <Link to={`/${currentLanguage}/blog`} title={texts?.blog || "Blog"}>
           {texts?.blog || "Blog"}
         </Link>
         <Link
-          to="/contact"
-          title={
-            LinksTitleForLanguageChange[
-              currentLanguage as keyof ILinksTitleForLanguageChange
-            ].contact
-          }
+          to={`/${currentLanguage}/contact`}
+          title={texts?.contact || "Contact"}
         >
           {texts?.contact || "Contact"}
         </Link>
@@ -235,30 +170,31 @@ export default function Header() {
       </button>
 
       <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
-        <Link to="/" onClick={toggleMenu}>
+        <Link to={`/${currentLanguage}/`} onClick={toggleMenu}>
           {texts?.home || "Home"}
         </Link>
-        <Link to="/cv" onClick={toggleMenu}>
+        <Link to={`/${currentLanguage}/cv`} onClick={toggleMenu}>
           {texts?.cv || "CV"}
         </Link>
-        <Link to="/projects" onClick={toggleMenu}>
+        <Link to={`/${currentLanguage}/projects`} onClick={toggleMenu}>
           {texts?.projects || "Projects"}
         </Link>
-        <Link to="/about" onClick={toggleMenu}>
+        <Link to={`/${currentLanguage}/about`} onClick={toggleMenu}>
           {texts?.about || "About"}
         </Link>
-        <Link to="/blog" onClick={toggleMenu}>
+        <Link to={`/${currentLanguage}/blog`} onClick={toggleMenu}>
           {texts?.blog || "Blog"}
         </Link>
-        <Link to="/contact" onClick={toggleMenu}>
+        <Link to={`/${currentLanguage}/contact`} onClick={toggleMenu}>
           {texts?.contact || "Contact"}
         </Link>
+
         <div className="mobile-menu-bottom">
           <div className="mobile-theme-toggle">
             <button
               className="theme-toggle"
-              onClick={(e) => {
-                toggleTheme(e);
+              onClick={() => {
+                toggleTheme();
                 toggleMenu();
               }}
               aria-label="Toggle theme"
@@ -268,62 +204,34 @@ export default function Header() {
             </button>
           </div>
           <div className="mobile-language-switcher">
-            <button
-              onClick={() => {
-                setCurrentLanguage("en");
-                toggleMenu();
-              }}
-              className={currentLanguage === "en" ? "active" : ""}
-              aria-label="Click to switch to English language."
-            >
-              EN
-            </button>
-            <button
-              onClick={() => {
-                setCurrentLanguage("tr");
-                toggleMenu();
-              }}
-              className={currentLanguage === "tr" ? "active" : ""}
-              aria-label="Türkçe diline geçmek için tıklayın."
-            >
-              TR
-            </button>
-            <button
-              onClick={() => {
-                setCurrentLanguage("de");
-                toggleMenu();
-              }}
-              className={currentLanguage === "de" ? "active" : ""}
-              aria-label="Klicken Sie hier, um zur deutschen Sprache zu wechseln."
-            >
-              DE
-            </button>
+            {["en", "tr", "de"].map((lang) => (
+              <button
+                key={lang}
+                onClick={() => {
+                  changeLanguage(lang);
+                  toggleMenu();
+                }}
+                className={currentLanguage === lang ? "active" : ""}
+                aria-label={`Switch to ${lang.toUpperCase()}`}
+              >
+                {lang.toUpperCase()}
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="language-switcher">
-        <button
-          onClick={() => setCurrentLanguage("en")}
-          className={currentLanguage === "en" ? "active" : ""}
-          aria-label="Click to switch to English language."
-        >
-          EN
-        </button>
-        <button
-          onClick={() => setCurrentLanguage("tr")}
-          className={currentLanguage === "tr" ? "active" : ""}
-          aria-label="Türkçe diline geçmek için tıklayın."
-        >
-          TR
-        </button>
-        <button
-          onClick={() => setCurrentLanguage("de")}
-          className={currentLanguage === "de" ? "active" : ""}
-          aria-label="Klicken Sie hier, um zur deutschen Sprache zu wechseln."
-        >
-          DE
-        </button>
+        {["en", "tr", "de"].map((lang) => (
+          <button
+            key={lang}
+            onClick={() => changeLanguage(lang)}
+            className={currentLanguage === lang ? "active" : ""}
+            aria-label={`Switch to ${lang.toUpperCase()}`}
+          >
+            {lang.toUpperCase()}
+          </button>
+        ))}
       </div>
     </div>
   );

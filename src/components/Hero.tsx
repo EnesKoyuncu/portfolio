@@ -200,15 +200,14 @@ export default function Hero() {
           metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
             .description
         }
-        url="https://eneskoyuncu.com/"
         image="/img/file.webp"
         author="Enes Ertuğrul Koyuncu"
         publisher="Enes Ertuğrul Koyuncu"
-        lang={currentLanguage}
         keywords={
           metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
         }
       />
+
       <h2 className="visually-hidden"> Deneme 123</h2>
       <div className="hero-left">
         <div className="hero-left-card">
@@ -291,7 +290,7 @@ export default function Hero() {
           </div>
           <div className="iconTab">
             <a
-              href="/cv"
+              href={`/${currentLanguage}/cv`}
               target="_self"
               rel="noreferrer noopener"
               aria-label={
@@ -304,7 +303,7 @@ export default function Hero() {
                 icon={faFile}
                 size="5x"
                 className="file-logo"
-                aria-label="CV Page"
+                aria-label="CV"
               />
               CV
             </a>

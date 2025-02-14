@@ -1,33 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+    <!-- Anasayfa -->
     <url>
-        <loc>https://eneskoyuncu.com/</loc>
+        <loc>https://eneskoyuncu.com/en/</loc>
         <lastmod>2025-02-14</lastmod>
         <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://eneskoyuncu.com/tr/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://eneskoyuncu.com/en/" />
+        <xhtml:link rel="alternate" hreflang="de" href="https://eneskoyuncu.com/de/" />
     </url>
     <url>
-        <loc>https://eneskoyuncu.com/cv</loc>
+        <loc>https://eneskoyuncu.com/tr/</loc>
+        <lastmod>2025-02-14</lastmod>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://eneskoyuncu.com/tr/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://eneskoyuncu.com/en/" />
+        <xhtml:link rel="alternate" hreflang="de" href="https://eneskoyuncu.com/de/" />
+    </url>
+    <url>
+        <loc>https://eneskoyuncu.com/de/</loc>
+        <lastmod>2025-02-14</lastmod>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://eneskoyuncu.com/tr/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://eneskoyuncu.com/en/" />
+        <xhtml:link rel="alternate" hreflang="de" href="https://eneskoyuncu.com/de/" />
+    </url>
+
+    <!-- CV Sayfası -->
+    <url>
+        <loc>https://eneskoyuncu.com/en/cv</loc>
+        <lastmod>2025-02-14</lastmod>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://eneskoyuncu.com/tr/cv" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://eneskoyuncu.com/en/cv" />
+        <xhtml:link rel="alternate" hreflang="de" href="https://eneskoyuncu.com/de/cv" />
+    </url>
+    <url>
+        <loc>https://eneskoyuncu.com/tr/cv</loc>
         <lastmod>2025-02-14</lastmod>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://eneskoyuncu.com/projects</loc>
+        <loc>https://eneskoyuncu.com/de/cv</loc>
+        <lastmod>2025-02-14</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Projeler Sayfası -->
+    <url>
+        <loc>https://eneskoyuncu.com/en/projects</loc>
+        <lastmod>2025-02-14</lastmod>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://eneskoyuncu.com/tr/projects" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://eneskoyuncu.com/en/projects" />
+        <xhtml:link rel="alternate" hreflang="de" href="https://eneskoyuncu.com/de/projects" />
+    </url>
+    <url>
+        <loc>https://eneskoyuncu.com/tr/projects</loc>
         <lastmod>2025-02-14</lastmod>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://eneskoyuncu.com/about</loc>
+        <loc>https://eneskoyuncu.com/de/projects</loc>
+        <lastmod>2025-02-14</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Hakkımda Sayfası -->
+    <url>
+        <loc>https://eneskoyuncu.com/en/about</loc>
+        <lastmod>2025-02-14</lastmod>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://eneskoyuncu.com/tr/about" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://eneskoyuncu.com/en/about" />
+        <xhtml:link rel="alternate" hreflang="de" href="https://eneskoyuncu.com/de/about" />
+    </url>
+    <url>
+        <loc>https://eneskoyuncu.com/tr/about</loc>
         <lastmod>2025-02-14</lastmod>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://eneskoyuncu.com/blog</loc>
+        <loc>https://eneskoyuncu.com/de/about</loc>
         <lastmod>2025-02-14</lastmod>
         <priority>0.8</priority>
     </url>
+
+    <!-- Blog Sayfası -->
     <url>
-        <loc>https://eneskoyuncu.com/contact</loc>
+        <loc>https://eneskoyuncu.com/en/blog</loc>
         <lastmod>2025-02-14</lastmod>
         <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://eneskoyuncu.com/tr/blog" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://eneskoyuncu.com/en/blog" />
+        <xhtml:link rel="alternate" hreflang="de" href="https://eneskoyuncu.com/de/blog" />
     </url>
+
+    <!-- İletişim Sayfası -->
+    <url>
+        <loc>https://eneskoyuncu.com/en/contact</loc>
+        <lastmod>2025-02-14</lastmod>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://eneskoyuncu.com/tr/contact" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://eneskoyuncu.com/en/contact" />
+        <xhtml:link rel="alternate" hreflang="de" href="https://eneskoyuncu.com/de/contact" />
+    </url>
+
 </urlset>

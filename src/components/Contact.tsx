@@ -216,11 +216,9 @@ export default function Contact() {
           metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
             .description
         }
-        url="https://enesertugrulkoyuncu.com/contact"
         image="/img/file.webp"
         author="Enes Ertuğrul Koyuncu"
         publisher="Enes Ertuğrul Koyuncu"
-        lang={currentLanguage}
         keywords={
           metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
         }

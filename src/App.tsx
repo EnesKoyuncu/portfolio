@@ -1,16 +1,16 @@
 import {
   BrowserRouter as Router,
-  Route,
   Routes,
+  Route,
+  Navigate,
   useLocation,
 } from "react-router-dom";
 
-import { LanguageProvider } from "./context/LanguageProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
-
+import { useLanguage } from "./hooks/useLanguage";
 import "./App.css";
 
-// components
+// Components
 import Header from "./components/Header";
 import Layout from "./components/layout";
 import Hero from "./components/Hero";
@@ -19,46 +19,71 @@ import CvView from "./components/CvView";
 import About from "./components/About";
 import Blog from "./components/Blog";
 import Contact from "./components/Contact";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { HelmetProvider } from "react-helmet-async";
+
+const languages = ["tr", "en", "de"];
+
+// **Dil Path'lerini Yönetme**
+function RedirectToDefaultLanguage() {
+  const { currentLanguage } = useLanguage();
+  return <Navigate to={`/${currentLanguage}`} replace />;
+}
+
+// **Animasyonlu Route'ları Yönetme**
 function AnimatedRoutes() {
   const location = useLocation();
+  const { currentLanguage } = useLanguage();
 
+  if (!languages.includes(currentLanguage)) {
+    return <Navigate to="/en" replace />; // Geçersiz dil kodu varsa /en'ye yönlendir
+  }
 
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
+        {/* Anasayfa */}
         <Route
-          path="/"
+          path="/:lang"
           element={
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <Hero />
             </motion.div>
           }
         />
+
+        {/* Diğer Sayfalar */}
         <Route
-          path="/cv"
+          path="/:lang/cv"
           element={
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <CvView />
             </motion.div>
           }
         />
-        {/* Diğer route'lar için aynı yapı */}
         <Route
-          path="/projects"
+          path="/:lang/projects"
           element={
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -76,7 +101,7 @@ function AnimatedRoutes() {
           }
         />
         <Route
-          path="/about"
+          path="/:lang/about"
           element={
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -94,7 +119,7 @@ function AnimatedRoutes() {
           }
         />
         <Route
-          path="/blog"
+          path="/:lang/blog"
           element={
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -112,7 +137,7 @@ function AnimatedRoutes() {
           }
         />
         <Route
-          path="/contact"
+          path="/:lang/contact"
           element={
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -129,24 +154,26 @@ function AnimatedRoutes() {
             </motion.div>
           }
         />
+
+        {/* Eğer herhangi bir dil kodu olmadan erişilirse yönlendirme yap */}
+        <Route path="/" element={<RedirectToDefaultLanguage />} />
       </Routes>
     </AnimatePresence>
   );
 }
 
+// **Ana Uygulama Componenti**
 function App() {
   return (
     <HelmetProvider>
-      <LanguageProvider>
-        <ThemeProvider>
-          <Router>
-            <Layout>
-              <Header />
-              <AnimatedRoutes />
-            </Layout>
-          </Router>
-        </ThemeProvider>
-      </LanguageProvider>
+      <ThemeProvider>
+        <Router>
+          <Layout>
+            <Header />
+            <AnimatedRoutes />
+          </Layout>
+        </Router>
+      </ThemeProvider>
     </HelmetProvider>
   );
 }
