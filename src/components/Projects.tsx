@@ -27,6 +27,117 @@ interface Project {
   category?: string;
 }
 
+interface IAriaLabels {
+  imageTitle: string;
+  expandButton: string;
+  viewProject: string;
+  noProjectsFound: string; // aria-label değil ekstra interface ve yapı kurmak istemedim, ilerde değişebilir.
+  h1VisuallyHidden: string;
+  h2VisuallyHidden: string;
+}
+
+interface IAriaLabelsLanguageSupport {
+  tr: IAriaLabels;
+  en: IAriaLabels;
+  de: IAriaLabels;
+}
+
+const ariaLabels: IAriaLabelsLanguageSupport = {
+  tr: {
+    imageTitle: "Proje Resmi",
+    expandButton: "Detayları Gör",
+    viewProject: "Projeyi Görüntüle",
+    noProjectsFound: "Proje bulunamadı",
+    h1VisuallyHidden: "Merhaba",
+    h2VisuallyHidden: "Projeler sayfama hoş geldiniz!",
+  },
+  en: {
+    imageTitle: "Project Image",
+    expandButton: "View Details",
+    viewProject: "View Project",
+    noProjectsFound: "No projects found",
+    h1VisuallyHidden: "Hello",
+    h2VisuallyHidden: "Welcome to my projects page!",
+  },
+  de: {
+    imageTitle: "Projekt Bild",
+    expandButton: "Details anzeigen",
+    viewProject: "Projekt anzeigen",
+    noProjectsFound: "Keine Projekte gefunden",
+    h1VisuallyHidden: "Hallo",
+    h2VisuallyHidden: "Willkommen auf meiner Projekte-Seite!",
+  },
+};
+
+interface IMetaTags {
+  title: string;
+  description: string;
+  keywords?: string[];
+}
+
+interface IMetaTagsLanguageSupport {
+  tr: IMetaTags;
+  en: IMetaTags;
+  de: IMetaTags;
+}
+
+const metaTags: IMetaTagsLanguageSupport = {
+  tr: {
+    title: "Projeler - Enes Ertuğrul Koyuncu",
+    description:
+      "Enes Ertuğrul Koyuncu'nun çalıştığı projeler. Proje detaylarının yer aldığı sayfa. Projelerimi inceleyebilir ve benimle iletişime geçebilirsiniz.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Yazılım Mühendisi",
+      "Geliştirici",
+      "Portföy",
+      "Mühendis",
+      "React",
+      "NextJS",
+      "Ön uç geliştirici",
+      "Arka uç geliştirici",
+      "Projeler",
+      "Web Projeleri",
+    ],
+  },
+  en: {
+    title: "Projects - Enes Ertuğrul Koyuncu",
+    description:
+      "Projects Enes Ertuğrul Koyuncu has worked on. The page with project details. You can review my projects and contact me and also you can share your feedbacks.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Software Engineer",
+      "Developer",
+      "Full Stack Developer",
+      "Web Developer",
+      "Engineer",
+      "React",
+      "NextJS",
+      "Projects",
+      "Web Projects",
+      "Frontend Developer",
+      "Backend Developer",
+    ],
+  },
+  de: {
+    title: "Projekte - Enes Ertuğrul Koyuncu",
+    description:
+      "Projekte, an denen Enes Ertuğrul Koyuncu gearbeitet hat. Die Seite mit den Projektdetails. Sie können meine Projekte überprüfen und mich kontaktieren.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Software-Ingenieur",
+      "Entwickler",
+      "Full-Stack-Entwickler",
+      "Ingenieur",
+      "React",
+      "NextJS",
+      "Frontend-Entwickler",
+      "Backend-Entwickler",
+      "Geschäftsbereich",
+    ],
+  },
+};
+
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -124,7 +235,13 @@ export default function Projects() {
           minHeight: "100vh",
         }}
       >
-        <p>No projects found</p>
+        <p>
+          {" "}
+          {
+            ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
+              .noProjectsFound
+          }{" "}
+        </p>
       </div>
     );
   }
@@ -141,11 +258,37 @@ export default function Projects() {
     >
       <div className={`project-main-${theme}`}>
         <SEO
-          title="Projects - Enes Ertuğru Koyuncu"
-          description="Projects I have worked on"
+          title={
+            metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].title
+          }
+          description={
+            metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
+              .description
+          }
           url="https://eneskoyuncu.com/projects"
-          image="/img/pp2kARE.webp"
+          image="/img/file.webp"
+          author="Enes Ertuğrul Koyuncu"
+          publisher="Enes Ertuğrul Koyuncu"
+          lang={currentLanguage}
+          keywords={
+            metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
+          }
         />
+
+        <h1 className="visually-hidden">
+          {" "}
+          {
+            ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
+              .h1VisuallyHidden
+          }{" "}
+        </h1>
+        <h2 className="visually-hidden">
+          {" "}
+          {
+            ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
+              .h2VisuallyHidden
+          }{" "}
+        </h2>
         <Row gutter={[16, 16]} style={{ margin: 0, width: "100%" }}>
           {projects.map((project) => (
             <Col xs={24} sm={24} md={12} lg={8} xl={8} key={project.id}>
@@ -161,6 +304,11 @@ export default function Projects() {
                         height: "100%",
                         objectFit: "cover",
                       }}
+                      title={
+                        ariaLabels[
+                          currentLanguage as keyof IAriaLabelsLanguageSupport
+                        ].imageTitle
+                      }
                     />
                   </div>
                 }
@@ -169,8 +317,17 @@ export default function Projects() {
                     type="link"
                     icon={<ExpandAltOutlined />}
                     onClick={() => setSelectedProject(project)}
+                    aria-label={
+                      ariaLabels[
+                        currentLanguage as keyof IAriaLabelsLanguageSupport
+                      ].expandButton
+                    }
                   >
-                    View Details
+                    {
+                      ariaLabels[
+                        currentLanguage as keyof IAriaLabelsLanguageSupport
+                      ].expandButton
+                    }
                   </Button>,
                 ]}
                 style={{
@@ -198,8 +355,15 @@ export default function Projects() {
               type="primary"
               href={selectedProject?.link}
               target="_blank"
+              aria-label={
+                ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
+                  .viewProject
+              }
             >
-              View Project
+              {
+                ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
+                  .viewProject
+              }
             </Button>,
           ]}
           width="95%"
@@ -229,6 +393,11 @@ export default function Projects() {
                         height: "100%",
                         objectFit: "cover",
                       }}
+                      title={
+                        ariaLabels[
+                          currentLanguage as keyof IAriaLabelsLanguageSupport
+                        ].imageTitle
+                      }
                     />
                   </div>
                 </div>

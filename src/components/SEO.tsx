@@ -5,16 +5,37 @@ interface SEOProps {
   description: string;
   url: string;
   image?: string;
+  author?: string;
+  publisher?: string;
+  lang?: string;
+  keywords?: string[];
 }
 
-export default function SEO({ title, description, url, image }: SEOProps) {
+export default function SEO({
+  title,
+  description,
+  url,
+  image,
+  author,
+  publisher,
+  lang = "en",
+  keywords = [],
+}: SEOProps) {
   return (
     <Helmet>
+      {/* Sayfa Dili */}
+      <html lang={lang} />
+
       {/* Sayfa Başlığı */}
       <title>{title}</title>
 
       {/* Meta Açıklaması */}
       <meta name="description" content={description} />
+
+      {/*Anahtar Kelimeler */}
+      {keywords.length > 0 && (
+        <meta name="keywords" content={keywords.join(", ")} />
+      )}
 
       {/* Arama Motoru Index ve Follow */}
       <meta name="robots" content="index, follow" />
@@ -34,6 +55,10 @@ export default function SEO({ title, description, url, image }: SEOProps) {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       {image && <meta name="twitter:image" content={image} />}
+
+      {/* Author & Publisher Meta Etiketleri */}
+      {author && <meta name="author" content={author} />}
+      {publisher && <meta name="publisher" content={publisher} />}
     </Helmet>
   );
 }

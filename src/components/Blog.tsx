@@ -21,6 +21,78 @@ interface BlogPost {
   content: { en: string; tr: string; de: string };
 }
 
+interface IMetaTags {
+  title: string;
+  description: string;
+  keywords?: string[];
+}
+
+interface IMetaTagsLanguageSupport {
+  tr: IMetaTags;
+  en: IMetaTags;
+  de: IMetaTags;
+}
+
+const metaTags: IMetaTagsLanguageSupport = {
+  tr: {
+    title: "Blog - Enes Ertuğrul Koyuncu'nun Blog Sayfası",
+    description:
+      "Enes Ertuğrul Koyuncu'nun blog sayfası. Blog yazılarımı inceleyebilir ve benimle iletişime geçebilirsiniz. Ayrıca geri bildirimlerinizi paylaşabilirsiniz. Daha fazla fikir ve öneri için iletişim sayfasından benim ile iletişime geçin.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Yazılım Mühendisi",
+      "Geliştirici",
+      "Mühendis",
+      "Blog",
+      "Bilgilendirici Yazılar",
+      "TypeScript Blog",
+      "React Blog",
+      "NextJS Blog",
+      "CSS Blog",
+      "NodeJS Blog",
+      "Açık Kaynak Blog",
+    ],
+  },
+  en: {
+    title: "Blog - Enes Ertuğrul Koyuncu's Blog Page",
+    description:
+      "Enes Ertuğrul Koyuncu's blog page. You can review my blog posts and contact me. You can also share your feedback. For more ideas and suggestions, contact me via the contact page.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Software Engineer",
+      "Engineer",
+      "Developer",
+      "Blog",
+      "Bilgilendirici Yazılar",
+      "TypeScript Blog",
+      "React Blog",
+      "NextJS Blog",
+      "CSS Blog",
+      "NodeJS Blog",
+      "Açık Kaynak Blog",
+    ],
+  },
+  de: {
+    title: "Blog - Enes Ertuğrul Koyuncu's Blog Seite",
+    description:
+      "Enes Ertuğrul Koyuncu's Blog Seite. Sie können meine Blogbeiträge lesen und mich kontaktieren. Sie können mir auch Ihr Feedback mitteilen. Für weitere Ideen und Vorschläge können Sie mich über die Kontaktseite kontaktieren.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Software Engineer",
+      "Entwickler",
+      "Ingenieur",
+      "Blog",
+      "Informative Artikel",
+      "TypeScript-Blog",
+      "React-Blog",
+      "NextJS-Blog",
+      "CSS-Blog",
+      "NodeJS-Blog",
+      "Open Source Blog",
+    ],
+  },
+};
+
 export default function Blog() {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
@@ -92,14 +164,32 @@ export default function Blog() {
   return (
     <ConfigProvider theme={themeConfig}>
       <SEO
-        title="Blog - Enes Ertuğrul Koyuncu"
-        description="Enes Ertuğrul Koyuncu's blog"
+        title={
+          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].title
+        }
+        description={
+          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
+            .description
+        }
         url="https://enesertugrulkoyuncu.com/blog"
-        image="/img/pp2kARE.webp"
+        image="/img/file.webp"
+        author="Enes Ertuğrul Koyuncu"
+        publisher="Enes Ertuğrul Koyuncu"
+        lang={currentLanguage}
+        keywords={
+          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
+        }
       />
+      <h2 className="visually-hidden">blog</h2>
       <div className={`blog-container-${currentTheme}`}>
         <div className="blog-header">
-          <Title level={1}>Blog - Work In Progress</Title>
+          <Title level={1}>
+            {currentLanguage === "tr"
+              ? "Blog - Yakında Yayında"
+              : currentLanguage === "en"
+              ? "Blog - Coming Soon"
+              : "Blog - Bald verfügbar"}
+          </Title>
         </div>
 
         <div className="blog-grid">

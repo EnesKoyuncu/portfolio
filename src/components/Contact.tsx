@@ -25,6 +25,75 @@ interface Texts {
 
 type SubmitStatus = "success" | "error" | "idle";
 
+interface IMetaTags {
+  title: string;
+  description: string;
+  keywords?: string[];
+}
+
+interface IMetaTagsLanguageSupport {
+  tr: IMetaTags;
+  en: IMetaTags;
+  de: IMetaTags;
+}
+
+const metaTags: IMetaTagsLanguageSupport = {
+  tr: {
+    title: "İletişim - Enes Ertuğrul Koyuncu İletişim Sayfası",
+    description:
+      "Enes Ertuğrul Koyuncu İletişim sayfası, birçok sosyal medya. platform, gmail veya iletişim formu üzerinden bana ulaşabilir ve sitem hakkında bana görüşlerinizi bildirebilirsiniz. Site hakkındaki görüşleriniz benim için önemli.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Yazılım Mühendisi",
+      "Geliştirici",
+      "Portföy",
+      "Mühendis",
+      "İletişim",
+      "İletişim Formu",
+      "Github Sayfası",
+      "Linkedin Sayfası",
+      "Mail Adresi",
+      "Twitter Sayfası",
+    ],
+  },
+  en: {
+    title: "Contact - Enes Ertuğrul Koyuncu Contact Page",
+    description:
+      "Enes Ertugrul Koyuncu Contact page, many social media. platform, you can reach me via gmail or contact form and you can give me your opinions about my site. Your opinions about the site are important to me.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Software Engineer",
+      "Developer",
+      "Portfolio",
+      "Engineer",
+      "Contact",
+      "Contact Form",
+      "Github Page",
+      "Linkedin Page",
+      "Mail Address",
+      "Twitter Page",
+    ],
+  },
+  de: {
+    title: "Kontakt - Enes Ertuğrul Koyuncu Kontaktseite",
+    description:
+      "Enes Ertuğrul Koyuncu Kontaktseite, viele soziale Medien. Plattform, können Sie mich über gmail oder Kontaktformular erreichen und Sie können mir Ihre Meinung über meine Website geben. Ihre Meinungen über die Seite sind mir wichtig.",
+    keywords: [
+      "Enes Ertuğrul Koyuncu",
+      "Software Engineer",
+      "Entwickler",
+      "Portfolio",
+      "Ingenieur",
+      "Kontakt",
+      "Kontaktformular",
+      "Github-Seite",
+      "Linkedin-Seite",
+      "E-Mail-Adresse",
+      "Twitter-Seite",
+    ],
+  },
+};
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -137,11 +206,30 @@ export default function Contact() {
   return (
     <div className={`contact-container-${theme}`}>
       <SEO
-        title="Contact - Enes Ertuğrul Koyuncu"
-        description="Contact Enes Ertuğrul Koyuncu for any questions or collaboration opportunities."
+        title={
+          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].title
+        }
+        description={
+          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
+            .description
+        }
         url="https://enesertugrulkoyuncu.com/contact"
-        image="/img/pp2kARE.webp"
+        image="/img/file.webp"
+        author="Enes Ertuğrul Koyuncu"
+        publisher="Enes Ertuğrul Koyuncu"
+        lang={currentLanguage}
+        keywords={
+          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
+        }
       />
+      <h1 className="visually-hidden">
+        {" "}
+        {currentLanguage === "en"
+          ? "Contact"
+          : currentLanguage === "tr"
+          ? "İletişim"
+          : "Kontakt"}{" "}
+      </h1>
       {/* Sol taraf: Linkler */}
       <div className="contact-links">
         <h2>{texts.titleLinks || "Bağlantılarım"}</h2>

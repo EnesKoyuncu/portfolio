@@ -13,6 +13,7 @@ import {
   faBars,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import { Spin } from "antd";
 interface Texts {
   home: string;
   cv: string;
@@ -30,6 +31,48 @@ const leftButtonVariants = {
 const rightButtonVariants = {
   hidden: { opacity: 0, x: 100 },
   visible: { opacity: 1, x: 0 },
+};
+
+interface ILinkNames {
+  home: string;
+  cv: string;
+  projects: string;
+  about: string;
+  blog: string;
+  contact: string;
+}
+
+interface ILinksTitleForLanguageChange {
+  tr: ILinkNames;
+  en: ILinkNames;
+  de: ILinkNames;
+}
+
+const LinksTitleForLanguageChange: ILinksTitleForLanguageChange = {
+  tr: {
+    home: "Anasayfa Sayfam",
+    cv: "CV Sayfam",
+    projects: "Projeler Sayfam",
+    about: "Hakkımda Sayfam",
+    blog: "Blog Sayfam",
+    contact: "İletişim Sayfam",
+  },
+  en: {
+    home: "Home Page",
+    cv: "CV Page",
+    projects: "Projects Page",
+    about: "About Page",
+    blog: "Blog Page",
+    contact: "Contact Page",
+  },
+  de: {
+    home: "Startseite Seite",
+    cv: "Lebenslauf Seite",
+    projects: "Projekte Seite",
+    about: "Über mich Seite",
+    blog: "Blog Seite",
+    contact: "Kontakt Seite",
+  },
 };
 
 export default function Header() {
@@ -69,7 +112,18 @@ export default function Header() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
   }
 
   return (
@@ -81,9 +135,36 @@ export default function Header() {
         animate="visible"
         transition={{ duration: 0.5 }}
       >
-        <Link to="/">{texts?.home || "Home"}</Link>
-        <Link to="/cv">{texts?.cv || "CV"}</Link>
-        <Link to="/projects">{texts?.projects || "Projects"}</Link>
+        <Link
+          to="/"
+          title={
+            LinksTitleForLanguageChange[
+              currentLanguage as keyof ILinksTitleForLanguageChange
+            ].home
+          }
+        >
+          {texts?.home || "Home"}
+        </Link>
+        <Link
+          to="/cv"
+          title={
+            LinksTitleForLanguageChange[
+              currentLanguage as keyof ILinksTitleForLanguageChange
+            ].cv
+          }
+        >
+          {texts?.cv || "CV"}
+        </Link>
+        <Link
+          to="/projects"
+          title={
+            LinksTitleForLanguageChange[
+              currentLanguage as keyof ILinksTitleForLanguageChange
+            ].projects
+          }
+        >
+          {texts?.projects || "Projects"}
+        </Link>
       </motion.div>
 
       <motion.div
@@ -92,7 +173,11 @@ export default function Header() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <img src={NSKLogo} alt="nsk logo" />
+        <img
+          src={NSKLogo}
+          alt="nsk logo"
+          title="NSK Şirket Logosu - Enes Ertuğrul Koyuncu"
+        />
       </motion.div>
 
       <motion.div
@@ -102,9 +187,36 @@ export default function Header() {
         animate="visible"
         transition={{ duration: 0.5 }}
       >
-        <Link to="/about">{texts?.about || "About"}</Link>
-        <Link to="/blog">{texts?.blog || "Blog"}</Link>
-        <Link to="/contact">{texts?.contact || "Contact"}</Link>
+        <Link
+          to="/about"
+          title={
+            LinksTitleForLanguageChange[
+              currentLanguage as keyof ILinksTitleForLanguageChange
+            ].about
+          }
+        >
+          {texts?.about || "About"}
+        </Link>
+        <Link
+          to="/blog"
+          title={
+            LinksTitleForLanguageChange[
+              currentLanguage as keyof ILinksTitleForLanguageChange
+            ].blog
+          }
+        >
+          {texts?.blog || "Blog"}
+        </Link>
+        <Link
+          to="/contact"
+          title={
+            LinksTitleForLanguageChange[
+              currentLanguage as keyof ILinksTitleForLanguageChange
+            ].contact
+          }
+        >
+          {texts?.contact || "Contact"}
+        </Link>
 
         <button
           onClick={toggleTheme}
@@ -162,6 +274,7 @@ export default function Header() {
                 toggleMenu();
               }}
               className={currentLanguage === "en" ? "active" : ""}
+              aria-label="Click to switch to English language."
             >
               EN
             </button>
@@ -171,6 +284,7 @@ export default function Header() {
                 toggleMenu();
               }}
               className={currentLanguage === "tr" ? "active" : ""}
+              aria-label="Türkçe diline geçmek için tıklayın."
             >
               TR
             </button>
@@ -180,6 +294,7 @@ export default function Header() {
                 toggleMenu();
               }}
               className={currentLanguage === "de" ? "active" : ""}
+              aria-label="Klicken Sie hier, um zur deutschen Sprache zu wechseln."
             >
               DE
             </button>
@@ -191,18 +306,21 @@ export default function Header() {
         <button
           onClick={() => setCurrentLanguage("en")}
           className={currentLanguage === "en" ? "active" : ""}
+          aria-label="Click to switch to English language."
         >
           EN
         </button>
         <button
           onClick={() => setCurrentLanguage("tr")}
           className={currentLanguage === "tr" ? "active" : ""}
+          aria-label="Türkçe diline geçmek için tıklayın."
         >
           TR
         </button>
         <button
           onClick={() => setCurrentLanguage("de")}
           className={currentLanguage === "de" ? "active" : ""}
+          aria-label="Klicken Sie hier, um zur deutschen Sprache zu wechseln."
         >
           DE
         </button>
