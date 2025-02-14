@@ -157,6 +157,17 @@ function AnimatedRoutes() {
 
         {/* Eğer herhangi bir dil kodu olmadan erişilirse yönlendirme yap */}
         <Route path="/" element={<RedirectToDefaultLanguage />} />
+        <Route path="/cv" element={<Navigate to="/en/cv" replace />} />
+        <Route
+          path="/projects"
+          element={<Navigate to="/en/projects" replace />}
+        />
+        <Route path="/about" element={<Navigate to="/en/about" replace />} />
+        <Route path="/blog" element={<Navigate to="/en/blog" replace />} />
+        <Route
+          path="/contact"
+          element={<Navigate to="/en/contact" replace />}
+        />
       </Routes>
     </AnimatePresence>
   );
