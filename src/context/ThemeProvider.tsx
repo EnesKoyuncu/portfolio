@@ -6,7 +6,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // localStorage'dan tema tercihini al veya varsayılan olarak 'light' kullan
   const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem("theme");
-    return (savedTheme as Theme) || "light";
+    return (savedTheme as Theme) || "dark";
   });
 
   const [isTransitioning, setIsTransitioning] = useState(false);

@@ -22,8 +22,11 @@ import Contact from "./components/Contact";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { HelmetProvider } from "react-helmet-async";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const languages = ["tr", "en", "de"];
+
+const queryClient = new QueryClient();
 
 // **Dil Path'lerini Yönetme**
 function RedirectToDefaultLanguage() {
@@ -157,6 +160,8 @@ function AnimatedRoutes() {
 
         {/* Eğer herhangi bir dil kodu olmadan erişilirse yönlendirme yap */}
         <Route path="/" element={<RedirectToDefaultLanguage />} />
+
+        {/* Eski site linkleri için yönlendirme yaptık */}
         <Route path="/cv" element={<Navigate to="/en/cv" replace />} />
         <Route
           path="/projects"
@@ -176,16 +181,18 @@ function AnimatedRoutes() {
 // **Ana Uygulama Componenti**
 function App() {
   return (
-    <HelmetProvider>
-      <ThemeProvider>
-        <Router>
-          <Layout>
-            <Header />
-            <AnimatedRoutes />
-          </Layout>
-        </Router>
-      </ThemeProvider>
-    </HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider>
+        <ThemeProvider>
+          <Router>
+            <Layout>
+              <Header />
+              <AnimatedRoutes />
+            </Layout>
+          </Router>
+        </ThemeProvider>
+      </HelmetProvider>
+    </QueryClientProvider>
   );
 }
 
