@@ -33,6 +33,7 @@ export default function Hero() {
   const heroAriaLabelsText =
     heroAriaLabels[currentLanguage as keyof IHeroAriaLabelsLanguageSupport];
 
+  // fetch fonksiyonumuz
   const fetchTexts = async (language: string) => {
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/texts/hero/${language}`
@@ -43,12 +44,13 @@ export default function Hero() {
     return response.json();
   };
 
+  // react-query hook'u ile fetch işlemini yapıyoruz
   const { data, isLoading, error } = useQuery({
     queryKey: ["heroTexts", currentLanguage],
     queryFn: () => fetchTexts(currentLanguage),
   });
 
-  // TODO : bu kısma bir  daha bakılacak.
+  // gelen data'da zaten var, yoksa boş obje atıyoruz ki hata vermesin.
   const texts = data?.translations || {
     cardLocation: "",
     cardGraduate: "",
@@ -92,13 +94,22 @@ export default function Hero() {
           </div>
           <div className="hero-left-card-bottom">
             <div className="hero-left-card-bottom-name">
-              <span>Enes Ertuğrul Koyuncu</span>
-              <span>Software Engineer</span>
+              <span style={{ fontSize: "1.4rem", color: "white" }}>
+                Enes Ertuğrul Koyuncu
+              </span>
+              <span
+                style={{ fontSize: "1.1rem", color: "rgba(255,255,255,0.9" }}
+              >
+                Fullstack Web Developer
+              </span>
             </div>
-            <p data-icon="📍">{texts.cardLocation || "Location"}</p>
-            <p data-icon="🎓">{texts.cardGraduate || "Graduate Info"}</p>
-            <p data-icon="💻">{texts.cardJob || "Job Title"}</p>
-            <p data-icon="🎯">{texts.cardFocus || "Focus Area"}</p>
+
+            <ul className="hero-left-card-bottom-list">
+              <li data-icon="📍">{texts.cardLocation || "Location"}</li>
+              <li data-icon="🎓">{texts.cardGraduate || "Graduate Info"}</li>
+              <li data-icon="💻">{texts.cardJob || "Job Title"}</li>
+              <li data-icon="🎯">{texts.cardFocus || "Focus Area"}</li>
+            </ul>
           </div>
         </div>
       </div>

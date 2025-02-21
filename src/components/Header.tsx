@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLanguage } from "../hooks/useLanguage";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../css/header.scss";
@@ -13,7 +13,9 @@ import {
   faBars,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { Spin } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpin from "./miniComponents/LoadingSpin";
+import ErrorComponent from "./miniComponents/ErrorComponent";
 
 interface Texts {
   home: string;
@@ -35,8 +37,6 @@ const rightButtonVariants = {
 };
 
 export default function Header() {
-  const [texts, setTexts] = useState<Texts | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   const { currentLanguage, setCurrentLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,29 +44,32 @@ export default function Header() {
   const navigate = useNavigate();
 
   const fetchTexts = async (language: string) => {
-    setLoading(true);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/texts/header/${language}`
       );
       const data = await response.json();
+      console.log("API Response: ", data);
       if (data.success) {
-        setTexts(data.translations);
+        return data.translations || {};
       } else {
         console.error("Veri bulunamadı:", data.message);
-        setTexts(null);
+        return {};
       }
     } catch (error) {
       console.error("Error fetching texts:", error);
-      setTexts(null);
-    } finally {
-      setLoading(false);
+      return {};
     }
   };
 
-  useEffect(() => {
-    fetchTexts(currentLanguage);
-  }, [currentLanguage]);
+  const {
+    data: texts,
+    isLoading,
+    error,
+  } = useQuery<Texts>({
+    queryKey: ["headerTexts", currentLanguage],
+    queryFn: () => fetchTexts(currentLanguage),
+  });
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -82,19 +85,15 @@ export default function Header() {
     setCurrentLanguage(newLang);
   };
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-        }}
-      >
-        <Spin size="large" />
-      </div>
-    );
+  if (isLoading) {
+    return <LoadingSpin />;
+  }
+
+  if (error) {
+    <ErrorComponent
+      errorMessage={error.message}
+      onRetry={() => window.location.reload()}
+    />;
   }
 
   return (

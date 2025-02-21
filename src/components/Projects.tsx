@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "../css/projects.scss";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTheme } from "../hooks/useTheme";
+import { useQuery } from "@tanstack/react-query";
 import SEO from "./SEO";
 
-import {
-  Card,
-  Modal,
-  Carousel,
-  Button,
-  ConfigProvider,
-  Spin,
-  Row,
-  Col,
-} from "antd";
+import { Card, Modal, Carousel, Button, ConfigProvider, Row, Col } from "antd";
+
 import { ExpandAltOutlined } from "@ant-design/icons";
+import {
+  IMetaTagsLanguageSupport,
+  IAriaLabelsLanguageSupport,
+  ariaLabels,
+  metaTags,
+} from "../data/projectsData";
+import ErrorComponent from "./miniComponents/ErrorComponent";
+import LoadingSpin from "./miniComponents/LoadingSpin";
 
 interface Project {
   id: string;
@@ -27,154 +28,43 @@ interface Project {
   category?: string;
 }
 
-interface IAriaLabels {
-  imageTitle: string;
-  expandButton: string;
-  viewProject: string;
-  noProjectsFound: string; // aria-label değil ekstra interface ve yapı kurmak istemedim, ilerde değişebilir.
-  h1VisuallyHidden: string;
-  h2VisuallyHidden: string;
-}
-
-interface IAriaLabelsLanguageSupport {
-  tr: IAriaLabels;
-  en: IAriaLabels;
-  de: IAriaLabels;
-}
-
-const ariaLabels: IAriaLabelsLanguageSupport = {
-  tr: {
-    imageTitle: "Proje Resmi",
-    expandButton: "Detayları Gör",
-    viewProject: "Projeyi Görüntüle",
-    noProjectsFound: "Proje bulunamadı",
-    h1VisuallyHidden: "Merhaba",
-    h2VisuallyHidden: "Projeler sayfama hoş geldiniz!",
-  },
-  en: {
-    imageTitle: "Project Image",
-    expandButton: "View Details",
-    viewProject: "View Project",
-    noProjectsFound: "No projects found",
-    h1VisuallyHidden: "Hello",
-    h2VisuallyHidden: "Welcome to my projects page!",
-  },
-  de: {
-    imageTitle: "Projekt Bild",
-    expandButton: "Details anzeigen",
-    viewProject: "Projekt anzeigen",
-    noProjectsFound: "Keine Projekte gefunden",
-    h1VisuallyHidden: "Hallo",
-    h2VisuallyHidden: "Willkommen auf meiner Projekte-Seite!",
-  },
-};
-
-interface IMetaTags {
-  title: string;
-  description: string;
-  keywords?: string[];
-}
-
-interface IMetaTagsLanguageSupport {
-  tr: IMetaTags;
-  en: IMetaTags;
-  de: IMetaTags;
-}
-
-const metaTags: IMetaTagsLanguageSupport = {
-  tr: {
-    title: "Projeler - Enes Ertuğrul Koyuncu",
-    description:
-      "Enes Ertuğrul Koyuncu'nun çalıştığı projeler. Proje detaylarının yer aldığı sayfa. Projelerimi inceleyebilir ve benimle iletişime geçebilirsiniz.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Yazılım Mühendisi",
-      "Geliştirici",
-      "Portföy",
-      "Mühendis",
-      "React",
-      "NextJS",
-      "Ön uç geliştirici",
-      "Arka uç geliştirici",
-      "Projeler",
-      "Web Projeleri",
-    ],
-  },
-  en: {
-    title: "Projects - Enes Ertuğrul Koyuncu",
-    description:
-      "Projects Enes Ertuğrul Koyuncu has worked on. The page with project details. You can review my projects and contact me and also you can share your feedbacks.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Software Engineer",
-      "Developer",
-      "Full Stack Developer",
-      "Web Developer",
-      "Engineer",
-      "React",
-      "NextJS",
-      "Projects",
-      "Web Projects",
-      "Frontend Developer",
-      "Backend Developer",
-    ],
-  },
-  de: {
-    title: "Projekte - Enes Ertuğrul Koyuncu",
-    description:
-      "Projekte, an denen Enes Ertuğrul Koyuncu gearbeitet hat. Die Seite mit den Projektdetails. Sie können meine Projekte überprüfen und mich kontaktieren.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Software-Ingenieur",
-      "Entwickler",
-      "Full-Stack-Entwickler",
-      "Ingenieur",
-      "React",
-      "NextJS",
-      "Frontend-Entwickler",
-      "Backend-Entwickler",
-      "Geschäftsbereich",
-    ],
-  },
-};
-
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { currentLanguage } = useLanguage();
   const { theme } = useTheme();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [projects, setProjects] = useState<Project[]>([]);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const fetchProjects = async (language: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/projects?language=${language}`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log("Projects response:", data); // Debug log
-      if (data.success) {
-        setProjects(data.data || []);
-      } else {
-        setError(data.message || "Failed to fetch projects");
-        console.error("Failed to fetch projects:", data.message);
-      }
-    } catch (error) {
-      setError("Error connecting to server");
-      console.error("Error fetching projects:", error);
-    } finally {
-      setLoading(false);
+  // projectsData.ts dosyasındaki metinleri alıyoruz, dili belirtiyoruz ki her kullanımda as keyof yüzünden kod uzamasın.
+  const ariaLabelsText =
+    ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport];
+  const metaTagsText =
+    metaTags[currentLanguage as keyof IMetaTagsLanguageSupport];
+
+  const fetchProjects = async (language: string): Promise<Project[]> => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/projects?language=${language}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP Error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    if (data.success) {
+      return data.data || [];
+    } else {
+      throw new Error(data.message || "Failed to fetch projects");
     }
   };
 
-  useEffect(() => {
-    fetchProjects(currentLanguage);
-  }, [currentLanguage]);
+  const {
+    data: projects = [],
+    isLoading,
+    error,
+  } = useQuery<Project[]>({
+    queryKey: ["projects", currentLanguage],
+    queryFn: () => fetchProjects(currentLanguage),
+  });
 
   const carouselSettings = {
     autoplay: true,
@@ -189,41 +79,23 @@ export default function Projects() {
     touchThreshold: 10,
   };
 
-  if (loading) {
-    return (
-      <div
-        className={`project-main-${theme}`}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-        }}
-      >
-        <Spin size="large" />
-      </div>
-    );
+  // fetch edilen verilerin yüklenmesini beklerken gösterilcek ekrann
+  if (isLoading) {
+    return <LoadingSpin />;
   }
 
+  // hata gelmesi durumunda error comp çağırıyoruz
   if (error) {
     return (
-      <div
-        className={`project-main-${theme}`}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-          gap: "1rem",
-        }}
-      >
-        <p>{error}</p>
-        <Button onClick={() => fetchProjects(currentLanguage)}>Retry</Button>
-      </div>
+      <ErrorComponent
+        errorMessage={error.message}
+        onRetry={() => fetchProjects(currentLanguage)}
+      />
     );
   }
 
+  //  TODO: Burayı ErrorComp ile yapabilirim bi bakcam buraya
+  // eğer projeler boş dönerse hata ekranı veriyoruz.
   if (!projects || projects.length === 0) {
     return (
       <div
@@ -235,13 +107,7 @@ export default function Projects() {
           minHeight: "100vh",
         }}
       >
-        <p>
-          {" "}
-          {
-            ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
-              .noProjectsFound
-          }{" "}
-        </p>
+        <p> {ariaLabelsText.noProjectsFound} </p>
       </div>
     );
   }
@@ -258,35 +124,16 @@ export default function Projects() {
     >
       <div className={`project-main-${theme}`}>
         <SEO
-          title={
-            metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].title
-          }
-          description={
-            metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
-              .description
-          }
+          title={metaTagsText.title}
+          description={metaTagsText.description}
           image="/img/file.webp"
           author="Enes Ertuğrul Koyuncu"
           publisher="Enes Ertuğrul Koyuncu"
-          keywords={
-            metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
-          }
+          keywords={metaTagsText.keywords}
         />
 
-        <h1 className="visually-hidden">
-          {" "}
-          {
-            ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
-              .h1VisuallyHidden
-          }{" "}
-        </h1>
-        <h2 className="visually-hidden">
-          {" "}
-          {
-            ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
-              .h2VisuallyHidden
-          }{" "}
-        </h2>
+        <h1 className="visually-hidden"> {ariaLabelsText.h1VisuallyHidden} </h1>
+        <h2 className="visually-hidden"> {ariaLabelsText.h2VisuallyHidden} </h2>
         <Row gutter={[16, 16]} style={{ margin: 0, width: "100%" }}>
           {projects.map((project) => (
             <Col xs={24} sm={24} md={12} lg={8} xl={8} key={project.id}>
@@ -302,11 +149,7 @@ export default function Projects() {
                         height: "100%",
                         objectFit: "cover",
                       }}
-                      title={
-                        ariaLabels[
-                          currentLanguage as keyof IAriaLabelsLanguageSupport
-                        ].imageTitle
-                      }
+                      title={ariaLabelsText.imageTitle}
                     />
                   </div>
                 }
@@ -315,17 +158,9 @@ export default function Projects() {
                     type="link"
                     icon={<ExpandAltOutlined />}
                     onClick={() => setSelectedProject(project)}
-                    aria-label={
-                      ariaLabels[
-                        currentLanguage as keyof IAriaLabelsLanguageSupport
-                      ].expandButton
-                    }
+                    aria-label={ariaLabelsText.expandButton}
                   >
-                    {
-                      ariaLabels[
-                        currentLanguage as keyof IAriaLabelsLanguageSupport
-                      ].expandButton
-                    }
+                    {ariaLabelsText.expandButton}
                   </Button>,
                 ]}
                 style={{
@@ -353,15 +188,9 @@ export default function Projects() {
               type="primary"
               href={selectedProject?.link}
               target="_blank"
-              aria-label={
-                ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
-                  .viewProject
-              }
+              aria-label={ariaLabelsText.viewProject}
             >
-              {
-                ariaLabels[currentLanguage as keyof IAriaLabelsLanguageSupport]
-                  .viewProject
-              }
+              {ariaLabelsText.viewProject}
             </Button>,
           ]}
           width="95%"
@@ -391,11 +220,7 @@ export default function Projects() {
                         height: "100%",
                         objectFit: "cover",
                       }}
-                      title={
-                        ariaLabels[
-                          currentLanguage as keyof IAriaLabelsLanguageSupport
-                        ].imageTitle
-                      }
+                      title={ariaLabelsText.imageTitle}
                     />
                   </div>
                 </div>
