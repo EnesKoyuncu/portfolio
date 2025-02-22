@@ -1,75 +1,44 @@
 import "../css/cvview.scss";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTheme } from "../hooks/useTheme";
 import SEO from "./SEO";
-import { Spin } from "antd";
+
+import { IMetaTagsLanguageSupport, metaTags } from "../data/cvViewData";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpin from "./miniComponents/LoadingSpin";
+import ErrorComponent from "./miniComponents/ErrorComponent";
 
 interface CvTexts {
   title: string;
   content: string;
 }
 
-interface IMetaTags {
-  title: string;
-  description: string;
-  keywords?: string[];
-}
+const fetchCvTexts = async (currentLanguage: string) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/texts/cv/${currentLanguage}`
+  );
+  const data = await response.json();
 
-interface IMetaTagsLanguageSupport {
-  tr: IMetaTags;
-  en: IMetaTags;
-  de: IMetaTags;
-}
-
-const metaTags: IMetaTagsLanguageSupport = {
-  tr: {
-    title: "CV - Enes Ertugrul Koyuncu'nun  CV Sayfası",
-    description:
-      "Enes Ertuğrul Koyuncu'nun CV sayfası. CV'imi inceleyebilir ve ayrıntılar hakkında benimle iletişime geçebilirsiniz. CV'm hakkında geri bildirimlerinizi bekliyorum.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Yazılım Mühendisi",
-      "Geliştirici",
-      "CV",
-      "Portfolyo",
-      "Tecrübelerim",
-    ],
-  },
-  en: {
-    title: "CV - Enes Ertugrul Koyuncu's CV Page",
-    description:
-      "Enes Ertuğrul Koyuncu's CV page. You can review my CV and contact me for more details. I am waiting for your feedback about my CV. For more information, you can contact me.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Software Engineer",
-      "Developer",
-      "Portfolio",
-      "CV",
-      "Experiences",
-    ],
-  },
-  de: {
-    title: "CV - Enes Ertugrul Koyuncu's CV Seite",
-    description:
-      "Enes Ertuğrul Koyuncu's Lebenslauf Seite. Sie können meinen Lebenslauf einsehen und mich für weitere Details kontaktieren",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Software-Ingenieur",
-      "Entwickler",
-      "Portfolio",
-      "CV",
-      "Erfahrungen",
-    ],
-  },
+  if (data.success) {
+    return data.translations;
+  } else {
+    throw new Error(data.message || "Failed to fetch texts");
+  }
 };
 
+// TODO : aria-label'lar için direkt dinamik data ayarlancak cvViewData.ts dosyasında
+
 export default function CvView() {
-  const [cvData, setCvData] = useState<CvTexts | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
   const { currentLanguage } = useLanguage();
   const { theme } = useTheme();
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  // const [cvData, setCvData] = useState<CvTexts | null>(null);
+
+  // const [loading, setLoading] = useState<boolean>(true);
+
+  const metaTagsText =
+    metaTags[currentLanguage as keyof IMetaTagsLanguageSupport];
 
   useEffect(() => {
     const checkMobile = () => {
@@ -84,47 +53,26 @@ export default function CvView() {
     };
   }, []);
 
-  const fetchCvTexts = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/texts/cv/${currentLanguage}`
-      );
-      const data = await response.json();
+  const {
+    data: cvData,
+    isLoading,
+    error,
+  } = useQuery<CvTexts>({
+    queryKey: ["cvTexts", currentLanguage],
+    queryFn: () => fetchCvTexts(currentLanguage),
+  });
 
-      if (data.success) {
-        setCvData(data.translations);
-      } else {
-        console.error("CV verisi bulunamadı:", data.message);
-        setCvData(null);
-      }
-    } catch (error) {
-      console.error("CV verisi alınırken hata oluştu:", error);
-      setCvData(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentLanguage]); // callback yapısıyla cache'e kaydettirdik.
-
-  useEffect(() => {
-    fetchCvTexts();
-  }, [fetchCvTexts]);
-
-  if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-        }}
-      >
-        <Spin size="large" />
-      </div>
-    );
+  // todo düzenlencek
+  if (isLoading) {
+    return <LoadingSpin />;
   }
 
+  if (error) {
+    <ErrorComponent
+      errorMessage={error.message}
+      onRetry={() => window.location.reload()}
+    />;
+  }
   if (!cvData) {
     return <div>Veri bulunamadı</div>;
   }
@@ -132,19 +80,12 @@ export default function CvView() {
   return (
     <div className={`cv-container-${theme}`}>
       <SEO
-        title={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].title
-        }
-        description={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
-            .description
-        }
+        title={metaTagsText.title}
+        description={metaTagsText.description}
         image="/img/file.webp"
         author="Enes Ertuğrul Koyuncu"
         publisher="Enes Ertuğrul Koyuncu"
-        keywords={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
-        }
+        keywords={metaTagsText.keywords}
       />
       <h1 className="visually-hidden">CV</h1>
       {isMobile ? (
@@ -164,6 +105,7 @@ export default function CvView() {
           </a>
           <div className="cv-notes">
             <h2>{cvData.title}</h2>
+            {/* Burada mongodb'den gelen datayı || ayracı sayesinde paragraflara ayırıyoruz. */}
             {cvData.content.split("||").map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
