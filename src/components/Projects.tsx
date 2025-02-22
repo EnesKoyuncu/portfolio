@@ -81,7 +81,7 @@ export default function Projects() {
 
   // fetch edilen verilerin yüklenmesini beklerken gösterilcek ekrann
   if (isLoading) {
-    return <LoadingSpin />;
+    return <LoadingSpin mainContainerName="project-main" />;
   }
 
   // hata gelmesi durumunda error comp çağırıyoruz

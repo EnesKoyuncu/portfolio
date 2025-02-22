@@ -3,96 +3,20 @@ import "../css/contact.scss";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTheme } from "../hooks/useTheme";
 import SEO from "./SEO";
-
 import {
   faGithub,
   faLinkedin,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { Spin, message } from "antd";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-
-interface Texts {
-  titleLinks: string;
-  titleForm: string;
-  namePlaceholder: string;
-  emailPlaceholder: string;
-  messagePlaceholder: string;
-  submitButton: string;
-}
+import { useQuery } from "@tanstack/react-query";
+import { Texts, IMetaTagsLanguageSupport, metaTags } from "../data/contactData";
+import LoadingSpin from "./miniComponents/LoadingSpin";
+import ErrorComponent from "./miniComponents/ErrorComponent";
 
 type SubmitStatus = "success" | "error" | "idle";
-
-interface IMetaTags {
-  title: string;
-  description: string;
-  keywords?: string[];
-}
-
-interface IMetaTagsLanguageSupport {
-  tr: IMetaTags;
-  en: IMetaTags;
-  de: IMetaTags;
-}
-
-const metaTags: IMetaTagsLanguageSupport = {
-  tr: {
-    title: "İletişim - Enes Ertuğrul Koyuncu İletişim Sayfası",
-    description:
-      "Enes Ertuğrul Koyuncu İletişim sayfası, birçok sosyal medya. platform, gmail veya iletişim formu üzerinden bana ulaşabilir ve sitem hakkında bana görüşlerinizi bildirebilirsiniz. Site hakkındaki görüşleriniz benim için önemli.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Yazılım Mühendisi",
-      "Geliştirici",
-      "Portföy",
-      "Mühendis",
-      "İletişim",
-      "İletişim Formu",
-      "Github Sayfası",
-      "Linkedin Sayfası",
-      "Mail Adresi",
-      "Twitter Sayfası",
-    ],
-  },
-  en: {
-    title: "Contact - Enes Ertuğrul Koyuncu Contact Page",
-    description:
-      "Enes Ertugrul Koyuncu Contact page, many social media. platform, you can reach me via gmail or contact form and you can give me your opinions about my site. Your opinions about the site are important to me.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Software Engineer",
-      "Developer",
-      "Portfolio",
-      "Engineer",
-      "Contact",
-      "Contact Form",
-      "Github Page",
-      "Linkedin Page",
-      "Mail Address",
-      "Twitter Page",
-    ],
-  },
-  de: {
-    title: "Kontakt - Enes Ertuğrul Koyuncu Kontaktseite",
-    description:
-      "Enes Ertuğrul Koyuncu Kontaktseite, viele soziale Medien. Plattform, können Sie mich über gmail oder Kontaktformular erreichen und Sie können mir Ihre Meinung über meine Website geben. Ihre Meinungen über die Seite sind mir wichtig.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Software Engineer",
-      "Entwickler",
-      "Portfolio",
-      "Ingenieur",
-      "Kontakt",
-      "Kontaktformular",
-      "Github-Seite",
-      "Linkedin-Seite",
-      "E-Mail-Adresse",
-      "Twitter-Seite",
-    ],
-  },
-};
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -100,43 +24,34 @@ export default function Contact() {
     email: "",
     message: "",
   });
-  const [texts, setTexts] = useState<Texts>({
-    titleLinks: "",
-    titleForm: "",
-    namePlaceholder: "",
-    emailPlaceholder: "",
-    messagePlaceholder: "",
-    submitButton: "",
-  });
-  const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
-
   const { currentLanguage } = useLanguage(); // Dil bilgisini al
   const { theme } = useTheme();
 
-  const fetchTexts = async (language: string) => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/texts/contact/${language}`
-      );
-      const data = await response.json();
-      if (data.success) {
-        setTexts(data.translations);
-      } else {
-        console.error("Failed to fetch texts:", data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching texts:", error);
-    } finally {
-      setLoading(false);
+  const metaTagsText =
+    metaTags[currentLanguage as keyof IMetaTagsLanguageSupport];
+
+  const {
+    data: texts,
+    isLoading,
+    error,
+  } = useQuery<Texts>({
+    queryKey: ["contactTexts", currentLanguage],
+    queryFn: () => fetchTexts(currentLanguage),
+  });
+
+  const fetchTexts = async (language: string): Promise<Texts> => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/texts/contact/${language}`
+    );
+    const data = await response.json();
+    if (data.success) {
+      return data.translations;
+    } else {
+      throw new Error(data.message || "Failed to fetch texts");
     }
   };
-
-  useEffect(() => {
-    fetchTexts(currentLanguage);
-  }, [currentLanguage]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -190,50 +105,39 @@ export default function Contact() {
     }
   }, [submitStatus]);
 
-  if (loading) {
+  if (isLoading) {
+    return <LoadingSpin mainContainerName="contact-container" />;
+  }
+
+  if (error) {
     return (
-      <div
-        className={`contact-container-${theme}`}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-        }}
-      >
-        <Spin size="large" />
-      </div>
+      <ErrorComponent
+        errorMessage={error.message}
+        onRetry={() => fetchTexts(currentLanguage)}
+      />
     );
   }
 
   return (
     <div className={`contact-container-${theme}`}>
       <SEO
-        title={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].title
-        }
-        description={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
-            .description
-        }
+        title={metaTagsText.title}
+        description={metaTagsText.description}
         image="/img/file.webp"
         author="Enes Ertuğrul Koyuncu"
         publisher="Enes Ertuğrul Koyuncu"
-        keywords={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
-        }
+        keywords={metaTagsText.keywords}
       />
       <h1 className="visually-hidden">
-        {" "}
         {currentLanguage === "en"
           ? "Contact"
           : currentLanguage === "tr"
           ? "İletişim"
-          : "Kontakt"}{" "}
+          : "Kontakt"}
       </h1>
       {/* Sol taraf: Linkler */}
       <div className="contact-links">
-        <h2>{texts.titleLinks || "Bağlantılarım"}</h2>
+        <h2>{texts?.titleLinks || "Bağlantılarım"}</h2>
         <ul>
           <li>
             <a
@@ -276,12 +180,12 @@ export default function Contact() {
 
       {/* Sağ taraf: İletişim Formu */}
       <div className="contact-form">
-        <h2>{texts.titleForm || "İletişim Formu"}</h2>
+        <h2>{texts?.titleForm || "İletişim Formu"}</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="name"
-            placeholder={texts.namePlaceholder || "Adınız"}
+            placeholder={texts?.namePlaceholder || "Adınız"}
             value={formData.name}
             onChange={handleInputChange}
             required
@@ -290,7 +194,7 @@ export default function Contact() {
           <input
             type="email"
             name="email"
-            placeholder={texts.emailPlaceholder || "E-posta Adresiniz"}
+            placeholder={texts?.emailPlaceholder || "E-posta Adresiniz"}
             value={formData.email}
             onChange={handleInputChange}
             required
@@ -298,7 +202,7 @@ export default function Contact() {
           />
           <textarea
             name="message"
-            placeholder={texts.messagePlaceholder || "Mesajınız"}
+            placeholder={texts?.messagePlaceholder || "Mesajınız"}
             value={formData.message}
             onChange={handleInputChange}
             required
@@ -308,7 +212,7 @@ export default function Contact() {
             {submitting ? (
               <Spin size="small" style={{ marginRight: "8px" }} />
             ) : null}
-            {texts.submitButton || "Gönder"}
+            {texts?.submitButton || "Gönder"}
           </button>
         </form>
       </div>

@@ -64,7 +64,7 @@ export default function CvView() {
 
   // todo düzenlencek
   if (isLoading) {
-    return <LoadingSpin />;
+    return <LoadingSpin mainContainerName="cv-container" />;
   }
 
   if (error) {

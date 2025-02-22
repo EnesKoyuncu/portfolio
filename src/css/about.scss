@@ -113,6 +113,7 @@
       p {
         margin: 0;
         font-size: 1rem;
+        color: rgba(255, 255, 255, 0.85) !important;
       }
     }
 
@@ -179,6 +180,7 @@
   }
 }
 
+// ! DARK MODE
 .about-main-dark {
   display: flex;
   justify-content: space-between;
@@ -221,7 +223,7 @@
 
     .tech-card {
       position: relative;
-      color: rgba(255, 255, 255, 0.884);
+      color: rgb(255, 255, 255);
       padding: 20px;
       border-radius: 12px;
       text-align: center;
@@ -289,10 +291,10 @@
       h4 {
         margin-bottom: 10px;
       }
-
+      // * timeline açıklama yazısı
       p {
-        margin: 0;
-        font-size: 1rem;
+        margin: 0 !important;
+        color: rgba(255, 255, 255, 0.85) !important;
       }
     }
 

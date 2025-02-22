@@ -63,7 +63,7 @@ export default function Hero() {
 
   // fetch edilen verilerin yüklenmesini beklerken gösterilcek ekrann
   if (isLoading) {
-    return <LoadingSpin />;
+    return <LoadingSpin mainContainerName="hero-main" />;
   }
   // hata alma durumu için sade bir error comp.
   if (error) {

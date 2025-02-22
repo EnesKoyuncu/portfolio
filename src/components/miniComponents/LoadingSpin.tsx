@@ -1,11 +1,13 @@
 import { Spin } from "antd";
 import { useTheme } from "../../hooks/useTheme";
-
-export default function LoadingSpin() {
+interface LoadingSpinProps {
+  mainContainerName: string; // bulunduğu componentteki ana container'ın adını veriyoruz garip şekilde tanstack query kullanımında renk bozulması olabiliyor.
+}
+const LoadingSpin: React.FC<LoadingSpinProps> = ({ mainContainerName }) => {
   const { theme } = useTheme();
   return (
     <div
-      className={`hero-main-${theme}`}
+      className={`${mainContainerName}-${theme}`}
       style={{
         display: "flex",
         justifyContent: "center",
@@ -16,4 +18,6 @@ export default function LoadingSpin() {
       <Spin size="large" />
     </div>
   );
-}
+};
+
+export default LoadingSpin;

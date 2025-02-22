@@ -86,7 +86,7 @@ export default function Header() {
   };
 
   if (isLoading) {
-    return <LoadingSpin />;
+    return <LoadingSpin mainContainerName="header-main" />;
   }
 
   if (error) {

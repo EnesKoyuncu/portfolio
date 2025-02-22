@@ -1,127 +1,52 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import "../css/blog.scss";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTheme } from "../hooks/useTheme";
 import SEO from "./SEO";
 
 import { CalendarOutlined, TagOutlined } from "@ant-design/icons";
-import { Typography, Tag, Modal, ConfigProvider, theme, Spin } from "antd";
+import { Typography, Tag, Modal, ConfigProvider, theme } from "antd";
 
-const { Title, Paragraph, Text } = Typography;
+import {
+  IMetaTagsLanguageSupport,
+  metaTags,
+  IBlogPost,
+} from "../data/blogData";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpin from "./miniComponents/LoadingSpin";
+import ErrorComponent from "./miniComponents/ErrorComponent";
+
 const { darkAlgorithm, defaultAlgorithm } = theme;
-
-interface BlogPost {
-  _id: string;
-  title: { en: string; tr: string; de: string };
-  date: string;
-  summary: { en: string; tr: string; de: string };
-  keywords: string[];
-  image: string;
-  content: { en: string; tr: string; de: string };
-}
-
-interface IMetaTags {
-  title: string;
-  description: string;
-  keywords?: string[];
-}
-
-interface IMetaTagsLanguageSupport {
-  tr: IMetaTags;
-  en: IMetaTags;
-  de: IMetaTags;
-}
-
-const metaTags: IMetaTagsLanguageSupport = {
-  tr: {
-    title: "Blog - Enes Ertuğrul Koyuncu'nun Blog Sayfası",
-    description:
-      "Enes Ertuğrul Koyuncu'nun blog sayfası. Blog yazılarımı inceleyebilir ve benimle iletişime geçebilirsiniz. Ayrıca geri bildirimlerinizi paylaşabilirsiniz. Daha fazla fikir ve öneri için iletişim sayfasından benim ile iletişime geçin.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Yazılım Mühendisi",
-      "Geliştirici",
-      "Mühendis",
-      "Blog",
-      "Bilgilendirici Yazılar",
-      "TypeScript Blog",
-      "React Blog",
-      "NextJS Blog",
-      "CSS Blog",
-      "NodeJS Blog",
-      "Açık Kaynak Blog",
-    ],
-  },
-  en: {
-    title: "Blog - Enes Ertuğrul Koyuncu's Blog Page",
-    description:
-      "Enes Ertuğrul Koyuncu's blog page. You can review my blog posts and contact me. You can also share your feedback. For more ideas and suggestions, contact me via the contact page.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Software Engineer",
-      "Engineer",
-      "Developer",
-      "Blog",
-      "Bilgilendirici Yazılar",
-      "TypeScript Blog",
-      "React Blog",
-      "NextJS Blog",
-      "CSS Blog",
-      "NodeJS Blog",
-      "Açık Kaynak Blog",
-    ],
-  },
-  de: {
-    title: "Blog - Enes Ertuğrul Koyuncu's Blog Seite",
-    description:
-      "Enes Ertuğrul Koyuncu's Blog Seite. Sie können meine Blogbeiträge lesen und mich kontaktieren. Sie können mir auch Ihr Feedback mitteilen. Für weitere Ideen und Vorschläge können Sie mich über die Kontaktseite kontaktieren.",
-    keywords: [
-      "Enes Ertuğrul Koyuncu",
-      "Software Engineer",
-      "Entwickler",
-      "Ingenieur",
-      "Blog",
-      "Informative Artikel",
-      "TypeScript-Blog",
-      "React-Blog",
-      "NextJS-Blog",
-      "CSS-Blog",
-      "NodeJS-Blog",
-      "Open Source Blog",
-    ],
-  },
-};
+const { Title, Paragraph, Text } = Typography;
 
 export default function Blog() {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
-  const { currentLanguage } = useLanguage();
   const { theme: currentTheme } = useTheme();
-  const [loading, setLoading] = useState(false);
+  const { currentLanguage } = useLanguage();
+  const [selectedPost, setSelectedPost] = useState<IBlogPost | null>(null);
+
+  const metaTagsText =
+    metaTags[currentLanguage as keyof IMetaTagsLanguageSupport];
+
+  const {
+    data: blogPosts,
+    isLoading,
+    error,
+  } = useQuery<IBlogPost[]>({
+    queryKey: ["blogs", currentLanguage],
+    queryFn: () => fetchBlogs(currentLanguage),
+  });
 
   const fetchBlogs = async (language: string) => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/blogs?language=${language}`
-      );
-      const data = await response.json();
-      if (data.success) {
-        setBlogPosts(data.data);
-      } else {
-        console.error("Failed to fetch blogs:", data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-    } finally {
-      setLoading(false);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/blogs?language=${language}`
+    );
+    const data = await response.json();
+    if (data.success) {
+      return data.data;
+    } else {
+      console.error("Failed to fetch blogs:", data.message);
     }
   };
-
-  useEffect(() => {
-    fetchBlogs(currentLanguage);
-  }, [currentLanguage]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -145,38 +70,28 @@ export default function Blog() {
     },
   };
 
-  if (loading) {
+  if (isLoading) {
+    return <LoadingSpin mainContainerName="" />;
+  }
+
+  if (error) {
     return (
-      <div
-        className={`blog-container-${currentTheme}`}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-        }}
-      >
-        <Spin size="large" />
-      </div>
+      <ErrorComponent
+        errorMessage={error.message}
+        onRetry={() => fetchBlogs(currentLanguage)}
+      />
     );
   }
 
   return (
     <ConfigProvider theme={themeConfig}>
       <SEO
-        title={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].title
-        }
-        description={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport]
-            .description
-        }
+        title={metaTagsText.title}
+        description={metaTagsText.description}
         image="/img/file.webp"
         author="Enes Ertuğrul Koyuncu"
         publisher="Enes Ertuğrul Koyuncu"
-        keywords={
-          metaTags[currentLanguage as keyof IMetaTagsLanguageSupport].keywords
-        }
+        keywords={metaTagsText.keywords}
       />
       <h2 className="visually-hidden">blog</h2>
       <div className={`blog-container-${currentTheme}`}>
@@ -191,7 +106,7 @@ export default function Blog() {
         </div>
 
         <div className="blog-grid">
-          {blogPosts.map((post) => (
+          {blogPosts?.map((post) => (
             <article
               key={post._id}
               className="blog-card"
